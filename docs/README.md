@@ -12,6 +12,7 @@ Deckers(Deep Print Games, 2025) 보드게임용 **개인 컴패니언 앱**. 보
 | [cards.md](./cards.md) | SMC 7종 · Decker 10종 · 목표 카드 40장 전체 목록 + 확보한 카드 전문 |
 | [rules-summary.md](./rules-summary.md) | 룰북 PDF에서 파악한 게임 흐름·승리조건·판정 규칙 |
 | [data-model.md](./data-model.md) | 데이터 모델 설계 (Supabase + 로컬) |
+| [supabase-setup.md](./supabase-setup.md) | Supabase 연동(Google 로그인·동기화) 설정 가이드 |
 | [../db/schema.sql](../db/schema.sql) | 바로 실행 가능한 Supabase 스키마 SQL |
 
 ## 핵심 설계 결정 (확정)

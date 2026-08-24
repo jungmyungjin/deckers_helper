@@ -2,8 +2,10 @@ import { NavLink } from 'react-router-dom'
 
 const items = [
   { to: '/', ico: '🏆', label: '보드', end: true },
-  { to: '/shuffle', ico: '🎲', label: '챌린지' },
+  { to: '/history', ico: '📜', label: '히스토리' },
   { to: '/new', ico: '➕', label: '기록' },
+  { to: '/shuffle', ico: '🎲', label: '챌린지' },
+  { to: '/cards', ico: '🃏', label: '카드' },
   { to: '/profile', ico: '👤', label: '프로필' },
 ]
 
