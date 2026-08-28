@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { OBJECTIVE_CARDS, SECURITY_COLORS } from '../data/gameData'
 import { useT } from '../i18n'
 import { cardName, hasCardBody, hasCardResult } from '../i18n/content'
 import FlipCard from '../components/FlipCard'
+import Modal from '../components/Modal'
 
 const TABS = ['copper', 'silver', 'gold', 'ghost']
 
@@ -10,22 +11,6 @@ export default function Cards() {
   const { t } = useT()
   const [tab, setTab] = useState('gold')
   const [active, setActive] = useState(null)
-  const closeRef = useRef(null)
-
-  // 모달이 열려 있는 동안: Escape 로 닫고, 뒤 배경 스크롤을 막고,
-  // 포커스를 모달 안으로 옮긴다 (데스크톱에서 기대되는 동작)
-  useEffect(() => {
-    if (!active) return
-    const onKey = (e) => { if (e.key === 'Escape') setActive(null) }
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    window.addEventListener('keydown', onKey)
-    closeRef.current?.focus()
-    return () => {
-      document.body.style.overflow = prev
-      window.removeEventListener('keydown', onKey)
-    }
-  }, [active])
   const list = OBJECTIVE_CARDS.filter((c) => c.security === tab)
   // 현재 언어로 전문이 들어온 카드 수 — 언어를 바꾸면 이 숫자도 따라 바뀐다
   const filled = OBJECTIVE_CARDS.filter((c) => hasCardBody(c.id) || hasCardResult(c.id)).length
@@ -48,14 +33,14 @@ export default function Cards() {
         </div>
 
         {active && (
-          <div className="cardmodal" role="dialog" aria-modal="true" onClick={() => setActive(null)}>
-            <div className="cardmodal-inner" onClick={(e) => e.stopPropagation()}>
+          <Modal className="cardmodal" title={cardName(active.id)} onClose={() => setActive(null)}>
+            <div className="cardmodal-inner">
               <FlipCard card={active} />
-              <button ref={closeRef} className="closebtn" onClick={() => setActive(null)}>
+              <button autoFocus className="closebtn" onClick={() => setActive(null)}>
                 {t('common.close')}
               </button>
             </div>
-          </div>
+          </Modal>
         )}
 
         <div className="cardgrid">

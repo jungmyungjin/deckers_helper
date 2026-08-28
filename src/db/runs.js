@@ -1,7 +1,7 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db, newId } from './localDb'
 import { calcOutcome } from '../lib/outcome'
-import { GOLDS, SMCS } from '../data/gameData'
+import { COPPERS, GOLDS, SILVERS, SMCS } from '../data/gameData'
 
 // ---- 쓰기 ----
 export async function saveRun({ smcId, playedAt, note, deckers, objectives }) {
@@ -96,4 +96,48 @@ export function unclearedCombos(runs) {
     if (!board[`${smc.id}|${g.id}`]) out.push({ smcId: smc.id, goldId: g.id })
   }
   return out
+}
+
+function completedExtraKeys(runs, smcId) {
+  const keys = new Set()
+  for (const run of runs) {
+    if (run.smcId !== smcId || run.outcome === 'fail') continue
+    const copperId = run.objectives?.find((objective) => objective.security === 'copper')?.objectiveId
+    const silverId = run.objectives?.find((objective) => objective.security === 'silver')?.objectiveId
+    const goldId = finalGoldId(run)
+    if (copperId && silverId && goldId) keys.add(`${goldId}|${copperId}|${silverId}`)
+  }
+  return keys
+}
+
+// 추가 도전: 같은 보스에서 성공한 Bronze × Silver × Gold 세 장 조합의 진행도.
+export function extraChallengeProgress(runs, smcId, goldId, copperId) {
+  const keys = completedExtraKeys(runs, smcId)
+  const prefix = goldId ? `${goldId}|${copperId || ''}` : ''
+  const completed = [...keys].filter((key) => {
+    if (!goldId) return true
+    if (!copperId) return key.startsWith(`${goldId}|`)
+    return key.startsWith(`${prefix}|`)
+  }).length
+  const total = goldId ? (copperId ? SILVERS.length : COPPERS.length * SILVERS.length)
+    : GOLDS.length * COPPERS.length * SILVERS.length
+  return { completed, total }
+}
+
+export function unclearedExtraSilverIds(runs, smcId, goldId, copperId) {
+  const keys = completedExtraKeys(runs, smcId)
+  return SILVERS
+    .map((silver) => silver.id)
+    .filter((silverId) => !keys.has(`${goldId}|${copperId}|${silverId}`))
+}
+
+export function unclearedExtraCombos(runs, smcId) {
+  const keys = completedExtraKeys(runs, smcId)
+  const combos = []
+  for (const gold of GOLDS) for (const copper of COPPERS) for (const silver of SILVERS) {
+    if (!keys.has(`${gold.id}|${copper.id}|${silver.id}`)) {
+      combos.push({ goldId: gold.id, copperId: copper.id, silverId: silver.id })
+    }
+  }
+  return combos
 }

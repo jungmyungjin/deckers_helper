@@ -11,6 +11,7 @@
     "loading": "Loading your runs…",
     "retry": "Retry",
     "close": "Close",
+    "cancel": "Cancel",
     "noDecker": "No decker recorded"
   },
   "game": {
@@ -55,13 +56,33 @@
       "one": "{count} RUN",
       "other": "{count} RUNS"
     },
+    "lastPlayed": "Last played · {date}",
     "filterAll": "All",
     "filterPerfect": "🥇 Perfect",
     "filterSuccess": "✓ Success",
     "filterFail": "✕ Failed",
     "allBosses": "All SMCs",
-    "empty": "No runs match this filter.",
-    "confirmDelete": "Delete this run?"
+    "empty": "No runs yet. Log your first game.",
+    "confirmDelete": "Delete this run?",
+    "delete": "Delete",
+    "deleteTitle": "Delete this run?",
+    "deleteCopy": "This run will also be removed from synced devices."
+  },
+  "extra": {
+    "title": "Extra Challenges",
+    "entryTitle": "Extra Challenges",
+    "entryUnlocked": "All Gold missions cleared · Try a new combination",
+    "entryPreview": "DEV · Preview of the post-completion screen",
+    "back": "Previous step",
+    "intro": "Choose a boss and draw a combination you have not conquered yet.",
+    "boss": "Choose a boss",
+    "gold": "Choose Gold",
+    "copper": "Choose Bronze",
+    "silver": "Remaining Silver combinations",
+    "complete": "You cleared every Silver card for this combination!",
+    "progressBoss": "{name} combination progress: {completed} / {total}",
+    "progressGold": "{name} combination progress: {completed} / {total}",
+    "progressCopper": "{name} combination progress: {completed} / {total}"
   },
   "mission": {
     "invalid": "Unknown mission",
@@ -102,6 +123,10 @@
     "syncing": "Syncing runs",
     "tapToDraw": "Tap to draw a challenge",
     "todayTag": "Today's challenge",
+    "extraDrawTitle": "A new challenge after completion",
+    "extraDraw": "Draw a combination for this boss",
+    "vsExtra": "vs {name} · uncompleted extra combination",
+    "extraReshuffle": "🎲 Draw another combination for this boss",
     "vsUncleared": "vs {name} · still uncleared",
     "reshuffle": {
       "one": "🎲 Draw again — {count} mission left",

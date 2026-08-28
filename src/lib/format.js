@@ -25,3 +25,19 @@ export function formatDateTime(iso) {
   return `${fmt('date', { month: 'numeric', day: 'numeric' }).format(d)} ` +
     `${fmt('time', { hour: '2-digit', minute: '2-digit', hour12: false }).format(d)}`
 }
+
+export function formatDateGroup(iso) {
+  return fmt('group-date', { weekday: 'short', month: 'long', day: 'numeric' }).format(new Date(iso))
+}
+
+export function groupRunsByCalendarDay(runs) {
+  const groups = []
+  for (const run of runs) {
+    const date = new Date(run.playedAt)
+    const key = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
+    const last = groups[groups.length - 1]
+    if (last?.key === key) last.runs.push(run)
+    else groups.push({ key, runs: [run] })
+  }
+  return groups
+}

@@ -12,6 +12,7 @@
     "loading": "Partien werden geladen…",
     "retry": "Erneut",
     "close": "Schließen",
+    "cancel": "Abbrechen",
     "noDecker": "Kein Decker erfasst"
   },
   "game": {
@@ -56,13 +57,33 @@
       "one": "{count} PARTIE",
       "other": "{count} PARTIEN"
     },
+    "lastPlayed": "Zuletzt gespielt · {date}",
     "filterAll": "Alle",
     "filterPerfect": "🥇 Perfekt",
     "filterSuccess": "✓ Erfolg",
     "filterFail": "✕ Fehler",
     "allBosses": "Alle SMCs",
-    "empty": "Keine Partie passt zu diesem Filter.",
-    "confirmDelete": "Diese Partie löschen?"
+    "empty": "Noch keine Partien. Trage deine erste ein.",
+    "confirmDelete": "Diese Partie löschen?",
+    "delete": "Löschen",
+    "deleteTitle": "Diese Partie löschen?",
+    "deleteCopy": "Diese Partie wird auch von synchronisierten Geräten entfernt."
+  },
+  "extra": {
+    "title": "Zusatzherausforderungen",
+    "entryTitle": "Zusatzherausforderungen",
+    "entryUnlocked": "Alle Gold-Missionen geschafft · Neue Kombination wählen",
+    "entryPreview": "DEV · Vorschau nach dem Abschluss",
+    "back": "Vorheriger Schritt",
+    "intro": "Wähle einen Boss und ziehe eine Kombination, die du noch nicht geschafft hast.",
+    "boss": "Boss wählen",
+    "gold": "Gold wählen",
+    "copper": "Bronze wählen",
+    "silver": "Verbleibende Silber-Kombinationen",
+    "complete": "Alle Silber-Karten dieser Kombination sind geschafft!",
+    "progressBoss": "Kombinationsfortschritt für {name}: {completed} / {total}",
+    "progressGold": "Kombinationsfortschritt für {name}: {completed} / {total}",
+    "progressCopper": "Kombinationsfortschritt für {name}: {completed} / {total}"
   },
   "mission": {
     "invalid": "Unbekannte Mission",
@@ -103,6 +124,10 @@
     "syncing": "Partien werden abgeglichen",
     "tapToDraw": "Tippen und Challenge ziehen",
     "todayTag": "Challenge des Tages",
+    "extraDrawTitle": "Eine neue Herausforderung nach dem Abschluss",
+    "extraDraw": "Kombination für diesen Boss ziehen",
+    "vsExtra": "vs {name} · offene Zusatzkombination",
+    "extraReshuffle": "🎲 Andere Kombination für diesen Boss ziehen",
     "vsUncleared": "vs {name} · noch offen",
     "reshuffle": {
       "one": "🎲 Neu ziehen — noch {count} Mission",
