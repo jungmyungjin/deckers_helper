@@ -27,7 +27,7 @@ export default function Shuffle() {
   return (
     <div className="page">
       <header className="appbar">
-        <div><h1>{t('shuffle.title')}</h1><div className="sub">{t('shuffle.sub')}</div></div>
+        <div><h1>{t('shuffle.title')}</h1></div>
       </header>
       <div className="scroll">
         {/* 뽑기 전에는 카드 자체가 버튼 — 따로 누를 버튼을 밑에 두지 않는다 */}

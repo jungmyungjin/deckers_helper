@@ -93,20 +93,19 @@
   },
   "shuffle": {
     "title": "Random Challenge",
-    "sub": "Uncleared GOLD first",
     "doneTag": "Complete",
-    "doneMsg": "🎉 Every combo cleared!",
+    "doneMsg": "🎉 Every mission cleared!",
     "remaining": {
-      "one": "{count} combo still uncleared",
-      "other": "{count} combos still uncleared"
+      "one": "{count} mission still uncleared",
+      "other": "{count} missions still uncleared"
     },
     "syncing": "Syncing runs",
     "tapToDraw": "Tap to draw a challenge",
     "todayTag": "Today's challenge",
     "vsUncleared": "vs {name} · still uncleared",
     "reshuffle": {
-      "one": "🎲 Draw again — {count} cell left",
-      "other": "🎲 Draw again — {count} cells left"
+      "one": "🎲 Draw again — {count} mission left",
+      "other": "🎲 Draw again — {count} missions left"
     },
     "startRecord": "Log a run with this setup →"
   },

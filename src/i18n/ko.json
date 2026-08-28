@@ -90,15 +90,14 @@
   },
   "shuffle": {
     "title": "랜덤 챌린지",
-    "sub": "미클리어 GOLD 우선",
     "doneTag": "완주",
-    "doneMsg": "🎉 모든 조합 클리어!",
-    "remaining": "아직 못 깬 조합 {count}개",
+    "doneMsg": "🎉 모든 미션 클리어!",
+    "remaining": "아직 못 깬 미션 {count}개",
     "syncing": "기록 동기화 중",
     "tapToDraw": "눌러서 도전 조합 뽑기",
     "todayTag": "오늘의 도전",
     "vsUncleared": "vs {name} · 아직 못 깬 Gold",
-    "reshuffle": "🎲 다시 셔플 — 남은 미클리어 {count}칸 중",
+    "reshuffle": "🎲 다시 셔플 — 남은 미션 {count}개 중",
     "startRecord": "이 셋업으로 기록 시작 →"
   },
   "cards": {

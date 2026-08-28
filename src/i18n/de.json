@@ -94,20 +94,19 @@
   },
   "shuffle": {
     "title": "Zufalls-Challenge",
-    "sub": "Offene GOLD zuerst",
     "doneTag": "Komplett",
-    "doneMsg": "🎉 Alle Kombinationen geschafft!",
+    "doneMsg": "🎉 Alle Missionen geschafft!",
     "remaining": {
-      "one": "{count} Kombination offen",
-      "other": "{count} Kombinationen offen"
+      "one": "{count} Mission offen",
+      "other": "{count} Missionen offen"
     },
     "syncing": "Partien werden abgeglichen",
     "tapToDraw": "Tippen und Challenge ziehen",
     "todayTag": "Challenge des Tages",
     "vsUncleared": "vs {name} · noch offen",
     "reshuffle": {
-      "one": "🎲 Neu ziehen — noch {count} Feld",
-      "other": "🎲 Neu ziehen — noch {count} Felder"
+      "one": "🎲 Neu ziehen — noch {count} Mission",
+      "other": "🎲 Neu ziehen — noch {count} Missionen"
     },
     "startRecord": "Partie mit diesem Setup →"
   },
