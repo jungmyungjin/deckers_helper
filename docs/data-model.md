@@ -80,7 +80,7 @@ syncStatus, syncMessage, runCount, screen, language, userAgent, at`.
 - 모든 result = success → **perfect**
 - 그 외 → **success**
 
-## 도장 규칙
+## 클리어 규칙
 
 - 셀 = (smc_id, 최종 gold objectiveId). 7 × 12 = **84칸**.
 - 클리어: 그 조합으로 `outcome != fail` 런 ≥ 1 → ✓

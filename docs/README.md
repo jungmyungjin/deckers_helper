@@ -1,6 +1,6 @@
-# Deckers 도장깨기 헬퍼 — 프로젝트 문서
+# Deckers Challenge Log — 프로젝트 문서
 
-Deckers(Deep Print Games, 2025) 보드게임용 **개인 컴패니언 앱**. 보스별·미션별 클리어를 도장깨기처럼 체크·기록하고, 목표 카드를 셔플/공개하는 헬퍼.
+Deckers(Deep Print Games, 2025) 보드게임용 **컴패니언 PWA**. (SMC × 최종 Gold) 84칸의 클리어 상황을 기록·표시하고, 목표 카드를 조회하거나 랜덤으로 뽑아준다. 한국어 · English · Deutsch.
 
 > 성격: 어디까지나 **개인 만족용 헬퍼 + 미션 깨기**. 상업 배포 아님.
 

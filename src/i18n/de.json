@@ -1,8 +1,5 @@
 {
   "_note": "독일어 UI 문구. 원어민 검수 필요. 특히 game.security.ghost 는 독일어판 실물 표기를 확인할 것. nav.* 는 하단 탭 폭 때문에 8자 이하를 지킬 것.",
-
-  "brand": { "tagline": "Stempel-Helfer" },
-
   "nav": {
     "board": "Board",
     "history": "Verlauf",
@@ -11,16 +8,18 @@
     "cards": "Karten",
     "profile": "Profil"
   },
-
   "common": {
     "loading": "Partien werden geladen…",
     "retry": "Erneut",
     "close": "Schließen",
     "noDecker": "Kein Decker erfasst"
   },
-
   "game": {
-    "tier": { "intro": "Einstieg", "mid": "Mittel", "top": "Schwerste" },
+    "tier": {
+      "intro": "Einstieg",
+      "mid": "Mittel",
+      "top": "Schwerste"
+    },
     "security": {
       "copper": "Bronze",
       "silver": "Silber",
@@ -33,13 +32,15 @@
       "gold": "GOLD"
     }
   },
-
-  "outcome": { "fail": "Fehler", "success": "Erfolg", "perfect": "Perfekt" },
-
+  "outcome": {
+    "fail": "Fehler",
+    "success": "Erfolg",
+    "perfect": "Perfekt"
+  },
   "board": {
-    "title": "Stempelbrett",
+    "title": "84 Felder",
     "sub": "GOLD × SMC · {stamps} / {total}",
-    "stamps": "Stempel / {total}",
+    "stamps": "Geschafft / {total}",
     "plays": "Partien",
     "perfects": "Perfekt",
     "legendClear": "Geschafft",
@@ -49,10 +50,12 @@
     "goldKey": "Gold-Kürzel",
     "empty": "Noch keine Partie. Unten auf ➕ Neu tippen und die erste eintragen."
   },
-
   "history": {
     "title": "Verlauf",
-    "runs": { "one": "{count} PARTIE", "other": "{count} PARTIEN" },
+    "runs": {
+      "one": "{count} PARTIE",
+      "other": "{count} PARTIEN"
+    },
     "filterAll": "Alle",
     "filterPerfect": "🥇 Perfekt",
     "filterSuccess": "✓ Erfolg",
@@ -61,7 +64,6 @@
     "empty": "Keine Partie passt zu diesem Filter.",
     "confirmDelete": "Diese Partie löschen?"
   },
-
   "mission": {
     "invalid": "Unbekannte Mission",
     "vs": "vs {name}",
@@ -76,7 +78,6 @@
     "listLabel": "Versuche · je Kombination",
     "empty": "Noch kein Versuch bei dieser Mission."
   },
-
   "newRun": {
     "title": "Neue Partie",
     "sub": "NEUE PARTIE",
@@ -85,34 +86,37 @@
     "playerPlaceholder": "Spieler",
     "addDecker": "＋ Decker",
     "cyclesLabel": "Ziele je Zyklus · Ergebnis",
-    "goldTag": "GOLD · final → Stempel",
+    "goldTag": "GOLD · final → geschafft",
     "success": "Erfolg",
     "fail": "Fehler",
     "verdictNote": "Aus dem finalen Gold ermittelt: {result}",
     "save": "Partie speichern"
   },
-
   "shuffle": {
     "title": "Zufalls-Challenge",
     "sub": "Offene GOLD zuerst",
     "doneTag": "Komplett",
     "doneMsg": "🎉 Alle Kombinationen geschafft!",
-    "remaining": { "one": "{count} Kombination offen", "other": "{count} Kombinationen offen" },
+    "remaining": {
+      "one": "{count} Kombination offen",
+      "other": "{count} Kombinationen offen"
+    },
     "syncing": "Partien werden abgeglichen",
     "tapToDraw": "Tippen und Challenge ziehen",
     "todayTag": "Challenge des Tages",
     "vsUncleared": "vs {name} · noch offen",
-    "reshuffle": { "one": "🎲 Neu ziehen — noch {count} Feld", "other": "🎲 Neu ziehen — noch {count} Felder" },
+    "reshuffle": {
+      "one": "🎲 Neu ziehen — noch {count} Feld",
+      "other": "🎲 Neu ziehen — noch {count} Felder"
+    },
     "startRecord": "Partie mit diesem Setup →"
   },
-
   "cards": {
     "title": "Zielkarten",
     "sub": "40 Karten · {count} mit Volltext",
     "badgeFull": "Text",
     "badgeNameOnly": "Name"
   },
-
   "flipCard": {
     "goalTag": "◆ {security} · Ziel",
     "goal": "Ziel",
@@ -129,7 +133,6 @@
     "tap": "tippen ⟳",
     "tapToFront": "tippen → Vorderseite ⟳"
   },
-
   "profile": {
     "title": "Profil · Erfolge",
     "subSignedIn": "Partien liegen im Konto",
@@ -141,17 +144,19 @@
     "sync": "🔄 Abgleich",
     "syncing": "Abgleich…",
     "signOut": "Abmelden",
-    "stamps": "Gold-Stempel",
+    "stamps": "Gold geschafft",
     "winRate": "Siegquote",
     "plays": "Partien",
     "achievements": "{unlocked} von {total} Erfolgen",
     "reportRow": "Fehler melden",
     "reportRowSub": "Sag uns, was nicht geht",
-    "reportRowPending": { "one": "{count} Meldung wartet", "other": "{count} Meldungen warten" },
+    "reportRowPending": {
+      "one": "{count} Meldung wartet",
+      "other": "{count} Meldungen warten"
+    },
     "languageRow": "Sprache",
     "languageSub": "Gilt für App und Kartennamen"
   },
-
   "achievements": {
     "stamps-1": "Erster Einbruch",
     "stamps-5": "Geübter Decker",
@@ -159,10 +164,9 @@
     "stamps-84": "Alles geschafft",
     "perfects-1": "Makelloser Hack",
     "perfects-10": "Perfekter Hacker",
-    "unitStamps": "Stempel",
+    "unitStamps": "geschafft",
     "unitPerfects": "Perfekt"
   },
-
   "report": {
     "title": "Fehler melden",
     "sub": "Geht direkt an die Entwicklung",
@@ -175,7 +179,10 @@
     "sent": "Gesendet. Wir schauen es uns an — danke!",
     "queued": "Konnte gerade nicht gesendet werden und liegt auf diesem Gerät. Es geht raus, sobald du wieder online bist.",
     "disabled": "Meldungen können gerade nicht gesendet werden. Sie liegt auf diesem Gerät und geht später raus.",
-    "pending": { "one": "{count} Meldung wartet auf Versand", "other": "{count} Meldungen warten auf Versand" },
+    "pending": {
+      "one": "{count} Meldung wartet auf Versand",
+      "other": "{count} Meldungen warten auf Versand"
+    },
     "ctx": {
       "appVersion": "App-Version",
       "route": "Bildschirm",
@@ -191,12 +198,15 @@
       "installBrowser": "Browser",
       "sync": "Abgleich",
       "runCount": "Gespeicherte Partien",
-      "runCountValue": { "one": "{count} Partie", "other": "{count} Partien" },
+      "runCountValue": {
+        "one": "{count} Partie",
+        "other": "{count} Partien"
+      },
       "device": "Gerät",
       "language": "Sprache"
     },
     "route": {
-      "board": "Stempelbrett",
+      "board": "84 Felder",
       "history": "Verlauf",
       "shuffle": "Zufalls-Challenge",
       "new": "Neue Partie",
@@ -206,7 +216,6 @@
       "mission": "Missionsdetails"
     }
   },
-
   "crash": {
     "title": "Da ist etwas schiefgelaufen",
     "sub": "In der App ist ein unerwartetes Problem aufgetreten.",
@@ -220,7 +229,6 @@
     "failed": "Senden fehlgeschlagen",
     "note": "Fehler, App-Version und Bildschirm werden mitgeschickt."
   },
-
   "sync": {
     "syncing": "Partien werden abgeglichen…",
     "statusIdle": "Bereit",
@@ -229,7 +237,10 @@
     "statusError": "Fehlgeschlagen",
     "done": "Partien abgeglichen",
     "upToDate": "Alles aktuell",
-    "reportsSent": { "one": "{count} Meldung gesendet", "other": "{count} Meldungen gesendet" },
+    "reportsSent": {
+      "one": "{count} Meldung gesendet",
+      "other": "{count} Meldungen gesendet"
+    },
     "failed": "Abgleich fehlgeschlagen",
     "pushFailed": "Partien konnten nicht hochgeladen werden",
     "pullFailed": "Partien konnten nicht geladen werden",

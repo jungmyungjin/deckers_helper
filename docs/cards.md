@@ -81,7 +81,7 @@
 | Swarm | 특수 Spawn은 Dreams in Vermilion 참조 |
 | Viral Overload | (보충설명 없음) |
 
-### 🟡 Gold (보안 Lv.3 · 최종, 12장) — **도장 기준 축**
+### 🟡 Gold (보안 Lv.3 · 최종, 12장) — **클리어 기준 축**
 
 | 코드 | 카드 | 보충설명(요약) |
 |---|---|---|

@@ -16,9 +16,11 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg'],
       manifest: {
-        name: 'Deckers 도장깨기 헬퍼',
+        // manifest 는 언어를 하나만 담을 수 있어 로마자로 고정한다.
+        // 앱 안의 문구는 src/i18n 이 3개 언어로 처리한다.
+        name: 'Deckers Challenge Log',
         short_name: 'Deckers',
-        description: 'Deckers 보드게임 미션 도장깨기 헬퍼',
+        description: 'Run log, card reference and progress for the board game Deckers',
         theme_color: '#0e0c15',
         background_color: '#0e0c15',
         display: 'standalone',

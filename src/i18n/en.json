@@ -1,6 +1,4 @@
 {
-  "brand": { "tagline": "Stamp Rally Helper" },
-
   "nav": {
     "board": "Board",
     "history": "History",
@@ -9,16 +7,18 @@
     "cards": "Cards",
     "profile": "Profile"
   },
-
   "common": {
     "loading": "Loading your runs…",
     "retry": "Retry",
     "close": "Close",
     "noDecker": "No decker recorded"
   },
-
   "game": {
-    "tier": { "intro": "Intro", "mid": "Medium", "top": "Hardest" },
+    "tier": {
+      "intro": "Intro",
+      "mid": "Medium",
+      "top": "Hardest"
+    },
     "security": {
       "copper": "Bronze",
       "silver": "Silver",
@@ -31,13 +31,15 @@
       "gold": "GOLD"
     }
   },
-
-  "outcome": { "fail": "Failed", "success": "Success", "perfect": "Perfect" },
-
+  "outcome": {
+    "fail": "Failed",
+    "success": "Success",
+    "perfect": "Perfect"
+  },
   "board": {
-    "title": "Stamp Board",
+    "title": "84 Cells",
     "sub": "GOLD × SMC · {stamps} / {total}",
-    "stamps": "Stamps / {total}",
+    "stamps": "Cleared / {total}",
     "plays": "Runs",
     "perfects": "Perfect",
     "legendClear": "Cleared",
@@ -47,10 +49,12 @@
     "goldKey": "Gold codes",
     "empty": "No runs yet. Tap ➕ Log below to record your first game."
   },
-
   "history": {
     "title": "History",
-    "runs": { "one": "{count} RUN", "other": "{count} RUNS" },
+    "runs": {
+      "one": "{count} RUN",
+      "other": "{count} RUNS"
+    },
     "filterAll": "All",
     "filterPerfect": "🥇 Perfect",
     "filterSuccess": "✓ Success",
@@ -59,7 +63,6 @@
     "empty": "No runs match this filter.",
     "confirmDelete": "Delete this run?"
   },
-
   "mission": {
     "invalid": "Unknown mission",
     "vs": "vs {name}",
@@ -74,7 +77,6 @@
     "listLabel": "Attempt history · each combo",
     "empty": "No attempts on this mission yet."
   },
-
   "newRun": {
     "title": "New Run",
     "sub": "NEW RUN",
@@ -83,34 +85,37 @@
     "playerPlaceholder": "Player",
     "addDecker": "＋ Add decker",
     "cyclesLabel": "Objectives by cycle · results",
-    "goldTag": "GOLD · final → stamp",
+    "goldTag": "GOLD · final → clear",
     "success": "Success",
     "fail": "Failed",
     "verdictNote": "Judged from the final Gold: {result}",
     "save": "Save run"
   },
-
   "shuffle": {
     "title": "Random Challenge",
     "sub": "Uncleared GOLD first",
     "doneTag": "Complete",
     "doneMsg": "🎉 Every combo cleared!",
-    "remaining": { "one": "{count} combo still uncleared", "other": "{count} combos still uncleared" },
+    "remaining": {
+      "one": "{count} combo still uncleared",
+      "other": "{count} combos still uncleared"
+    },
     "syncing": "Syncing runs",
     "tapToDraw": "Tap to draw a challenge",
     "todayTag": "Today's challenge",
     "vsUncleared": "vs {name} · still uncleared",
-    "reshuffle": { "one": "🎲 Draw again — {count} cell left", "other": "🎲 Draw again — {count} cells left" },
+    "reshuffle": {
+      "one": "🎲 Draw again — {count} cell left",
+      "other": "🎲 Draw again — {count} cells left"
+    },
     "startRecord": "Log a run with this setup →"
   },
-
   "cards": {
     "title": "Objective Cards",
     "sub": "40 cards · {count} with full text",
     "badgeFull": "Full",
     "badgeNameOnly": "Name"
   },
-
   "flipCard": {
     "goalTag": "◆ {security} · Goal",
     "goal": "Goal",
@@ -127,7 +132,6 @@
     "tap": "tap ⟳",
     "tapToFront": "tap → front ⟳"
   },
-
   "profile": {
     "title": "Profile · Achievements",
     "subSignedIn": "Runs are saved to your account",
@@ -139,17 +143,19 @@
     "sync": "🔄 Sync",
     "syncing": "Syncing…",
     "signOut": "Sign out",
-    "stamps": "Gold stamps",
+    "stamps": "Gold cleared",
     "winRate": "Win rate",
     "plays": "Runs",
     "achievements": "{unlocked} of {total} achievements",
     "reportRow": "Report a problem",
     "reportRowSub": "Tell us what isn't working",
-    "reportRowPending": { "one": "{count} report waiting to send", "other": "{count} reports waiting to send" },
+    "reportRowPending": {
+      "one": "{count} report waiting to send",
+      "other": "{count} reports waiting to send"
+    },
     "languageRow": "Language",
     "languageSub": "Applies to the app and card names"
   },
-
   "achievements": {
     "stamps-1": "First Breach",
     "stamps-5": "Skilled Decker",
@@ -157,10 +163,9 @@
     "stamps-84": "Full Clear",
     "perfects-1": "Flawless Hack",
     "perfects-10": "Perfect Hacker",
-    "unitStamps": "stamps",
+    "unitStamps": "cleared",
     "unitPerfects": "perfect"
   },
-
   "report": {
     "title": "Report a problem",
     "sub": "Goes straight to the developer",
@@ -173,7 +178,10 @@
     "sent": "Sent. We'll take a look — thank you!",
     "queued": "Couldn't send just now, so it's saved on this device. It'll go out once you're back online.",
     "disabled": "Reports can't be sent right now. It's saved on this device and will go out when possible.",
-    "pending": { "one": "{count} report waiting to send", "other": "{count} reports waiting to send" },
+    "pending": {
+      "one": "{count} report waiting to send",
+      "other": "{count} reports waiting to send"
+    },
     "ctx": {
       "appVersion": "App version",
       "route": "Screen",
@@ -189,12 +197,15 @@
       "installBrowser": "Browser",
       "sync": "Sync",
       "runCount": "Saved runs",
-      "runCountValue": { "one": "{count} run", "other": "{count} runs" },
+      "runCountValue": {
+        "one": "{count} run",
+        "other": "{count} runs"
+      },
       "device": "Device",
       "language": "Language"
     },
     "route": {
-      "board": "Stamp Board",
+      "board": "84 Cells",
       "history": "History",
       "shuffle": "Random Challenge",
       "new": "New Run",
@@ -204,7 +215,6 @@
       "mission": "Mission detail"
     }
   },
-
   "crash": {
     "title": "Something went wrong",
     "sub": "The app hit an unexpected problem.",
@@ -218,7 +228,6 @@
     "failed": "Couldn't send",
     "note": "The error, app version and screen are sent along."
   },
-
   "sync": {
     "syncing": "Syncing your runs…",
     "statusIdle": "Idle",
@@ -227,7 +236,10 @@
     "statusError": "Failed",
     "done": "Runs synced",
     "upToDate": "Everything's up to date",
-    "reportsSent": { "one": "Sent {count} report", "other": "Sent {count} reports" },
+    "reportsSent": {
+      "one": "Sent {count} report",
+      "other": "Sent {count} reports"
+    },
     "failed": "Couldn't sync",
     "pushFailed": "Couldn't upload your runs",
     "pullFailed": "Couldn't load your runs",

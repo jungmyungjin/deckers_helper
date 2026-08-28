@@ -32,7 +32,7 @@ export const DECKER_COLORS = {
   blue: '#5aa9e6', purple: '#a473d6', gray: '#9a94b3',
 }
 
-// 목표 카드 40장. code = 도장 보드의 열 약어(Gold 전용).
+// 목표 카드 40장. code = 84칸 보드의 열 약어(Gold 전용).
 // code 는 일부러 언어와 무관하게 둔다 — 언어를 바꿔도 84칸 보드 레이아웃이
 // 그대로 유지되고, 현지 이름은 툴팁과 범례에서 보여준다.
 export const OBJECTIVE_CARDS = [
@@ -62,7 +62,7 @@ export const OBJECTIVE_CARDS = [
   { id: 'silver-scrambler', security: 'silver' },
   { id: 'silver-swarm', security: 'silver' },
   { id: 'silver-viral-overload', security: 'silver' },
-  // Gold 12 (도장 축)
+  // Gold 12 (클리어 축)
   { id: 'gold-blackout', security: 'gold', code: 'BLK' },
   { id: 'gold-distributed-defense', security: 'gold', code: 'DDF' },
   { id: 'gold-dni-web', security: 'gold', code: 'DNI' },

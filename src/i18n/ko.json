@@ -1,6 +1,4 @@
 {
-  "brand": { "tagline": "도장깨기 헬퍼" },
-
   "nav": {
     "board": "보드",
     "history": "히스토리",
@@ -9,16 +7,18 @@
     "cards": "카드",
     "profile": "프로필"
   },
-
   "common": {
     "loading": "기록을 불러오는 중…",
     "retry": "재시도",
     "close": "닫기",
     "noDecker": "덱커 미기록"
   },
-
   "game": {
-    "tier": { "intro": "입문", "mid": "중급", "top": "최상급" },
+    "tier": {
+      "intro": "입문",
+      "mid": "중급",
+      "top": "최상급"
+    },
     "security": {
       "copper": "Bronze",
       "silver": "Silver",
@@ -31,13 +31,15 @@
       "gold": "GOLD"
     }
   },
-
-  "outcome": { "fail": "실패", "success": "성공", "perfect": "대성공" },
-
+  "outcome": {
+    "fail": "실패",
+    "success": "성공",
+    "perfect": "대성공"
+  },
   "board": {
-    "title": "도장깨기 보드",
+    "title": "84칸 보드",
     "sub": "GOLD × SMC · {stamps} / {total}",
-    "stamps": "도장 / {total}",
+    "stamps": "클리어 / {total}",
     "plays": "플레이",
     "perfects": "대성공",
     "legendClear": "클리어",
@@ -47,7 +49,6 @@
     "goldKey": "Gold 코드",
     "empty": "아직 기록이 없어요. 하단 ➕ 기록에서 첫 판을 남겨보세요."
   },
-
   "history": {
     "title": "히스토리",
     "runs": "{count} RUNS",
@@ -59,7 +60,6 @@
     "empty": "해당하는 기록이 없어요.",
     "confirmDelete": "이 기록을 삭제할까요?"
   },
-
   "mission": {
     "invalid": "잘못된 미션",
     "vs": "vs {name}",
@@ -74,7 +74,6 @@
     "listLabel": "도전 히스토리 · 각 조합",
     "empty": "아직 이 미션에 도전한 기록이 없어요."
   },
-
   "newRun": {
     "title": "새 기록",
     "sub": "NEW RUN",
@@ -83,13 +82,12 @@
     "playerPlaceholder": "플레이어",
     "addDecker": "＋ 덱커 추가",
     "cyclesLabel": "사이클별 목표 · 결과",
-    "goldTag": "GOLD · 최종 → 도장 기준",
+    "goldTag": "GOLD · 최종 → 클리어 기준",
     "success": "성공",
     "fail": "실패",
     "verdictNote": "최종 Gold {result} 기준 자동 판정",
     "save": "기록 저장"
   },
-
   "shuffle": {
     "title": "랜덤 챌린지",
     "sub": "미클리어 GOLD 우선",
@@ -103,14 +101,12 @@
     "reshuffle": "🎲 다시 셔플 — 남은 미클리어 {count}칸 중",
     "startRecord": "이 셋업으로 기록 시작 →"
   },
-
   "cards": {
     "title": "목표 카드",
     "sub": "40장 · 전문 {count}장 확보",
     "badgeFull": "전문",
     "badgeNameOnly": "이름"
   },
-
   "flipCard": {
     "goalTag": "◆ {security} · Goal",
     "goal": "Goal",
@@ -127,7 +123,6 @@
     "tap": "탭 ⟳",
     "tapToFront": "탭 → 원면 ⟳"
   },
-
   "profile": {
     "title": "프로필 · 업적",
     "subSignedIn": "기록이 계정에 저장돼요",
@@ -139,7 +134,7 @@
     "sync": "🔄 동기화",
     "syncing": "동기화 중…",
     "signOut": "로그아웃",
-    "stamps": "Gold 도장",
+    "stamps": "Gold 클리어",
     "winRate": "승률",
     "plays": "플레이",
     "achievements": "업적 {total}개 중 {unlocked}",
@@ -149,7 +144,6 @@
     "languageRow": "언어",
     "languageSub": "앱과 카드 표기에 함께 적용됩니다"
   },
-
   "achievements": {
     "stamps-1": "첫 침투",
     "stamps-5": "숙련 데커",
@@ -157,10 +151,9 @@
     "stamps-84": "풀 클리어",
     "perfects-1": "완벽한 해킹",
     "perfects-10": "퍼펙트 해커",
-    "unitStamps": "도장",
+    "unitStamps": "클리어",
     "unitPerfects": "대성공"
   },
-
   "report": {
     "title": "오류 제보",
     "sub": "개발자에게 바로 전달됩니다",
@@ -194,7 +187,7 @@
       "language": "언어"
     },
     "route": {
-      "board": "도장깨기 보드",
+      "board": "84칸 보드",
       "history": "히스토리",
       "shuffle": "랜덤 챌린지",
       "new": "새 기록",
@@ -204,7 +197,6 @@
       "mission": "미션 상세"
     }
   },
-
   "crash": {
     "title": "문제가 생겼어요",
     "sub": "앱에 예상치 못한 문제가 생겼습니다.",
@@ -218,7 +210,6 @@
     "failed": "전송 실패",
     "note": "오류 내용과 앱 버전, 화면 위치가 함께 전송됩니다."
   },
-
   "sync": {
     "syncing": "기록 동기화 중…",
     "statusIdle": "대기 중",

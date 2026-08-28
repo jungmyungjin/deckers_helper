@@ -11,10 +11,10 @@
 
 ## 화면별 구성
 
-### 1. 도장깨기 보드 (홈)
+### 1. 84칸 보드 (홈)
 - **Gold 12(열) × SMC 7(행) = 84칸** 매트릭스, 가로 스크롤.
 - 셀 상태: 빈칸(미도전) / ✓(승리) / 🥇(대성공 판 있음).
-- 상단: 도장 n/84, 플레이 수, 대성공 수 + 진행 바.
+- 상단: 클리어 n/84, 플레이 수, 대성공 수 + 진행 바.
 - Gold 코드: BLK Blackout · DDF Distributed Defense · DNI DNI Web · FLD Flash Flood · HAK HackMan · INS Insert Misinfo · MSG Message Queue · MIR Mirror Map · NEU Neutrino · ROM Roman Road · SIM SimSmudge · WTR Waterfall.
 - 셀 탭 → 화면 2.
 
@@ -30,7 +30,7 @@
 
 ### 3. 새 기록 입력
 - 보스 선택 → 덱커별 조종자 지정 → 사이클별 성공/실패 토글.
-- 최종 Gold 성공 여부가 그 Gold×보스 셀 도장을 결정.
+- 최종 Gold 성공 여부가 그 Gold×보스 셀 클리어를 결정.
 - 결과(실패/성공/대성공) 자동 계산 미리보기.
 
 ### 4. 셔플 / 랜덤 챌린지

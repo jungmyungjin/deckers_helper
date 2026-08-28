@@ -52,9 +52,9 @@
 → 사이클별 성공/실패(`run_objectives`)를 입력하면 outcome이 자동 계산됨.
 로직: `최종 Gold 실패 → fail` / `전부 성공 → perfect` / `그 외 → success`.
 
-## 도장깨기 매핑 (앱 설계)
+## 84칸 매핑 (앱 설계)
 
-- **도장 단위 = (SMC, 최종 Gold 카드).**
+- **클리어 단위 = (SMC, 최종 Gold 카드).**
   - 승리(outcome ≠ fail)한 판의 최종 Gold 카드 → 그 (보스, Gold) 셀 클리어.
   - 그 셀에서 perfect 판이 하나라도 있으면 🥇 대성공 표기.
 - **조합(Copper+Silver+Gold) = 셀 내부 도전 히스토리**로만 기록. 완주 대상 아님.
