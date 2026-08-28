@@ -5,6 +5,7 @@ import { useT } from '../i18n'
 import { deckerName, cardName, smcName } from '../i18n/content'
 import { calcOutcome, OUTCOME_META } from '../lib/outcome'
 import { saveRun } from '../db/runs'
+import SelectField from '../components/SelectField'
 
 const CYCLE_DEFS = [
   ['copper', COPPERS, 'game.securityShort.copper'],
@@ -63,9 +64,12 @@ export default function NewRun() {
   }
 
   const CardSelect = ({ sec, list }) => (
-    <select className="csel" value={cycles[sec].objectiveId} onChange={(e) => setCard(sec, e.target.value)}>
-      {list.map((c) => <option key={c.id} value={c.id}>{cardName(c.id)}</option>)}
-    </select>
+    <SelectField
+      ariaLabel={t(`game.securityShort.${sec}`)}
+      value={cycles[sec].objectiveId}
+      options={list.map((card) => ({ value: card.id, label: cardName(card.id) }))}
+      onChange={(objectiveId) => setCard(sec, objectiveId)}
+    />
   )
 
   return (
@@ -77,13 +81,13 @@ export default function NewRun() {
       <div className="scroll">
         <div className="field">
           <div className="k">{t('newRun.boss')}</div>
-          <select className="csel big" value={smcId} onChange={(e) => setSmcId(e.target.value)}>
-            {SMCS.map((s) => (
-              <option key={s.id} value={s.id}>
-                {smcName(s.id)} · {t(`game.tier.${tierKey(s.difficulty)}`)}
-              </option>
-            ))}
-          </select>
+          <SelectField
+            ariaLabel={t('newRun.boss')}
+            className="big"
+            value={smcId}
+            options={SMCS.map((smc) => ({ value: smc.id, label: `${smcName(smc.id)} · ${t(`game.tier.${tierKey(smc.difficulty)}`)}` }))}
+            onChange={setSmcId}
+          />
         </div>
 
         <div className="field">
@@ -91,9 +95,12 @@ export default function NewRun() {
           {deckers.map((d, i) => (
             <div className="drow" key={i}>
               <span className="dk" style={{ background: DECKER_COLORS[DECKER_BY_ID[d.deckerId]?.color] }} />
-              <select className="csel" value={d.deckerId} onChange={(e) => updDecker(i, { deckerId: e.target.value })}>
-                {DECKERS.map((x) => <option key={x.id} value={x.id}>{deckerName(x.id)}</option>)}
-              </select>
+              <SelectField
+                ariaLabel={t('newRun.deckers')}
+                value={d.deckerId}
+                options={DECKERS.map((decker) => ({ value: decker.id, label: deckerName(decker.id) }))}
+                onChange={(deckerId) => updDecker(i, { deckerId })}
+              />
               <input className="cinput" placeholder={t('newRun.playerPlaceholder')} value={d.playerName}
                 onChange={(e) => updDecker(i, { playerName: e.target.value })} />
               {deckers.length > 1 && <button className="rm" onClick={() => rmDecker(i)}>×</button>}

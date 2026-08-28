@@ -6,6 +6,7 @@
   "description": "Deckers 도장깨기 헬퍼 — 보드게임 컴패니언 PWA",
   "scripts": {
     "dev": "vite",
+    "test": "vitest run",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -18,9 +19,13 @@
     "react-router-dom": "^6.26.2"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.6",
     "@vitejs/plugin-react": "^4.3.1",
+    "jsdom": "^30.0.1",
     "vite": "^5.4.6",
-    "vite-plugin-pwa": "^0.20.5"
+    "vite-plugin-pwa": "^0.20.5",
+    "vitest": "^4.1.11"
   },
   "allowScripts": {
     "esbuild@0.21.5": true

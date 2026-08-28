@@ -20,7 +20,6 @@ export default function Board() {
           <h1>{t('board.title')}</h1>
           <div className="sub">{t('board.sub', { stamps: stats.stamps, total: stats.totalCells })}</div>
         </div>
-        <div className="avatar">M</div>
       </header>
 
       <div className="scroll">

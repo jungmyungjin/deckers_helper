@@ -7,6 +7,7 @@ import { cardName, deckerName, smcName } from '../i18n/content'
 import { formatDateTimeStacked } from '../lib/format'
 import { SMCS } from '../data/gameData'
 import { OUTCOME_META } from '../lib/outcome'
+import SelectField from '../components/SelectField'
 
 const FILTERS = [
   { key: 'all', label: 'history.filterAll' },
@@ -39,10 +40,16 @@ export default function History() {
               onClick={() => setFilter(f.key)}>{t(f.label)}</button>
           ))}
         </div>
-        <select className="csel" style={{ marginBottom: 12 }} value={smc} onChange={(e) => setSmc(e.target.value)}>
-          <option value="all">{t('history.allBosses')}</option>
-          {SMCS.map((s) => <option key={s.id} value={s.id}>{smcName(s.id)}</option>)}
-        </select>
+        <SelectField
+          ariaLabel={t('history.allBosses')}
+          style={{ marginBottom: 12 }}
+          value={smc}
+          options={[
+            { value: 'all', label: t('history.allBosses') },
+            ...SMCS.map((smcItem) => ({ value: smcItem.id, label: smcName(smcItem.id) })),
+          ]}
+          onChange={setSmc}
+        />
 
         {filtered.length === 0 && (
           <div className="empty">{hydrated ? t('history.empty') : t('common.loading')}</div>

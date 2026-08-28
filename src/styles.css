@@ -29,7 +29,14 @@
   .lr-s,.segtab,.crashnote,.ctxbox,.nav-item,.runwho,.adate,.mvs,.mt,.goldkey,
   .cardtile-badge,.flipmark,.ctag,.rcount,.rlink,.syncbar){letter-spacing:normal}
 
-*{box-sizing:border-box}
+*{box-sizing:border-box;scrollbar-color:var(--line) var(--ink-850);scrollbar-width:thin}
+/* 스크롤 영역마다 운영체제 기본 흰색 막대가 섞이지 않도록 공통 테마를 쓴다.
+   overlay scrollbar을 강제하지 않아 macOS/iOS의 사용자 설정은 그대로 존중한다. */
+*::-webkit-scrollbar{width:10px;height:10px}
+*::-webkit-scrollbar-track{background:var(--ink-850)}
+*::-webkit-scrollbar-thumb{background:var(--line);border:2px solid var(--ink-850);border-radius:10px}
+*::-webkit-scrollbar-thumb:hover{background:var(--cyan)}
+*::-webkit-scrollbar-corner{background:var(--ink-850)}
 html,body,#root{height:100%}
 body{
   margin:0;color:var(--fg);font-family:var(--body);line-height:1.5;
@@ -306,11 +313,23 @@ table.mx tbody th{position:sticky;left:0;z-index:1;text-align:left;padding:0 9px
 .field{margin-bottom:14px}
 .field .k{font-family:var(--mono);font-size:var(--t-label);letter-spacing:.1em;text-transform:uppercase;color:var(--fg-faint);margin-bottom:6px}
 /* iOS Safari 는 font-size < 16px 인 입력에 포커스하면 화면을 확대한다. 16px 고정. */
-.csel,.cinput{background:var(--ink-800);border:1px solid var(--line);border-radius:10px;padding:10px 11px;font-size:var(--t-input);color:var(--fg);width:100%}
-.csel.big{font-size:var(--t-input)}
+.cinput{background:var(--ink-800);border:1px solid var(--line);border-radius:10px;padding:10px 11px;font-size:var(--t-input);color:var(--fg);width:100%}
+.select-field{position:relative;width:100%}
+.select-trigger{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:44px;padding:10px 13px 10px 12px;background:var(--ink-800);border:1px solid var(--line);border-radius:10px;color:var(--fg);font-size:var(--t-input);text-align:left}
+.select-trigger:hover{border-color:var(--cyan)}
+.select-trigger[aria-expanded="true"]{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(84,195,214,.13)}
+.select-trigger:disabled{opacity:.45;cursor:not-allowed}
+.select-value{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.select-chevron{flex:none;width:20px;height:20px;color:var(--cyan);stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .16s ease}
+.select-trigger[aria-expanded="true"] .select-chevron{transform:rotate(180deg)}
+.select-menu{position:absolute;z-index:20;top:calc(100% + 6px);left:0;right:0;max-height:242px;overflow-y:auto;padding:5px;background:var(--ink-750);border:1px solid var(--cyan);border-radius:10px;box-shadow:0 14px 30px rgba(0,0,0,.42)}
+.select-option{display:block;width:100%;padding:10px 11px;border-radius:7px;color:var(--fg-dim);font-size:var(--t-base);line-height:1.4;text-align:left}
+.select-option:hover,.select-option:focus-visible{background:rgba(84,195,214,.12);color:var(--fg);outline:none}
+.select-option.selected{background:rgba(84,195,214,.17);color:var(--cyan);font-weight:600}
+.select-field.big .select-trigger{min-height:48px}
 .drow{display:flex;align-items:center;gap:7px;margin-bottom:7px}
 .drow .dk{width:10px;height:10px;border-radius:50%;flex:none}
-.drow .csel{flex:1}
+.drow .select-field{flex:1;min-width:0}
 .drow .cinput{width:96px;flex:none}
 .rm{color:var(--danger);font-size:18px;width:26px;flex:none}
 .addbtn{font-family:var(--mono);font-size:var(--t-sm);color:var(--cyan);border:1px dashed var(--line);border-radius:10px;padding:8px;width:100%;margin-top:2px}
@@ -319,7 +338,7 @@ table.mx tbody th{position:sticky;left:0;z-index:1;text-align:left;padding:0 9px
 .cyc .tier{width:10px;height:10px;border-radius:50%;flex:none}
 .cyc .tier.copper{background:var(--copper)} .cyc .tier.silver{background:var(--silver)} .cyc .tier.gold{background:var(--gold)}
 .cyc-body{flex:1;min-width:0}
-.cyc-body .csel{width:100%;padding:8px;font-size:16px}
+.cyc-body .select-trigger{min-height:40px;padding:8px 10px;font-size:16px}
 .cyc-body small{display:block;font-family:var(--mono);font-size:var(--t-label);color:var(--fg-faint);letter-spacing:.05em;margin-top:3px}
 .toggle{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;font-family:var(--mono);font-size:var(--t-xs);flex:none}
 .toggle button{padding:10px 12px;color:var(--fg-faint)}
