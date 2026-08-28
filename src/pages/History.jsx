@@ -2,18 +2,22 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useRuns, deleteRun, finalGoldId } from '../db/runs'
 import { useSync } from '../lib/SyncProvider'
-import { SMC_BY_ID, CARD_BY_ID, DECKER_BY_ID, DECKER_COLORS, SMCS } from '../data/gameData'
+import { useT } from '../i18n'
+import { cardName, deckerName, smcName } from '../i18n/content'
+import { formatDateTimeStacked } from '../lib/format'
+import { SMCS } from '../data/gameData'
 import { OUTCOME_META } from '../lib/outcome'
 
 const FILTERS = [
-  { key: 'all', label: '전체' },
-  { key: 'perfect', label: '🥇 대성공' },
-  { key: 'success', label: '✓ 성공' },
-  { key: 'fail', label: '✕ 실패' },
+  { key: 'all', label: 'history.filterAll' },
+  { key: 'perfect', label: 'history.filterPerfect' },
+  { key: 'success', label: 'history.filterSuccess' },
+  { key: 'fail', label: 'history.filterFail' },
 ]
 
 export default function History() {
   const nav = useNavigate()
+  const { t } = useT()
   const runs = useRuns()
   const { hydrated } = useSync()
   const [filter, setFilter] = useState('all')
@@ -26,46 +30,48 @@ export default function History() {
   return (
     <div className="page">
       <header className="appbar">
-        <div><h1>히스토리</h1><div className="sub">{runs.length} RUNS</div></div>
+        <div><h1>{t('history.title')}</h1><div className="sub">{t('history.runs', { count: runs.length })}</div></div>
       </header>
       <div className="scroll">
         <div className="segtabs">
           {FILTERS.map((f) => (
             <button key={f.key} className={'segtab sm' + (filter === f.key ? ' on' : '')}
-              onClick={() => setFilter(f.key)}>{f.label}</button>
+              onClick={() => setFilter(f.key)}>{t(f.label)}</button>
           ))}
         </div>
         <select className="csel" style={{ marginBottom: 12 }} value={smc} onChange={(e) => setSmc(e.target.value)}>
-          <option value="all">모든 보스</option>
-          {SMCS.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+          <option value="all">{t('history.allBosses')}</option>
+          {SMCS.map((s) => <option key={s.id} value={s.id}>{smcName(s.id)}</option>)}
         </select>
 
         {filtered.length === 0 && (
-          <div className="empty">{hydrated ? '해당하는 기록이 없어요.' : '기록을 불러오는 중…'}</div>
+          <div className="empty">{hydrated ? t('history.empty') : t('common.loading')}</div>
         )}
 
         {filtered.map((run) => {
           const om = OUTCOME_META[run.outcome]
-          const smcInfo = SMC_BY_ID[run.smcId]
           const gid = finalGoldId(run)
-          const gold = gid ? CARD_BY_ID[gid] : null
           return (
             <div className="runcard" key={run.id}
               onClick={() => gid && nav(`/mission/${run.smcId}/${gid}`)}>
               <span className={'runbadge ab-' + run.outcome}>{om.icon}</span>
               <div className="runinfo">
-                <div className="runtitle">{smcInfo?.name} <span className="rungold">· {gold?.name || '—'}</span></div>
+                <div className="runtitle">
+                  {smcName(run.smcId)} <span className="rungold">· {gid ? cardName(gid) : '—'}</span>
+                </div>
                 <div className="runwho">
-                  {run.deckers.length === 0 ? '덱커 미기록' :
-                    run.deckers.map((d) => {
-                      const dk = DECKER_BY_ID[d.deckerId]
-                      return `${dk?.name || d.deckerId}${d.playerName ? '·' + d.playerName : ''}`
-                    }).join(' / ')}
+                  {run.deckers.length === 0 ? t('common.noDecker') :
+                    run.deckers.map((d) =>
+                      `${deckerName(d.deckerId)}${d.playerName ? '·' + d.playerName : ''}`
+                    ).join(' / ')}
                 </div>
               </div>
               <div className="runmeta">
-                <div className="runtime">{fmt(run.playedAt)}</div>
-                <button className="delx" onClick={(e) => { e.stopPropagation(); if (confirm('이 기록을 삭제할까요?')) deleteRun(run.id) }}>✕</button>
+                <div className="runtime">{formatDateTimeStacked(run.playedAt)}</div>
+                <button className="delx" onClick={(e) => {
+                  e.stopPropagation()
+                  if (confirm(t('history.confirmDelete'))) deleteRun(run.id)
+                }}>✕</button>
               </div>
             </div>
           )
@@ -73,10 +79,4 @@ export default function History() {
       </div>
     </div>
   )
-}
-
-function fmt(iso) {
-  const d = new Date(iso)
-  const p = (n) => String(n).padStart(2, '0')
-  return `${d.getMonth() + 1}/${d.getDate()}\n${p(d.getHours())}:${p(d.getMinutes())}`
 }

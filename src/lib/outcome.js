@@ -10,8 +10,9 @@ export function calcOutcome(objectives) {
   return 'success'
 }
 
+// 아이콘·색만. 라벨은 i18n(outcome.*)에서 가져온다.
 export const OUTCOME_META = {
-  fail: { label: '실패', icon: '✕', color: 'var(--danger)' },
-  success: { label: '성공', icon: '✓', color: 'var(--safe)' },
-  perfect: { label: '대성공', icon: '🥇', color: 'var(--gold)' },
+  fail: { icon: '✕', color: 'var(--danger)' },
+  success: { icon: '✓', color: 'var(--safe)' },
+  perfect: { icon: '🥇', color: 'var(--gold)' },
 }

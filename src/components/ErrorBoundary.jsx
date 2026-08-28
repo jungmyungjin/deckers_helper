@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import { collectContext, flushReports, saveReport } from '../db/reports'
+import { t } from '../i18n'
 
 // 렌더 중 예외를 잡아 흰 화면 대신 복구 화면을 보여준다.
 // SyncProvider 바깥(main.jsx)에 두므로 훅을 쓸 수 없고, Provider 자체가
@@ -31,7 +32,7 @@ export default class ErrorBoundary extends Component {
       const base = await collectContext({ account: 'unknown' })
       await saveReport({
         kind: 'crash',
-        message: String(error?.message || error || '알 수 없는 오류'),
+        message: String(error?.message || error || 'Unknown error'),
         context: {
           ...base,
           errorName: error?.name || null,
@@ -54,27 +55,21 @@ export default class ErrorBoundary extends Component {
       <div className="crash">
         <div className="crashbox">
           <div className="crashicon">⚠</div>
-          <h1>문제가 생겼어요</h1>
+          <h1>{t('crash.title')}</h1>
           <p className="crashsub">
-            앱에 예상치 못한 문제가 생겼습니다.<br />
-            <b>기록은 이 기기에 그대로 있습니다.</b>
+            {t('crash.sub')}<br />
+            <b>{t('crash.safe')}</b>
           </p>
 
           <pre className="crashmsg">{String(error?.message || error)}</pre>
 
-          <button className="btn" onClick={this.retry}>다시 시도</button>
-          <button className="btn ghost" onClick={this.goHome}>보드로 돌아가기</button>
+          <button className="btn" onClick={this.retry}>{t('crash.retry')}</button>
+          <button className="btn ghost" onClick={this.goHome}>{t('crash.goHome')}</button>
           <button className="btn ghost" onClick={this.send} disabled={send !== 'idle'}>
-            {send === 'idle' ? '이 오류 개발자에게 보내기'
-              : send === 'sending' ? '보내는 중…'
-              : send === 'sent' ? '보냈습니다 — 고맙습니다!'
-              : send === 'queued' ? '저장됨 · 연결되면 자동 전송'
-              : '전송 실패'}
+            {t(`crash.${send === 'idle' ? 'send' : send}`)}
           </button>
 
-          <p className="crashnote">
-            오류 내용과 앱 버전, 화면 위치가 함께 전송됩니다.
-          </p>
+          <p className="crashnote">{t('crash.note')}</p>
         </div>
       </div>
     )

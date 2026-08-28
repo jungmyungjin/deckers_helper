@@ -2,6 +2,7 @@ import { useLiveQuery } from 'dexie-react-hooks'
 import { db, newId } from './localDb'
 import { supabase, hasSupabase } from '../lib/supabase'
 import { pushReports } from '../lib/sync'
+import { getLocale, t } from '../i18n'
 
 // vite.config.js 가 package.json 버전을 주입한다. dev 서버에서는 Vite가
 // typeof 안의 식별자를 치환하지 않아 'dev'로 남는데, 개발 중 제보와
@@ -25,50 +26,56 @@ export async function collectContext({ user, account, syncStatus, syncMessage } 
     syncMessage: syncMessage || null,
     runCount,
     screen: `${window.screen.width}x${window.screen.height}`,
-    language: navigator.language,
+    locale: getLocale(),          // 앱에 설정된 언어
+    language: navigator.language, // 기기 언어
     userAgent: navigator.userAgent,
     at: new Date().toISOString(),
   }
 }
 
-// 저장되는 값은 개발자가 볼 원본 그대로 두고, 화면에 보여줄 때만 사람 말로 옮긴다.
-const ROUTE_NAMES = {
-  '#/': '도장깨기 보드',
-  '#/history': '히스토리',
-  '#/shuffle': '랜덤 챌린지',
-  '#/new': '새 기록',
-  '#/cards': '목표 카드',
-  '#/profile': '프로필',
-  '#/report': '오류 제보',
+// 저장되는 값은 개발자가 볼 원본 그대로(예: '#/mission/mother/gold-hackman') 두고,
+// 화면에 보여줄 때만 현재 언어로 옮긴다.
+const ROUTE_KEYS = {
+  '#/': 'board',
+  '#/history': 'history',
+  '#/shuffle': 'shuffle',
+  '#/new': 'new',
+  '#/cards': 'cards',
+  '#/profile': 'profile',
+  '#/report': 'report',
 }
 
-const SYNC_LABELS = {
-  idle: '대기 중',
-  syncing: '동기화 중',
-  done: '완료',
-  error: '실패',
+const SYNC_STATUS_KEYS = {
+  idle: 'sync.statusIdle',
+  syncing: 'sync.statusSyncing',
+  done: 'sync.statusDone',
+  error: 'sync.statusError',
 }
 
 function routeName(route) {
-  if (!route) return '—'
-  if (ROUTE_NAMES[route]) return ROUTE_NAMES[route]
-  if (route.startsWith('#/mission/')) return '미션 상세'
+  if (!route) return '\u2014'
+  if (ROUTE_KEYS[route]) return t(`report.route.${ROUTE_KEYS[route]}`)
+  if (route.startsWith('#/mission/')) return t('report.route.mission')
   return route
 }
 
 // 사람이 읽을 수 있게 요약 — 폼에서 "무엇이 함께 가는지" 보여줄 때 쓴다
 export function describeContext(ctx) {
   if (!ctx) return []
-  const sync = SYNC_LABELS[ctx.syncStatus] || ctx.syncStatus || '—'
+  const statusKey = SYNC_STATUS_KEYS[ctx.syncStatus]
+  const sync = statusKey ? t(statusKey) : (ctx.syncStatus || '\u2014')
+  const account = ctx.account === 'signed-in' ? 'accountSignedIn'
+    : ctx.account === 'guest' ? 'accountGuest' : 'accountUnknown'
   return [
-    ['앱 버전', ctx.appVersion],
-    ['화면', routeName(ctx.route)],
-    ['계정', ctx.account === 'signed-in' ? '로그인함' : ctx.account === 'guest' ? '로그인 안 함' : '확인 불가'],
-    ['연결 상태', ctx.online ? '연결됨' : '연결 안 됨'],
-    ['실행 방식', ctx.standalone ? '설치된 앱' : '브라우저'],
-    ['동기화', ctx.syncMessage ? `${sync} — ${ctx.syncMessage}` : sync],
-    ['저장된 기록', ctx.runCount == null ? '—' : `${ctx.runCount}건`],
-    ['기기 정보', ctx.userAgent],
+    [t('report.ctx.appVersion'), ctx.appVersion],
+    [t('report.ctx.route'), routeName(ctx.route)],
+    [t('report.ctx.account'), t(`report.ctx.${account}`)],
+    [t('report.ctx.language'), ctx.locale || getLocale()],
+    [t('report.ctx.connection'), t(ctx.online ? 'report.ctx.online' : 'report.ctx.offline')],
+    [t('report.ctx.install'), t(ctx.standalone ? 'report.ctx.installApp' : 'report.ctx.installBrowser')],
+    [t('report.ctx.sync'), ctx.syncMessage ? `${sync} \u2014 ${ctx.syncMessage}` : sync],
+    [t('report.ctx.runCount'), ctx.runCount == null ? '\u2014' : t('report.ctx.runCountValue', { count: ctx.runCount })],
+    [t('report.ctx.device'), ctx.userAgent],
   ]
 }
 

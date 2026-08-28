@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { db } from '../db/localDb'
-import {
-  collectContext, describeContext, saveReport, usePendingReportCount,
-} from '../db/reports'
+import { collectContext, describeContext, saveReport, usePendingReportCount } from '../db/reports'
 import { useSync } from '../lib/SyncProvider'
+import { useT } from '../i18n'
 
 const MAX = 2000
 
 export default function ReportForm() {
+  const { t } = useT()
   const { user, status, message: syncMessage, doSync, enabled } = useSync()
   const pending = usePendingReportCount()
 
@@ -51,12 +51,12 @@ export default function ReportForm() {
         maxLength={MAX}
         value={text}
         onChange={(e) => { setText(e.target.value); setResult(null) }}
-        placeholder="어떤 화면에서 무엇을 하다가 어떻게 됐는지 적어주세요."
+        placeholder={t('report.placeholder')}
       />
 
       <div className="rmeta">
         <button type="button" className="rlink" onClick={togglePreview}>
-          {preview ? '▾ 함께 보내는 정보' : '▸ 함께 보내는 정보'}
+          {preview ? t('report.hideContext') : t('report.showContext')}
         </button>
         <span className="rcount">{text.length}/{MAX}</span>
       </div>
@@ -70,25 +70,13 @@ export default function ReportForm() {
       )}
 
       <button className="btn" type="submit" disabled={!text.trim() || busy}>
-        {busy ? '보내는 중…' : '개발자에게 보내기'}
+        {busy ? t('report.sending') : t('report.send')}
       </button>
 
-      {result === 'sent' && <div className="rnote ok">보냈습니다. 확인하고 반영할게요 — 고맙습니다!</div>}
-      {result === 'queued' && (
-        <div className="rnote wait">
-          지금은 보내지 못해 이 기기에 저장해뒀어요. 연결되면 자동으로 전송됩니다.
-        </div>
-      )}
-
-      {!enabled && (
-        <div className="rnote wait">
-          지금은 제보를 보낼 수 없어요. 이 기기에 저장해뒀다가 가능해지면 보낼게요.
-        </div>
-      )}
-
-      {pending > 0 && (
-        <div className="rnote wait">전송 대기 중인 제보 {pending}건</div>
-      )}
+      {result === 'sent' && <div className="rnote ok">{t('report.sent')}</div>}
+      {result === 'queued' && <div className="rnote wait">{t('report.queued')}</div>}
+      {!enabled && <div className="rnote wait">{t('report.disabled')}</div>}
+      {pending > 0 && <div className="rnote wait">{t('report.pending', { count: pending })}</div>}
     </form>
   )
 }

@@ -6,10 +6,18 @@
   --fg:#e9e5f3; --fg-dim:#a8a1c4; --fg-faint:#6f6990;
   --copper:#d18a57; --silver:#c3c7d4; --gold:#dcb64f; --ghost:#a473d6;
   --cyan:#54c3d6; --danger:#e0655e; --safe:#6ec98a;
-  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  /* Plex Mono·Chakra Petch 에는 한글 글리프가 없다. 스택 끝에 Plex Sans KR 를
+     넣어 라틴은 모노, 한글은 지정한 서체로 떨어지게 한다. */
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,"IBM Plex Sans KR",monospace;
   --disp:"Chakra Petch","IBM Plex Sans KR",system-ui,sans-serif;
   --body:"IBM Plex Sans KR","IBM Plex Sans",system-ui,sans-serif;
 }
+/* 라틴용으로 잡은 자간(letter-spacing)이 한글에 걸리면 글자가 흩어져 보인다.
+   한국어일 때만 되돌린다. <html lang> 은 src/i18n 이 설정한다. */
+:lang(ko) :is(.sub,.tag,.label,.desc,.k,.guest,.rnote,.syncmsg,.verline,
+  .lr-s,.segtab,.crashnote,.ctxbox,.nav-item,.runwho,.adate,.mvs,.mt,.goldkey,
+  .cardtile-badge,.flipmark,.ctag,.rcount,.rlink,.syncbar){letter-spacing:normal}
+
 *{box-sizing:border-box}
 html,body,#root{height:100%}
 body{
@@ -146,6 +154,8 @@ select,input{font-family:inherit}
 .rnote.wait{color:var(--fg-faint)}
 .verline{font-family:var(--mono);font-size:9px;color:var(--fg-faint);
   text-align:center;margin-top:20px;letter-spacing:.1em}
+
+.langsel{cursor:pointer}
 
 /* 앱 상단 동기화 알림 — 동기화 중 / 실패일 때만 뜬다 */
 .syncbar{display:flex;align-items:center;justify-content:center;gap:10px;
@@ -310,7 +320,13 @@ button.cell:hover{border-color:var(--cyan)}
 .challenge .boss{font-family:var(--disp);font-weight:700;font-size:1.6rem;margin:8px 0 2px}
 .challenge .vs{font-family:var(--mono);font-size:10px;color:var(--fg-faint);margin-bottom:10px}
 .deck-strip{display:flex;gap:7px;margin-top:12px;justify-content:center}
-.deck-strip .mini{flex:1;max-width:96px;min-height:56px;border-radius:7px;border:1px solid;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:8.5px;text-align:center;line-height:1.35;padding:5px}
+/* 카드 이름이 들어가는 유일한 좁은 칸. 이름은 게임이 정한 값이라 줄일 수 없어
+   (독일어는 특히 길다) 세로로 쌓고 줄바꿈을 허용한다. */
+.deck-strip .mini{flex:1;max-width:96px;min-height:62px;border-radius:7px;border:1px solid;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  font-family:var(--mono);font-size:8.5px;text-align:center;line-height:1.35;padding:5px;
+  overflow-wrap:anywhere}
+.deck-strip .mini small{display:block;opacity:.72;letter-spacing:.08em}
 .mini.cop{border-color:var(--copper);background:rgba(209,138,87,.12);color:var(--copper)}
 .mini.sil{border-color:var(--silver);background:rgba(195,199,212,.1);color:var(--silver)}
 .mini.gol{border-color:var(--gold);background:rgba(220,182,79,.12);color:var(--gold)}

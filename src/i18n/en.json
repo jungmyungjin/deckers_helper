@@ -1,0 +1,236 @@
+{
+  "brand": { "tagline": "Stamp Rally Helper" },
+
+  "nav": {
+    "board": "Board",
+    "history": "History",
+    "new": "Log",
+    "shuffle": "Draw",
+    "cards": "Cards",
+    "profile": "Profile"
+  },
+
+  "common": {
+    "loading": "Loading your runs…",
+    "retry": "Retry",
+    "close": "Close",
+    "noDecker": "No decker recorded"
+  },
+
+  "game": {
+    "tier": { "intro": "Intro", "mid": "Medium", "top": "Hardest" },
+    "security": {
+      "copper": "Bronze",
+      "silver": "Silver",
+      "gold": "Gold",
+      "ghost": "Mother's Ghost"
+    },
+    "securityShort": {
+      "copper": "BRONZE",
+      "silver": "SILVER",
+      "gold": "GOLD"
+    }
+  },
+
+  "outcome": { "fail": "Failed", "success": "Success", "perfect": "Perfect" },
+
+  "board": {
+    "title": "Stamp Board",
+    "sub": "GOLD × SMC · {stamps} / {total}",
+    "stamps": "Stamps / {total}",
+    "plays": "Runs",
+    "perfects": "Perfect",
+    "legendClear": "Cleared",
+    "legendPerfect": "Perfect",
+    "legendUntried": "Untried",
+    "corner": "SMC ＼ Gold",
+    "goldKey": "Gold codes",
+    "empty": "No runs yet. Tap ➕ Log below to record your first game."
+  },
+
+  "history": {
+    "title": "History",
+    "runs": { "one": "{count} RUN", "other": "{count} RUNS" },
+    "filterAll": "All",
+    "filterPerfect": "🥇 Perfect",
+    "filterSuccess": "✓ Success",
+    "filterFail": "✕ Failed",
+    "allBosses": "All SMCs",
+    "empty": "No runs match this filter.",
+    "confirmDelete": "Delete this run?"
+  },
+
+  "mission": {
+    "invalid": "Unknown mission",
+    "vs": "vs {name}",
+    "kicker": "◆ Gold Mission × SMC",
+    "statePerfect": "🥇 Cleared · Perfect",
+    "stateClear": "✓ Cleared",
+    "stateUntried": "Untried",
+    "attempts": "Attempts",
+    "wins": "Wins",
+    "perfects": "Perfect",
+    "fails": "Failed",
+    "listLabel": "Attempt history · each combo",
+    "empty": "No attempts on this mission yet."
+  },
+
+  "newRun": {
+    "title": "New Run",
+    "sub": "NEW RUN",
+    "boss": "SMC",
+    "deckers": "Deckers · who played",
+    "playerPlaceholder": "Player",
+    "addDecker": "＋ Add decker",
+    "cyclesLabel": "Objectives by cycle · results",
+    "goldTag": "GOLD · final → stamp",
+    "success": "Success",
+    "fail": "Failed",
+    "verdictNote": "Judged from the final Gold: {result}",
+    "save": "Save run"
+  },
+
+  "shuffle": {
+    "title": "Random Challenge",
+    "sub": "Uncleared GOLD first",
+    "doneTag": "Complete",
+    "doneMsg": "🎉 Every combo cleared!",
+    "remaining": { "one": "{count} combo still uncleared", "other": "{count} combos still uncleared" },
+    "syncing": "Syncing runs",
+    "tapToDraw": "Tap to draw a challenge",
+    "todayTag": "Today's challenge",
+    "vsUncleared": "vs {name} · still uncleared",
+    "reshuffle": { "one": "🎲 Draw again — {count} cell left", "other": "🎲 Draw again — {count} cells left" },
+    "startRecord": "Log a run with this setup →"
+  },
+
+  "cards": {
+    "title": "Objective Cards",
+    "sub": "40 cards · {count} with full text",
+    "badgeFull": "Full",
+    "badgeNameOnly": "Name"
+  },
+
+  "flipCard": {
+    "goalTag": "◆ {security} · Goal",
+    "goal": "Goal",
+    "setup": "Setup",
+    "rules": "Rules",
+    "success": "Success",
+    "fail": "Fail",
+    "bodyPending": "Text not entered yet",
+    "seePhysical": "See the physical card",
+    "resultTag": "Outcome",
+    "resultTitle": "SUCCESS / FAIL",
+    "resultPending": "Outcome text not entered yet",
+    "tapToResult": "tap → outcome ⟳",
+    "tap": "tap ⟳",
+    "tapToFront": "tap → front ⟳"
+  },
+
+  "profile": {
+    "title": "Profile · Achievements",
+    "subSignedIn": "Runs are saved to your account",
+    "subGuest": "Saved on this device only",
+    "signIn": "Sign in with Google to sync",
+    "signInDisabledHint": "Sign-in is unavailable right now",
+    "guestNote": "Saved on this device only · sign in and your existing runs come along",
+    "guestNoteDisabled": "Sign-in is unavailable right now · runs stay on this device",
+    "sync": "🔄 Sync",
+    "syncing": "Syncing…",
+    "signOut": "Sign out",
+    "stamps": "Gold stamps",
+    "winRate": "Win rate",
+    "plays": "Runs",
+    "achievements": "{unlocked} of {total} achievements",
+    "reportRow": "Report a problem",
+    "reportRowSub": "Tell us what isn't working",
+    "reportRowPending": { "one": "{count} report waiting to send", "other": "{count} reports waiting to send" },
+    "languageRow": "Language",
+    "languageSub": "Applies to the app and card names"
+  },
+
+  "achievements": {
+    "stamps-1": "First Breach",
+    "stamps-5": "Skilled Decker",
+    "stamps-25": "Veteran",
+    "stamps-84": "Full Clear",
+    "perfects-1": "Flawless Hack",
+    "perfects-10": "Perfect Hacker",
+    "unitStamps": "stamps",
+    "unitPerfects": "perfect"
+  },
+
+  "report": {
+    "title": "Report a problem",
+    "sub": "Goes straight to the developer",
+    "intro": "Telling us what went wrong helps a lot. Details like the app version and which screen you were on are attached automatically.",
+    "placeholder": "What screen were you on, what did you do, and what happened?",
+    "showContext": "▸ What gets sent with this",
+    "hideContext": "▾ What gets sent with this",
+    "send": "Send to the developer",
+    "sending": "Sending…",
+    "sent": "Sent. We'll take a look — thank you!",
+    "queued": "Couldn't send just now, so it's saved on this device. It'll go out once you're back online.",
+    "disabled": "Reports can't be sent right now. It's saved on this device and will go out when possible.",
+    "pending": { "one": "{count} report waiting to send", "other": "{count} reports waiting to send" },
+    "ctx": {
+      "appVersion": "App version",
+      "route": "Screen",
+      "account": "Account",
+      "accountSignedIn": "Signed in",
+      "accountGuest": "Not signed in",
+      "accountUnknown": "Unknown",
+      "connection": "Connection",
+      "online": "Online",
+      "offline": "Offline",
+      "install": "Running as",
+      "installApp": "Installed app",
+      "installBrowser": "Browser",
+      "sync": "Sync",
+      "runCount": "Saved runs",
+      "runCountValue": { "one": "{count} run", "other": "{count} runs" },
+      "device": "Device",
+      "language": "Language"
+    },
+    "route": {
+      "board": "Stamp Board",
+      "history": "History",
+      "shuffle": "Random Challenge",
+      "new": "New Run",
+      "cards": "Objective Cards",
+      "profile": "Profile",
+      "report": "Report a problem",
+      "mission": "Mission detail"
+    }
+  },
+
+  "crash": {
+    "title": "Something went wrong",
+    "sub": "The app hit an unexpected problem.",
+    "safe": "Your runs are still on this device.",
+    "retry": "Try again",
+    "goHome": "Back to the board",
+    "send": "Send this error to the developer",
+    "sending": "Sending…",
+    "sent": "Sent — thank you!",
+    "queued": "Saved · will send once online",
+    "failed": "Couldn't send",
+    "note": "The error, app version and screen are sent along."
+  },
+
+  "sync": {
+    "syncing": "Syncing your runs…",
+    "statusIdle": "Idle",
+    "statusSyncing": "Syncing",
+    "statusDone": "Done",
+    "statusError": "Failed",
+    "done": "Runs synced",
+    "upToDate": "Everything's up to date",
+    "reportsSent": { "one": "Sent {count} report", "other": "Sent {count} reports" },
+    "failed": "Couldn't sync",
+    "pushFailed": "Couldn't upload your runs",
+    "pullFailed": "Couldn't load your runs",
+    "reportFailed": "Couldn't send your report"
+  }
+}

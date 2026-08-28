@@ -1,17 +1,20 @@
 import { useState, useMemo } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { SMCS, DECKERS, COPPERS, SILVERS, GOLDS, DECKER_COLORS } from '../data/gameData'
+import { SMCS, DECKERS, COPPERS, SILVERS, GOLDS, DECKER_COLORS, DECKER_BY_ID, tierKey } from '../data/gameData'
+import { useT } from '../i18n'
+import { deckerName, cardName, smcName } from '../i18n/content'
 import { calcOutcome, OUTCOME_META } from '../lib/outcome'
 import { saveRun } from '../db/runs'
 
 const CYCLE_DEFS = [
-  ['copper', COPPERS, 'BRONZE'],
-  ['silver', SILVERS, 'SILVER'],
-  ['gold', GOLDS, 'GOLD · 최종 → 도장 기준'],
+  ['copper', COPPERS, 'game.securityShort.copper'],
+  ['silver', SILVERS, 'game.securityShort.silver'],
+  ['gold', GOLDS, 'newRun.goldTag'],
 ]
 
 export default function NewRun() {
   const nav = useNavigate()
+  const { t } = useT()
   const [sp] = useSearchParams()
   const [smcId, setSmcId] = useState(SMCS[0].id)
   const [deckers, setDeckers] = useState([{ deckerId: DECKERS[0].id, playerName: '' }])
@@ -61,66 +64,78 @@ export default function NewRun() {
 
   const CardSelect = ({ sec, list }) => (
     <select className="csel" value={cycles[sec].objectiveId} onChange={(e) => setCard(sec, e.target.value)}>
-      {list.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+      {list.map((c) => <option key={c.id} value={c.id}>{cardName(c.id)}</option>)}
     </select>
   )
 
   return (
     <div className="page">
-      <header className="appbar"><div><h1>새 기록</h1><div className="sub">NEW RUN</div></div></header>
+      <header className="appbar">
+        <div><h1>{t('newRun.title')}</h1><div className="sub">{t('newRun.sub')}</div></div>
+      </header>
 
       <div className="scroll">
         <div className="field">
-          <div className="k">보스 (SMC)</div>
+          <div className="k">{t('newRun.boss')}</div>
           <select className="csel big" value={smcId} onChange={(e) => setSmcId(e.target.value)}>
-            {SMCS.map((s) => <option key={s.id} value={s.id}>{s.name} · {s.tier}</option>)}
+            {SMCS.map((s) => (
+              <option key={s.id} value={s.id}>
+                {smcName(s.id)} · {t(`game.tier.${tierKey(s.difficulty)}`)}
+              </option>
+            ))}
           </select>
         </div>
 
         <div className="field">
-          <div className="k">덱커 · 조종한 사람</div>
+          <div className="k">{t('newRun.deckers')}</div>
           {deckers.map((d, i) => (
             <div className="drow" key={i}>
-              <span className="dk" style={{ background: DECKER_COLORS[DECKERS.find((x) => x.id === d.deckerId)?.color] }} />
+              <span className="dk" style={{ background: DECKER_COLORS[DECKER_BY_ID[d.deckerId]?.color] }} />
               <select className="csel" value={d.deckerId} onChange={(e) => updDecker(i, { deckerId: e.target.value })}>
-                {DECKERS.map((x) => <option key={x.id} value={x.id}>{x.name}</option>)}
+                {DECKERS.map((x) => <option key={x.id} value={x.id}>{deckerName(x.id)}</option>)}
               </select>
-              <input className="cinput" placeholder="플레이어" value={d.playerName}
+              <input className="cinput" placeholder={t('newRun.playerPlaceholder')} value={d.playerName}
                 onChange={(e) => updDecker(i, { playerName: e.target.value })} />
               {deckers.length > 1 && <button className="rm" onClick={() => rmDecker(i)}>×</button>}
             </div>
           ))}
-          {deckers.length < DECKERS.length && <button className="addbtn" onClick={addDecker}>＋ 덱커 추가</button>}
+          {deckers.length < DECKERS.length && (
+            <button className="addbtn" onClick={addDecker}>{t('newRun.addDecker')}</button>
+          )}
         </div>
 
-        <div className="label">사이클별 목표 · 결과</div>
+        <div className="label">{t('newRun.cyclesLabel')}</div>
         <div className="cyclelist">
-          {CYCLE_DEFS.map(
-            ([sec, list, tag]) => (
-              <div className="cyc" key={sec}>
-                <span className={'tier ' + sec} />
-                <div className="cyc-body">
-                  <CardSelect sec={sec} list={list} />
-                  <small>{tag}</small>
-                </div>
-                <span className="toggle">
-                  <button className={'s' + (cycles[sec].result === 'success' ? ' on' : '')} onClick={() => setResult(sec, 'success')}>성공</button>
-                  <button className={'f' + (cycles[sec].result === 'fail' ? ' on' : '')} onClick={() => setResult(sec, 'fail')}>실패</button>
-                </span>
+          {CYCLE_DEFS.map(([sec, list, tagKey]) => (
+            <div className="cyc" key={sec}>
+              <span className={'tier ' + sec} />
+              <div className="cyc-body">
+                <CardSelect sec={sec} list={list} />
+                <small>{t(tagKey)}</small>
               </div>
-            )
-          )}
+              <span className="toggle">
+                <button className={'s' + (cycles[sec].result === 'success' ? ' on' : '')}
+                  onClick={() => setResult(sec, 'success')}>{t('newRun.success')}</button>
+                <button className={'f' + (cycles[sec].result === 'fail' ? ' on' : '')}
+                  onClick={() => setResult(sec, 'fail')}>{t('newRun.fail')}</button>
+              </span>
+            </div>
+          ))}
         </div>
 
         {/* 결과를 다 고르기 전에는 판정 박스를 띄우지 않는다 */}
         {outcome && (
           <div className={'outcome ' + outcome}>
-            <div className="big" style={{ color: om.color }}>{om.icon} {om.label}</div>
-            <div className="desc">최종 Gold {cycles.gold.result === 'success' ? '성공' : '실패'} 기준 자동 판정</div>
+            <div className="big" style={{ color: om.color }}>{om.icon} {t(`outcome.${outcome}`)}</div>
+            <div className="desc">
+              {t('newRun.verdictNote', {
+                result: t(cycles.gold.result === 'success' ? 'newRun.success' : 'newRun.fail'),
+              })}
+            </div>
           </div>
         )}
 
-        <button className="btn" onClick={save} disabled={!allChosen}>기록 저장</button>
+        <button className="btn" onClick={save} disabled={!allChosen}>{t('newRun.save')}</button>
       </div>
     </div>
   )

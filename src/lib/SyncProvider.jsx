@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useState } from 'rea
 import { supabase, hasSupabase } from './supabase'
 import { syncAll } from './sync'
 import { pendingReportCount } from '../db/reports'
+import { t } from '../i18n'
 
 // 인증 + 동기화를 앱 루트 한 곳에서 관리한다.
 // 예전에는 Profile 페이지가 마운트될 때만 동기화가 돌아서, 다른 기기에서
@@ -62,13 +63,13 @@ export function SyncProvider({ children }) {
       // 올린/받은 건수는 내부 동작이라 보여주지 않는다. 같은 기록이 push 직후
       // pull에도 잡혀 숫자가 부풀기도 해서, 결과만 문장으로 알린다.
       const parts = []
-      if (userId) parts.push(r.pushed || r.pulled ? '기록을 동기화했어요' : '최신 상태예요')
-      if (r.reported) parts.push(`제보 ${r.reported}건을 보냈어요`)
+      if (userId) parts.push(t(r.pushed || r.pulled ? 'sync.done' : 'sync.upToDate'))
+      if (r.reported) parts.push(t('sync.reportsSent', { count: r.reported }))
       setStatus('done')
       setMessage(parts.join(' · '))
     } catch (e) {
       setStatus('error')
-      setMessage(e.message || '동기화하지 못했어요')
+      setMessage(e.message || t('sync.failed'))
     } finally {
       // 실패해도 로컬 데이터는 보여줘야 한다 — 영원히 로딩에 갇히지 않도록
       setHydrated(true)

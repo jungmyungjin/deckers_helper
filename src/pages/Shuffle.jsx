@@ -2,12 +2,15 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useRuns, unclearedCombos } from '../db/runs'
 import { useSync } from '../lib/SyncProvider'
-import { SMC_BY_ID, CARD_BY_ID, COPPERS, SILVERS } from '../data/gameData'
+import { useT } from '../i18n'
+import { cardName, smcName } from '../i18n/content'
+import { COPPERS, SILVERS } from '../data/gameData'
 
 const pick = (a) => a[Math.floor(Math.random() * a.length)]
 
 export default function Shuffle() {
   const nav = useNavigate()
+  const { t } = useT()
   const runs = useRuns()
   const { hydrated } = useSync()
   const uncleared = unclearedCombos(runs)
@@ -20,30 +23,30 @@ export default function Shuffle() {
   }
 
   const d = draw
-  const smc = d && SMC_BY_ID[d.smcId]
-  const gold = d && CARD_BY_ID[d.goldId]
 
   return (
     <div className="page">
-      <header className="appbar"><div><h1>랜덤 챌린지</h1><div className="sub">미클리어 GOLD 우선</div></div></header>
+      <header className="appbar">
+        <div><h1>{t('shuffle.title')}</h1><div className="sub">{t('shuffle.sub')}</div></div>
+      </header>
       <div className="scroll">
         {/* 뽑기 전에는 카드 자체가 버튼 — 따로 누를 버튼을 밑에 두지 않는다 */}
         {!d && (
           hydrated && uncleared.length === 0 ? (
             <div className="challenge">
-              <div className="tag">완주</div>
+              <div className="tag">{t('shuffle.doneTag')}</div>
               <div className="boss" style={{ fontSize: '1.3rem', margin: '12px 0 0' }}>
-                🎉 모든 조합 클리어!
+                {t('shuffle.doneMsg')}
               </div>
             </div>
           ) : (
             <button className="challenge tap" onClick={roll} disabled={!hydrated}>
               <span className="tag">
-                {hydrated ? `아직 못 깬 조합 ${uncleared.length}개` : '기록 동기화 중'}
+                {hydrated ? t('shuffle.remaining', { count: uncleared.length }) : t('shuffle.syncing')}
               </span>
               <span className="dice">🎲</span>
               <span className="tapmsg">
-                {hydrated ? '눌러서 도전 조합 뽑기' : '기록을 불러오는 중…'}
+                {hydrated ? t('shuffle.tapToDraw') : t('common.loading')}
               </span>
             </button>
           )
@@ -51,13 +54,13 @@ export default function Shuffle() {
 
         {d && (
           <div className="challenge">
-            <div className="tag">오늘의 도전</div>
-            <div className="boss">{gold.name}</div>
-            <div className="vs">vs {smc.name} · 아직 못 깬 Gold</div>
+            <div className="tag">{t('shuffle.todayTag')}</div>
+            <div className="boss">{cardName(d.goldId)}</div>
+            <div className="vs">{t('shuffle.vsUncleared', { name: smcName(d.smcId) })}</div>
             <div className="deck-strip">
-              <span className="mini cop">BRONZE<br />{CARD_BY_ID[d.copper].name}</span>
-              <span className="mini sil">SILVER<br />{CARD_BY_ID[d.silver].name}</span>
-              <span className="mini gol">GOLD<br />{gold.name}</span>
+              <span className="mini cop"><small>{t('game.securityShort.copper')}</small>{cardName(d.copper)}</span>
+              <span className="mini sil"><small>{t('game.securityShort.silver')}</small>{cardName(d.silver)}</span>
+              <span className="mini gol"><small>{t('game.securityShort.gold')}</small>{cardName(d.goldId)}</span>
             </div>
           </div>
         )}
@@ -65,11 +68,11 @@ export default function Shuffle() {
         {d && (
           <>
             <button className="reshuffle" onClick={roll}>
-              🎲 다시 셔플 — 남은 미클리어 <b>{uncleared.length}</b>칸 중
+              {t('shuffle.reshuffle', { count: uncleared.length })}
             </button>
             <button className="btn ghost" onClick={() =>
               nav(`/new?smc=${d.smcId}&copper=${d.copper}&silver=${d.silver}&gold=${d.goldId}`)}>
-              이 셋업으로 기록 시작 →
+              {t('shuffle.startRecord')}
             </button>
           </>
         )}

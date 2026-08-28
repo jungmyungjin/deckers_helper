@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import { SECURITY_COLORS } from '../data/gameData'
-
-// 표시용 라벨. 내부 값(copper/…)은 기록에 저장되므로 그대로 둔다.
-const SEC_LABEL = { copper: 'Bronze', silver: 'Silver', gold: 'Gold', ghost: "Mother's Ghost" }
+import { useT } from '../i18n'
+import { cardName, cardText } from '../i18n/content'
 
 // 목표 카드 뒤집기: 앞면(GOAL/SETUP/RULES) ↔ 뒷면(SUCCESS/FAIL)
+// card 는 뼈대({ id, security, code })만 받고, 이름·본문은 현재 언어로 조회한다.
 export default function FlipCard({ card }) {
+  const { t } = useT()
   const [flipped, setFlipped] = useState(false)
-  const hasBody = card.goal || card.rules || card.setup
-  const hasBack = card.success || card.fail
+  const text = cardText(card.id)
+  const hasBody = text.goal || text.rules || text.setup
+  const hasBack = text.success || text.fail
   const c = SECURITY_COLORS[card.security]
 
   return (
@@ -16,26 +18,36 @@ export default function FlipCard({ card }) {
       <div className={'cardstage' + (flipped ? ' flip' : '')} onClick={() => setFlipped((f) => !f)}>
         <div className="card3d">
           <div className="face front" style={{ borderColor: c }}>
-            <div className="ctag" style={{ color: c }}>◆ {SEC_LABEL[card.security]} · Goal</div>
-            <div className="cnm">{card.name}</div>
-            <div className="facebody">
-              {card.goal && <div className="sec"><b>Goal</b>{card.goal}</div>}
-              {card.setup && <div className="sec"><b>Setup</b>{card.setup}</div>}
-              {card.rules && <div className="sec"><b>Rules</b>{card.rules}</div>}
-              {!hasBody && <div className="sec empty2">내용 입력 예정<br /><small>실물 카드 참고</small></div>}
+            <div className="ctag" style={{ color: c }}>
+              {t('flipCard.goalTag', { security: t(`game.security.${card.security}`) })}
             </div>
-            <div className="flipmark">{hasBack ? '탭 → 결과 ⟳' : '탭 ⟳'}</div>
+            <div className="cnm">{cardName(card.id)}</div>
+            <div className="facebody">
+              {text.goal && <div className="sec"><b>{t('flipCard.goal')}</b>{text.goal}</div>}
+              {text.setup && <div className="sec"><b>{t('flipCard.setup')}</b>{text.setup}</div>}
+              {text.rules && <div className="sec"><b>{t('flipCard.rules')}</b>{text.rules}</div>}
+              {!hasBody && (
+                <div className="sec empty2">
+                  {t('flipCard.bodyPending')}<br /><small>{t('flipCard.seePhysical')}</small>
+                </div>
+              )}
+            </div>
+            <div className="flipmark">{hasBack ? t('flipCard.tapToResult') : t('flipCard.tap')}</div>
           </div>
           <div className="face back">
-            <div className="ctag" style={{ color: 'var(--safe)' }}>판정 결과</div>
-            <div className="cnm">SUCCESS / FAIL</div>
+            <div className="ctag" style={{ color: 'var(--safe)' }}>{t('flipCard.resultTag')}</div>
+            <div className="cnm">{t('flipCard.resultTitle')}</div>
             <div className="facebody">
-              {card.success && <div className="sec"><b style={{ color: 'var(--safe)' }}>Success</b>{card.success}</div>}
-              {card.fail && <div className="sec"><b style={{ color: 'var(--danger)' }}>Fail</b>{card.fail}</div>}
-              {card.flavor_success && <div className="flavor">“{card.flavor_success}”</div>}
-              {!hasBack && <div className="sec empty2">결과면 내용 입력 예정</div>}
+              {text.success && (
+                <div className="sec"><b style={{ color: 'var(--safe)' }}>{t('flipCard.success')}</b>{text.success}</div>
+              )}
+              {text.fail && (
+                <div className="sec"><b style={{ color: 'var(--danger)' }}>{t('flipCard.fail')}</b>{text.fail}</div>
+              )}
+              {text.flavor_success && <div className="flavor">“{text.flavor_success}”</div>}
+              {!hasBack && <div className="sec empty2">{t('flipCard.resultPending')}</div>}
             </div>
-            <div className="flipmark">탭 → 원면 ⟳</div>
+            <div className="flipmark">{t('flipCard.tapToFront')}</div>
           </div>
         </div>
       </div>

@@ -5,9 +5,12 @@ Supabase(Postgres) 기준. 로컬(Dexie/IndexedDB)이 같은 구조를 미러링
 
 ## 설계 원칙
 
-1. **DB는 유저 기록만 담는다.** SMC·덱커·목표 카드 같은 레퍼런스 데이터는
-   [`src/data/gameData.js`](../src/data/gameData.js)가 단일 원본이다. 게스트 모드와
-   오프라인에서도 카드가 보여야 해서 번들에 반드시 있어야 하고, DB에 또 두면 영구 이중 관리가 된다.
+1. **DB는 유저 기록만 담는다.** SMC·덱커·목표 카드 같은 레퍼런스 데이터는 번들이
+   단일 원본이다 — 언어 무관 뼈대는 [`src/data/gameData.js`](../src/data/gameData.js),
+   판본별 이름·본문은 `src/data/content/{ko,en,de}.json`([../docs/i18n.md](i18n.md)).
+   게스트 모드와 오프라인에서도 카드가 보여야 해서 번들에 반드시 있어야 하고,
+   DB에 또 두면 영구 이중 관리가 된다.
+   **다국어를 넣어도 이 테이블들은 바뀌지 않는다** — 저장하는 값이 전부 언어 무관 id다.
 2. **런 1건 = 행 1개.** 덱커/목표를 JSONB로 안고 있어 upsert가 원자적이다.
    자식 테이블을 따로 두면 "부모만 저장되고 자식이 유실"되는 부분 실패가 생긴다.
 3. **삭제는 tombstone.** 물리 삭제로는 "지웠다"는 사실을 다른 기기에 전달할 방법이 없다.
@@ -51,8 +54,9 @@ Supabase(Postgres) 기준. 로컬(Dexie/IndexedDB)이 같은 구조를 미러링
 | `context` | jsonb | 앱이 자동 수집 (아래) |
 | `created_at` / `resolved_at` | timestamptz | 처리하면 `resolved_at` 기록 |
 
-`context`에 담기는 것: `appVersion, route, account, online, standalone, syncStatus,
-syncMessage, runCount, screen, language, userAgent, at`.
+`context`에 담기는 것: `appVersion, route, account, locale, online, standalone,
+syncStatus, syncMessage, runCount, screen, language, userAgent, at`.
+(`locale` = 앱에 설정된 언어, `language` = 기기 언어)
 `kind='crash'`면 `errorName, stack, componentStack`이 추가된다(각 4000자로 자름).
 
 제보자가 상황을 설명하지 않아도 어디서 난 오류인지 알 수 있게 하는 게 목적이고,

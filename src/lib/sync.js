@@ -1,5 +1,6 @@
 import { supabase, hasSupabase } from './supabase'
 import { db, getMeta, setMeta } from '../db/localDb'
+import { t } from '../i18n'
 
 // 오프라인 퍼스트 동기화.
 //   · run.id(클라이언트 uuid)를 양쪽 PK로 써서 upsert가 idempotent
@@ -44,7 +45,7 @@ export async function pushReports(userId) {
     })
     // 23505 = PK 중복. 이미 들어갔는데 응답만 유실된 재시도이므로 전송된 것으로 본다.
     if (error && error.code !== '23505') {
-      fail('제보를 보내지 못했어요', error)
+      fail(t('sync.reportFailed'), error)
     }
     await db.reports.update(r.id, { dirty: 0 })
     n++
@@ -72,7 +73,7 @@ async function pushLocal(userId) {
     })))
     .select('id, updated_at')
 
-  if (error) fail('기록을 올리지 못했어요', error)
+  if (error) fail(t('sync.pushFailed'), error)
 
   // 서버가 확인해준 행만 dirty 해제 + 서버 시계 기준 updated_at 저장
   await db.transaction('rw', db.runs, async () => {
@@ -90,7 +91,7 @@ async function pullCloud(userId) {
   if (since) q = q.gt('updated_at', since)
 
   const { data, error } = await q.order('updated_at', { ascending: true })
-  if (error) fail('기록을 불러오지 못했어요', error)
+  if (error) fail(t('sync.pullFailed'), error)
   if (!data.length) return 0
 
   let n = 0
