@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react'
-import { useLiveQuery } from 'dexie-react-hooks'
-import { db } from '../db/localDb'
-import { computeStats } from '../db/runs'
-import { useAuth } from '../lib/useAuth'
-import { syncAll } from '../lib/sync'
+import { useNavigate } from 'react-router-dom'
+import { useRuns, computeStats } from '../db/runs'
+import { useSync } from '../lib/SyncProvider'
+import { APP_VERSION, usePendingReportCount } from '../db/reports'
 
+// 업적은 runs에서 파생된다 — 기록만 동기화되면 어느 기기에서든 같은 결과가 나온다.
 const ACHIEVEMENTS = [
   { id: 'stamps-1', icon: '🩹', name: '첫 침투', metric: 'stamps', threshold: 1 },
   { id: 'stamps-5', icon: '💾', name: '숙련 데커', metric: 'stamps', threshold: 5 },
@@ -15,42 +14,31 @@ const ACHIEVEMENTS = [
 ]
 
 export default function Profile() {
-  const runs = useLiveQuery(() => db.runs.toArray(), [], [])
+  const nav = useNavigate()
+  const pendingReports = usePendingReportCount()
+  const runs = useRuns()
   const stats = computeStats(runs)
   const val = { stamps: stats.stamps, perfects: stats.perfects }
   const unlocked = ACHIEVEMENTS.filter((a) => val[a.metric] >= a.threshold).length
-  const { user, signIn, signOut, enabled } = useAuth()
-  const [syncing, setSyncing] = useState(false)
-  const [syncMsg, setSyncMsg] = useState('')
-
-  // 로그인되면 자동 동기화 1회
-  useEffect(() => { if (user) doSync() }, [user]) // eslint-disable-line
-
-  async function doSync() {
-    if (!user) return
-    setSyncing(true); setSyncMsg('')
-    try {
-      const r = await syncAll(user.id)
-      setSyncMsg(`동기화 완료 · 업로드 ${r.pushed} · 다운로드 ${r.pulled}`)
-    } catch (e) {
-      setSyncMsg('동기화 오류: ' + e.message)
-    } finally { setSyncing(false) }
-  }
+  const { user, signIn, signOut, enabled, doSync, status, message } = useSync()
+  const syncing = status === 'syncing'
 
   return (
     <div className="page">
       <header className="appbar">
-        <div><h1>프로필 · 업적</h1><div className="sub">{user ? '동기화 모드' : '게스트 모드'}</div></div>
+        <div><h1>프로필 · 업적</h1><div className="sub">{user ? '기록이 계정에 저장돼요' : '이 기기에만 저장 중'}</div></div>
       </header>
       <div className="scroll">
         {!user && (
           <>
-            <button className="gbtn" onClick={signIn} disabled={!enabled} title={enabled ? '' : 'Supabase 미설정'}>
+            <button className="gbtn" onClick={signIn} disabled={!enabled}
+              title={enabled ? '' : '지금은 로그인을 사용할 수 없어요'}>
               <span className="g" />Google로 로그인하고 동기화
             </button>
             <div className="guest">
-              지금은 이 기기에만 저장 중 · 로그인 시 병합
-              {!enabled && ' (Supabase 설정 필요 — .env)'}
+              {enabled
+                ? '지금은 이 기기에만 저장돼요 · 로그인하면 지금까지의 기록도 함께 보관됩니다'
+                : '지금은 로그인을 사용할 수 없어요 · 기록은 이 기기에 저장됩니다'}
             </div>
           </>
         )}
@@ -64,7 +52,9 @@ export default function Profile() {
               <button className="minibtn" onClick={doSync} disabled={syncing}>{syncing ? '동기화 중…' : '🔄 동기화'}</button>
               <button className="minibtn ghost" onClick={signOut}>로그아웃</button>
             </div>
-            {syncMsg && <div className="syncmsg">{syncMsg}</div>}
+            {message && (
+              <div className={'syncmsg' + (status === 'error' ? ' bad' : '')}>{message}</div>
+            )}
           </div>
         )}
 
@@ -87,6 +77,19 @@ export default function Profile() {
             )
           })}
         </div>
+
+        <button className="linkrow" onClick={() => nav('/report')}>
+          <span className="lr-ico">🐞</span>
+          <span className="lr-body">
+            <span className="lr-t">오류 제보</span>
+            <span className="lr-s">
+              {pendingReports > 0 ? `전송 대기 중 ${pendingReports}건` : '잘 안 되는 부분을 알려주세요'}
+            </span>
+          </span>
+          <span className="lr-arrow">›</span>
+        </button>
+
+        <div className="verline">v{APP_VERSION}</div>
       </div>
     </div>
   )

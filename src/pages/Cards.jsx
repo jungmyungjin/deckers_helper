@@ -3,10 +3,10 @@ import { OBJECTIVE_CARDS, SECURITY_COLORS } from '../data/gameData'
 import FlipCard from '../components/FlipCard'
 
 const TABS = [
-  { key: 'copper', label: 'Copper' },
+  { key: 'copper', label: 'Bronze' },
   { key: 'silver', label: 'Silver' },
   { key: 'gold', label: 'Gold' },
-  { key: 'ghost', label: "Ghost" },
+  { key: 'ghost', label: "Mother's Ghost" },
 ]
 
 export default function Cards() {

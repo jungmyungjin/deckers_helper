@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { SECURITY_COLORS } from '../data/gameData'
 
-const SEC_LABEL = { copper: 'Copper', silver: 'Silver', gold: 'Gold', ghost: "Mother's Ghost" }
+// 표시용 라벨. 내부 값(copper/…)은 기록에 저장되므로 그대로 둔다.
+const SEC_LABEL = { copper: 'Bronze', silver: 'Silver', gold: 'Gold', ghost: "Mother's Ghost" }
 
 // 목표 카드 뒤집기: 앞면(GOAL/SETUP/RULES) ↔ 뒷면(SUCCESS/FAIL)
 export default function FlipCard({ card }) {

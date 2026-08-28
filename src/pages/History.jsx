@@ -1,8 +1,7 @@
 import { useState } from 'react'
-import { useLiveQuery } from 'dexie-react-hooks'
 import { useNavigate } from 'react-router-dom'
-import { db } from '../db/localDb'
-import { deleteRun, finalGoldId } from '../db/runs'
+import { useRuns, deleteRun, finalGoldId } from '../db/runs'
+import { useSync } from '../lib/SyncProvider'
 import { SMC_BY_ID, CARD_BY_ID, DECKER_BY_ID, DECKER_COLORS, SMCS } from '../data/gameData'
 import { OUTCOME_META } from '../lib/outcome'
 
@@ -15,7 +14,8 @@ const FILTERS = [
 
 export default function History() {
   const nav = useNavigate()
-  const runs = useLiveQuery(() => db.runs.orderBy('playedAt').reverse().toArray(), [], [])
+  const runs = useRuns()
+  const { hydrated } = useSync()
   const [filter, setFilter] = useState('all')
   const [smc, setSmc] = useState('all')
 
@@ -40,7 +40,9 @@ export default function History() {
           {SMCS.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
         </select>
 
-        {filtered.length === 0 && <div className="empty">해당하는 기록이 없어요.</div>}
+        {filtered.length === 0 && (
+          <div className="empty">{hydrated ? '해당하는 기록이 없어요.' : '기록을 불러오는 중…'}</div>
+        )}
 
         {filtered.map((run) => {
           const om = OUTCOME_META[run.outcome]

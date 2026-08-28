@@ -4,15 +4,23 @@ import { SMCS, DECKERS, COPPERS, SILVERS, GOLDS, DECKER_COLORS } from '../data/g
 import { calcOutcome, OUTCOME_META } from '../lib/outcome'
 import { saveRun } from '../db/runs'
 
+const CYCLE_DEFS = [
+  ['copper', COPPERS, 'BRONZE'],
+  ['silver', SILVERS, 'SILVER'],
+  ['gold', GOLDS, 'GOLD · 최종 → 도장 기준'],
+]
+
 export default function NewRun() {
   const nav = useNavigate()
   const [sp] = useSearchParams()
   const [smcId, setSmcId] = useState(SMCS[0].id)
   const [deckers, setDeckers] = useState([{ deckerId: DECKERS[0].id, playerName: '' }])
+  // result는 null로 시작한다 — 성공이 미리 골라져 있으면 실제로 확인하지 않고
+  // 저장해버리기 쉽다. 세 개를 모두 고르기 전에는 판정도 저장도 하지 않는다.
   const [cycles, setCycles] = useState({
-    copper: { objectiveId: sp.get('copper') || COPPERS[0].id, result: 'success' },
-    silver: { objectiveId: sp.get('silver') || SILVERS[0].id, result: 'success' },
-    gold: { objectiveId: sp.get('gold') || GOLDS[0].id, result: 'success' },
+    copper: { objectiveId: sp.get('copper') || COPPERS[0].id, result: null },
+    silver: { objectiveId: sp.get('silver') || SILVERS[0].id, result: null },
+    gold: { objectiveId: sp.get('gold') || GOLDS[0].id, result: null },
   })
 
   // 초기값: 챌린지에서 넘어온 보스
@@ -23,8 +31,9 @@ export default function NewRun() {
     { cycleNo: 2, security: 'silver', ...cycles.silver, isFinal: false },
     { cycleNo: 3, security: 'gold', ...cycles.gold, isFinal: true },
   ]
-  const outcome = calcOutcome(objectives)
-  const om = OUTCOME_META[outcome]
+  const allChosen = CYCLE_DEFS.every(([sec]) => cycles[sec].result)
+  const outcome = allChosen ? calcOutcome(objectives) : null
+  const om = outcome ? OUTCOME_META[outcome] : null
 
   function setResult(sec, result) {
     setCycles((c) => ({ ...c, [sec]: { ...c[sec], result } }))
@@ -45,6 +54,7 @@ export default function NewRun() {
   }
 
   async function save() {
+    if (!allChosen) return
     await saveRun({ smcId, deckers, objectives })
     nav('/')
   }
@@ -85,7 +95,7 @@ export default function NewRun() {
 
         <div className="label">사이클별 목표 · 결과</div>
         <div className="cyclelist">
-          {[['copper', COPPERS, 'COPPER'], ['silver', SILVERS, 'SILVER'], ['gold', GOLDS, 'GOLD · 최종 → 도장 기준']].map(
+          {CYCLE_DEFS.map(
             ([sec, list, tag]) => (
               <div className="cyc" key={sec}>
                 <span className={'tier ' + sec} />
@@ -102,12 +112,15 @@ export default function NewRun() {
           )}
         </div>
 
-        <div className={'outcome ' + outcome}>
-          <div className="big" style={{ color: om.color }}>{om.icon} {om.label}</div>
-          <div className="desc">최종 Gold {cycles.gold.result === 'success' ? '성공' : '실패'} 기준 자동 판정</div>
-        </div>
+        {/* 결과를 다 고르기 전에는 판정 박스를 띄우지 않는다 */}
+        {outcome && (
+          <div className={'outcome ' + outcome}>
+            <div className="big" style={{ color: om.color }}>{om.icon} {om.label}</div>
+            <div className="desc">최종 Gold {cycles.gold.result === 'success' ? '성공' : '실패'} 기준 자동 판정</div>
+          </div>
+        )}
 
-        <button className="btn" onClick={save}>기록 저장</button>
+        <button className="btn" onClick={save} disabled={!allChosen}>기록 저장</button>
       </div>
     </div>
   )

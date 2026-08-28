@@ -103,6 +103,58 @@ select,input{font-family:inherit}
 .minibtn{flex:1;background:var(--cyan);color:#08222a;font-family:var(--disp);font-weight:700;border-radius:9px;padding:9px;font-size:12px}
 .minibtn.ghost{background:var(--ink-750);color:var(--fg);border:1px solid var(--line)}
 .syncmsg{font-family:var(--mono);font-size:9.5px;color:var(--safe);margin-top:10px;text-align:center}
+.syncmsg.bad{color:var(--danger)}
+
+/* 크래시 복구 화면 (ErrorBoundary) */
+.crash{min-height:100%;display:grid;place-items:center;padding:24px 18px}
+.crashbox{max-width:400px;width:100%;text-align:center}
+.crashicon{font-size:34px;margin-bottom:10px}
+.crashbox h1{font-family:var(--disp);font-size:1.25rem;margin:0 0 10px}
+.crashsub{color:var(--fg-dim);font-size:.86rem;line-height:1.65;margin:0 0 14px}
+.crashmsg{font-family:var(--mono);font-size:10px;color:var(--danger);
+  background:var(--ink-850);border:1px solid var(--line-soft);border-radius:10px;
+  padding:11px;margin:0 0 6px;text-align:left;white-space:pre-wrap;word-break:break-all;
+  max-height:150px;overflow:auto}
+.crashbox .btn:disabled{opacity:.55;cursor:default}
+.crashnote{font-family:var(--mono);font-size:9px;color:var(--fg-faint);
+  margin-top:14px;line-height:1.6}
+
+/* 한 단계 들어가는 행 (프로필 → 오류 제보) */
+.linkrow{display:flex;align-items:center;gap:11px;width:100%;text-align:left;
+  margin-top:22px;padding:12px 13px;background:var(--ink-800);
+  border:1px solid var(--line);border-radius:12px}
+.lr-ico{font-size:17px}
+.lr-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.lr-t{font-size:13px;font-weight:600}
+.lr-s{font-family:var(--mono);font-size:9.5px;color:var(--fg-faint)}
+.lr-arrow{color:var(--fg-faint);font-size:19px;line-height:1}
+
+/* 오류 제보 화면 */
+.rintro{color:var(--fg-dim);font-size:.84rem;line-height:1.7;margin:2px 0 16px}
+.rtext{resize:vertical;min-height:84px;line-height:1.55;font-family:inherit}
+.rmeta{display:flex;align-items:center;justify-content:space-between;margin-top:7px}
+.rlink{font-family:var(--mono);font-size:10px;color:var(--cyan);padding:0}
+.rcount{font-family:var(--mono);font-size:9.5px;color:var(--fg-faint)}
+.ctxbox{margin:9px 0 0;padding:10px 11px;background:var(--ink-850);
+  border:1px solid var(--line-soft);border-radius:10px;
+  font-family:var(--mono);font-size:9.5px;line-height:1.6}
+.ctxbox>div{display:flex;gap:8px}
+.ctxbox dt{color:var(--fg-faint);flex:0 0 76px}
+.ctxbox dd{margin:0;color:var(--fg-dim);flex:1;min-width:0;word-break:break-all}
+.rnote{font-family:var(--mono);font-size:9.5px;margin-top:9px;text-align:center;line-height:1.6}
+.rnote.ok{color:var(--safe)}
+.rnote.wait{color:var(--fg-faint)}
+.verline{font-family:var(--mono);font-size:9px;color:var(--fg-faint);
+  text-align:center;margin-top:20px;letter-spacing:.1em}
+
+/* 앱 상단 동기화 알림 — 동기화 중 / 실패일 때만 뜬다 */
+.syncbar{display:flex;align-items:center;justify-content:center;gap:10px;
+  font-family:var(--mono);font-size:10px;padding:6px 12px;
+  border-bottom:1px solid var(--line-soft)}
+.syncbar.syncing{background:var(--ink-800);color:var(--cyan)}
+.syncbar.error{background:#2b1719;color:var(--danger)}
+.syncbar button{font-family:var(--disp);font-weight:700;font-size:10px;
+  border:1px solid currentColor;border-radius:6px;padding:2px 8px;color:inherit}
 
 /* =========================================================
    반응형 — 태블릿/노트북(≥768px): 하단 탭 → 좌측 사이드바
@@ -242,10 +294,19 @@ button.cell:hover{border-color:var(--cyan)}
 .outcome .desc{font-family:var(--mono);font-size:9px;color:var(--fg-dim);margin-top:4px;letter-spacing:.04em}
 .btn{margin-top:13px;background:var(--cyan);color:#08222a;font-family:var(--disp);font-weight:700;text-align:center;padding:12px;border-radius:11px;font-size:13.5px;letter-spacing:.03em;width:100%;display:block}
 .btn.ghost{background:var(--ink-800);color:var(--fg);border:1px solid var(--line)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
 
 /* shuffle */
 .challenge{background:linear-gradient(160deg,var(--ink-800),var(--ink-850));border:1px solid var(--line);border-radius:16px;padding:18px;text-align:center;margin-bottom:14px}
-.challenge .tag{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan)}
+.challenge .tag{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan)}
+
+/* 뽑기 전 상태: 카드 전체가 셔플 버튼 */
+.challenge.tap{width:100%;transition:border-color .15s,transform .08s}
+.challenge.tap:not(:disabled):hover{border-color:var(--cyan)}
+.challenge.tap:not(:disabled):active{transform:scale(.99)}
+.challenge.tap:disabled{opacity:.55;cursor:default}
+.challenge .dice{display:block;font-size:38px;line-height:1;margin:15px 0 11px}
+.challenge .tapmsg{display:block;font-family:var(--disp);font-weight:700;font-size:1.05rem}
 .challenge .boss{font-family:var(--disp);font-weight:700;font-size:1.6rem;margin:8px 0 2px}
 .challenge .vs{font-family:var(--mono);font-size:10px;color:var(--fg-faint);margin-bottom:10px}
 .deck-strip{display:flex;gap:7px;margin-top:12px;justify-content:center}

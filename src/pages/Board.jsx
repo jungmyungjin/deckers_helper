@@ -1,12 +1,12 @@
-import { useLiveQuery } from 'dexie-react-hooks'
 import { useNavigate } from 'react-router-dom'
-import { db } from '../db/localDb'
-import { computeBoard, computeStats } from '../db/runs'
+import { useRuns, computeBoard, computeStats } from '../db/runs'
+import { useSync } from '../lib/SyncProvider'
 import { SMCS, GOLDS } from '../data/gameData'
 
 export default function Board() {
   const nav = useNavigate()
-  const runs = useLiveQuery(() => db.runs.toArray(), [], [])
+  const runs = useRuns()
+  const { hydrated } = useSync()
   const board = computeBoard(runs)
   const stats = computeStats(runs)
 
@@ -70,7 +70,9 @@ export default function Board() {
         </p>
 
         {stats.total === 0 && (
-          <div className="empty">아직 기록이 없어요. 하단 <b>➕ 기록</b>에서 첫 판을 남겨보세요.</div>
+          hydrated
+            ? <div className="empty">아직 기록이 없어요. 하단 <b>➕ 기록</b>에서 첫 판을 남겨보세요.</div>
+            : <div className="empty">기록을 불러오는 중…</div>
         )}
       </div>
     </div>

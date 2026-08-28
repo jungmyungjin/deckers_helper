@@ -1,14 +1,14 @@
-import { useLiveQuery } from 'dexie-react-hooks'
 import { useParams, useNavigate } from 'react-router-dom'
-import { db } from '../db/localDb'
-import { attemptsFor } from '../db/runs'
+import { useRuns, attemptsFor } from '../db/runs'
+import { useSync } from '../lib/SyncProvider'
 import { SMC_BY_ID, CARD_BY_ID, DECKER_BY_ID, DECKER_COLORS } from '../data/gameData'
 import { OUTCOME_META } from '../lib/outcome'
 
 export default function MissionDetail() {
   const { smcId, goldId } = useParams()
   const nav = useNavigate()
-  const runs = useLiveQuery(() => db.runs.toArray(), [], [])
+  const runs = useRuns()
+  const { hydrated } = useSync()
   const smc = SMC_BY_ID[smcId]
   const gold = CARD_BY_ID[goldId]
   const attempts = attemptsFor(runs, smcId, goldId)
@@ -45,7 +45,11 @@ export default function MissionDetail() {
         </div>
 
         <div className="label">도전 히스토리 · 각 조합</div>
-        {attempts.length === 0 && <div className="empty">아직 이 미션에 도전한 기록이 없어요.</div>}
+        {attempts.length === 0 && (
+          <div className="empty">
+            {hydrated ? '아직 이 미션에 도전한 기록이 없어요.' : '기록을 불러오는 중…'}
+          </div>
+        )}
 
         {attempts.map((run) => {
           const om = OUTCOME_META[run.outcome]
@@ -59,7 +63,7 @@ export default function MissionDetail() {
                 <span className="adate">{fmt(run.playedAt)}</span>
               </div>
               <div className="trio">
-                <span className="tchip c"><small>COPPER</small>{copper ? CARD_BY_ID[copper.objectiveId]?.name ?? '—' : '—'}</span>
+                <span className="tchip c"><small>BRONZE</small>{copper ? CARD_BY_ID[copper.objectiveId]?.name ?? '—' : '—'}</span>
                 <span className="tchip s"><small>SILVER</small>{silver ? CARD_BY_ID[silver.objectiveId]?.name ?? '—' : '—'}</span>
                 <span className="tchip g"><small>GOLD</small>{gold.name}</span>
               </div>
