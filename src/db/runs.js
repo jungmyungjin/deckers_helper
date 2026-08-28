@@ -54,7 +54,7 @@ export function finalGoldId(run) {
   return golds.length ? golds[golds.length - 1].objectiveId : null
 }
 
-// 84칸 보드: key = `${smcId}|${goldId}` → { cleared, perfect, wins }
+// 미션 보드: key = `${smcId}|${goldId}` → { cleared, perfect, wins }
 export function computeBoard(runs) {
   const map = {}
   for (const run of runs) {

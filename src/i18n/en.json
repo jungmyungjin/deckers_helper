@@ -37,7 +37,7 @@
     "perfect": "Perfect"
   },
   "board": {
-    "title": "84 Cells",
+    "title": "Mission Board",
     "sub": "GOLD × SMC · {stamps} / {total}",
     "stamps": "Cleared / {total}",
     "plays": "Runs",
@@ -205,7 +205,7 @@
       "language": "Language"
     },
     "route": {
-      "board": "84 Cells",
+      "board": "Mission Board",
       "history": "History",
       "shuffle": "Random Challenge",
       "new": "New Run",

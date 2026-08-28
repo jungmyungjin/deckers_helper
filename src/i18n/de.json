@@ -38,7 +38,7 @@
     "perfect": "Perfekt"
   },
   "board": {
-    "title": "84 Felder",
+    "title": "Missions-Board",
     "sub": "GOLD × SMC · {stamps} / {total}",
     "stamps": "Geschafft / {total}",
     "plays": "Partien",
@@ -206,7 +206,7 @@
       "language": "Sprache"
     },
     "route": {
-      "board": "84 Felder",
+      "board": "Missions-Board",
       "history": "Verlauf",
       "shuffle": "Zufalls-Challenge",
       "new": "Neue Partie",

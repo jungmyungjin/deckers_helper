@@ -37,7 +37,7 @@
     "perfect": "대성공"
   },
   "board": {
-    "title": "84칸 보드",
+    "title": "미션 보드",
     "sub": "GOLD × SMC · {stamps} / {total}",
     "stamps": "클리어 / {total}",
     "plays": "플레이",
@@ -187,7 +187,7 @@
       "language": "언어"
     },
     "route": {
-      "board": "84칸 보드",
+      "board": "미션 보드",
       "history": "히스토리",
       "shuffle": "랜덤 챌린지",
       "new": "새 기록",
