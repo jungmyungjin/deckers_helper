@@ -100,6 +100,11 @@
     "sub": "NEW RUN",
     "boss": "보스 (SMC)",
     "deckers": "덱커 · 조종한 사람",
+    "upgrade": "SMC 업그레이드",
+    "upgrade0": "기본 SMC",
+    "upgrade1": "업그레이드 +1 · Gold 목표 1장 추가",
+    "upgrade2": "업그레이드 +2 · Gold 목표 2장 추가",
+    "upgradeHint": "업그레이드에는 SMC 고유 특수 규칙이 추가됩니다.",
     "playerPlaceholder": "플레이어",
     "addDecker": "＋ 덱커 추가",
     "cyclesLabel": "사이클별 목표 · 결과",
@@ -107,6 +112,7 @@
     "success": "성공",
     "fail": "실패",
     "verdictNote": "최종 Gold {result} 기준 자동 판정",
+    "verdictAll": "Sentinel은 모든 목표 성공 기준으로 판정",
     "save": "기록 저장"
   },
   "shuffle": {

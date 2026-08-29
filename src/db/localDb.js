@@ -1,7 +1,7 @@
 import Dexie from 'dexie'
 
 // 오프라인 퍼스트 로컬 DB. 유저 데이터(runs)만 저장 — 서버 스키마와 1:1.
-// run = { id, smcId, playedAt, outcome, note, deletedAt, updatedAt, dirty,
+// run = { id, smcId, smcUpgrade, playedAt, outcome, note, deletedAt, updatedAt, dirty,
 //         deckers:[{deckerId, playerName}],
 //         objectives:[{cycleNo, objectiveId, security, result, isFinal}] }
 //

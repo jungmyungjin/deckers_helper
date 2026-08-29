@@ -5,26 +5,26 @@
 // 여기 있는 id 는 기록(runs)에 그대로 저장되므로 절대 바꾸면 안 된다.
 
 export const SMCS = [
-  { id: 'alpha-moby', difficulty: 1, cycles: 3 },
-  { id: 'spider', difficulty: 2, cycles: 4 },
-  { id: 'glom', difficulty: 2, cycles: 4 },
-  { id: 'logi', difficulty: 2, cycles: 4 },
-  { id: 'viking', difficulty: 3, cycles: 4 },
-  { id: 'sentinel', difficulty: 4, cycles: 5 },
-  { id: 'mother', difficulty: 4, cycles: 5 },
+  { id: 'alpha-moby', difficulty: 1, cycles: 3, objectives: { copper: 1, silver: 1, gold: 1 } },
+  { id: 'spider', difficulty: 2, cycles: 4, objectives: { copper: 1, silver: 1, gold: 1 } },
+  { id: 'glom', difficulty: 2, cycles: 4, objectives: { copper: 1, silver: 1, gold: 1 } },
+  { id: 'logi', difficulty: 2, cycles: 4, objectives: { copper: 2, silver: 1, gold: 1 } },
+  { id: 'viking', difficulty: 3, cycles: 4, objectives: { copper: 1, silver: 1, gold: 1 } },
+  { id: 'sentinel', difficulty: 4, cycles: 5, objectives: { copper: 2, silver: 2, gold: 1 }, requireAllObjectives: true },
+  { id: 'mother', difficulty: 4, cycles: 5, objectives: { copper: 1, silver: 2, gold: 1 } },
 ]
 
 export const DECKERS = [
-  { id: 'oshin-noro', color: 'red' },
-  { id: 'monty-quantum', color: 'green' },
-  { id: 'tilda-sweet', color: 'yellow' },
-  { id: 'hettie-magnetic', color: 'blue' },
-  { id: 'angel-nitrate', color: 'purple' },
-  { id: 'leiko-mori', color: 'purple' },
-  { id: 'rupert-stanz', color: 'purple' },
-  { id: 'tokyo-black', color: 'gray' },
-  { id: 'kelly-nexus', color: 'gray' },
-  { id: 'techno-twins', color: 'gray' },
+  { id: 'oshin-noro', profileId: 'red', side: 'primary', color: 'red' },
+  { id: 'angel-nitrate', profileId: 'red', side: 'alternate', color: 'red' },
+  { id: 'monty-quantum', profileId: 'green', side: 'primary', color: 'green' },
+  { id: 'kelly-nexus', profileId: 'green', side: 'alternate', color: 'green' },
+  { id: 'tilda-sweet', profileId: 'yellow', side: 'primary', color: 'yellow' },
+  { id: 'techno-twins', profileId: 'yellow', side: 'alternate', color: 'yellow' },
+  { id: 'hettie-magnetic', profileId: 'blue', side: 'primary', color: 'blue' },
+  { id: 'tokyo-black', profileId: 'blue', side: 'alternate', color: 'blue' },
+  { id: 'leiko-mori', profileId: 'purple', side: 'primary', color: 'purple' },
+  { id: 'rupert-stanz', profileId: 'purple', side: 'alternate', color: 'purple' },
 ]
 
 export const DECKER_COLORS = {
@@ -91,6 +91,32 @@ export const COPPERS = OBJECTIVE_CARDS.filter((c) => c.security === 'copper')
 export const SILVERS = OBJECTIVE_CARDS.filter((c) => c.security === 'silver')
 export const GOLDS = OBJECTIVE_CARDS.filter((c) => c.security === 'gold')
 export const SECURITY_COLORS = { copper: '#d18a57', silver: '#c3c7d4', gold: '#dcb64f', ghost: '#a473d6' }
+
+// SMC 업그레이드는 보스 고유 특수 규칙에 더해 Gold 목표를 1장 또는 2장 더한다.
+// 목표는 Bronze → Silver → Gold 순으로 배치하고, 마지막 Gold만 완주 보드의 기준이다.
+export function objectiveCountsFor(smcId, upgradeLevel = 0) {
+  const base = SMC_BY_ID[smcId]?.objectives || { copper: 1, silver: 1, gold: 1 }
+  const upgrade = Math.min(2, Math.max(0, Number(upgradeLevel) || 0))
+  return { ...base, gold: base.gold + upgrade }
+}
+
+export function buildObjectiveSlots(smcId, upgradeLevel = 0) {
+  const counts = objectiveCountsFor(smcId, upgradeLevel)
+  const slots = []
+  for (const security of ['copper', 'silver', 'gold']) {
+    for (let n = 0; n < counts[security]; n++) {
+      slots.push({ cycleNo: slots.length + 1, security, isFinal: false })
+    }
+  }
+  slots[slots.length - 1].isFinal = true
+  return slots
+}
+
+// 프로필 카드는 양면이다. 다른 플레이어가 한 면을 골랐으면 반대 면도 선택할 수 없다.
+export function availableDeckersFor(selectedDeckerIds = []) {
+  const usedProfiles = new Set(selectedDeckerIds.map((id) => DECKER_BY_ID[id]?.profileId).filter(Boolean))
+  return DECKERS.filter((decker) => !usedProfiles.has(decker.profileId))
+}
 
 // tier 는 저장하지 않는다 — difficulty 에서 파생되는 표시용 라벨이라
 // i18n 문구(game.tier.*)로 처리한다.

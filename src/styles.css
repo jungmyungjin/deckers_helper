@@ -332,6 +332,8 @@ table.mx tbody th{position:sticky;left:0;z-index:1;text-align:left;padding:0 9px
 .tchip.c{border-color:var(--copper);color:var(--copper);background:rgba(209,138,87,.08)}
 .tchip.s{border-color:var(--silver);color:var(--silver);background:rgba(195,199,212,.07)}
 .tchip.g{border-color:var(--gold);color:var(--gold);background:rgba(220,182,79,.1)}
+.objective-history{flex-wrap:wrap}
+.objective-history .tchip{flex:1 1 92px}
 .wholine{font-family:var(--mono);font-size:var(--t-label);color:var(--fg-dim);display:flex;flex-wrap:wrap;gap:8px}
 .wholine .p{display:inline-flex;align-items:center;gap:5px}
 .wholine .dk{width:8px;height:8px;border-radius:50%;display:inline-block}
@@ -339,6 +341,7 @@ table.mx tbody th{position:sticky;left:0;z-index:1;text-align:left;padding:0 9px
 /* forms */
 .field{margin-bottom:14px}
 .field .k{font-family:var(--mono);font-size:var(--t-label);letter-spacing:.1em;text-transform:uppercase;color:var(--fg-faint);margin-bottom:6px}
+.fieldhint{display:block;margin-top:6px;font-family:var(--body);font-size:var(--t-xs);color:var(--fg-faint);line-height:1.4}
 /* iOS Safari 는 font-size < 16px 인 입력에 포커스하면 화면을 확대한다. 16px 고정. */
 .cinput{background:var(--ink-800);border:1px solid var(--line);border-radius:10px;padding:10px 11px;font-size:var(--t-input);color:var(--fg);width:100%}
 .select-field{position:relative;width:100%}
@@ -394,23 +397,26 @@ table.mx tbody th{position:sticky;left:0;z-index:1;text-align:left;padding:0 9px
 .challenge .tapmsg{display:block;font-family:var(--disp);font-weight:700;font-size:1.05rem}
 .challenge .boss{font-family:var(--disp);font-weight:700;font-size:1.6rem;margin:8px 0 2px}
 .challenge .vs{font-family:var(--mono);font-size:var(--t-xs);color:var(--fg-faint);margin-bottom:10px}
-.deck-strip{display:flex;gap:7px;margin-top:12px;justify-content:center}
+.deck-strip{display:flex;gap:7px;margin-top:12px;justify-content:center;flex-wrap:wrap}
 /* 카드 이름이 들어가는 유일한 좁은 칸. 이름은 게임이 정한 값이라 줄일 수 없어
    (독일어는 특히 길다) 세로로 쌓고 줄바꿈을 허용한다. */
-.deck-strip .mini{flex:1;max-width:96px;min-height:72px;border-radius:7px;border:1px solid;
+.deck-strip .mini{flex:1 1 82px;max-width:110px;min-height:72px;border-radius:7px;border:1px solid;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
   font-family:var(--mono);font-size:var(--t-label);text-align:center;line-height:1.5;padding:6px;
   overflow-wrap:anywhere}
 .deck-strip .mini small{display:block;opacity:.72;letter-spacing:.08em}
-.mini.cop{border-color:var(--copper);background:rgba(209,138,87,.12);color:var(--copper)}
-.mini.sil{border-color:var(--silver);background:rgba(195,199,212,.1);color:var(--silver)}
-.mini.gol{border-color:var(--gold);background:rgba(220,182,79,.12);color:var(--gold)}
+.mini.copper{border-color:var(--copper);background:rgba(209,138,87,.12);color:var(--copper)}
+.mini.silver{border-color:var(--silver);background:rgba(195,199,212,.1);color:var(--silver)}
+.mini.gold{border-color:var(--gold);background:rgba(220,182,79,.12);color:var(--gold)}
 .reshuffle{font-family:var(--body);font-size:var(--t-sm);color:var(--fg-dim);border:1px dashed var(--line);border-radius:10px;padding:11px;text-align:center;width:100%;margin-bottom:10px}
 .reshuffle b{color:var(--gold)}
 
 /* achievements */
-.gbtn{display:flex;align-items:center;justify-content:center;gap:9px;background:#fff;color:#222;border-radius:11px;padding:12px;font-weight:600;font-size:var(--t-base);width:100%;opacity:.75}
-.gbtn .g{width:17px;height:17px;border-radius:50%;background:conic-gradient(#ea4335 0 25%,#fbbc05 0 50%,#34a853 0 75%,#4285f4 0)}
+.gbtn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;min-height:46px;padding:10px 12px;background:#fff;color:#3c4043;border:1px solid #dadce0;border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,.12);font-family:Arial,sans-serif;font-weight:500;font-size:var(--t-base);letter-spacing:.01em;transition:background .15s,border-color .15s,box-shadow .15s}
+.gbtn .g{width:20px;height:20px;flex:none}
+@media (hover:hover){.gbtn:not(:disabled):hover{background:#f8f9fa;border-color:#c7c9cc;box-shadow:0 1px 3px rgba(60,64,67,.25)}}
+.gbtn:focus-visible{outline:3px solid rgba(66,133,244,.45);outline-offset:2px}
+.gbtn:disabled{opacity:.55;cursor:default}
 .guest{text-align:center;font-family:var(--body);font-size:var(--t-xs);color:var(--cyan);padding:7px}
 .achgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .ach{background:var(--ink-800);border:1px solid var(--line-soft);border-radius:12px;padding:12px 10px;text-align:center}

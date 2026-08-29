@@ -1,14 +1,15 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db, newId } from './localDb'
 import { calcOutcome } from '../lib/outcome'
-import { COPPERS, GOLDS, SILVERS, SMCS } from '../data/gameData'
+import { buildObjectiveSlots, COPPERS, GOLDS, SILVERS, SMC_BY_ID, SMCS } from '../data/gameData'
 
 // ---- 쓰기 ----
-export async function saveRun({ smcId, playedAt, note, deckers, objectives }) {
-  const outcome = calcOutcome(objectives)
+export async function saveRun({ smcId, smcUpgrade = 0, playedAt, note, deckers, objectives }) {
+  const outcome = calcOutcome(objectives, { requireAllObjectives: SMC_BY_ID[smcId]?.requireAllObjectives })
   const run = {
     id: newId(),
     smcId,
+    smcUpgrade,
     playedAt: playedAt || new Date().toISOString(),
     outcome,
     note: note || '',
@@ -98,46 +99,101 @@ export function unclearedCombos(runs) {
   return out
 }
 
+function objectiveKey(objectives) {
+  return ['copper', 'silver', 'gold']
+    .map((security) => `${security}:${objectives.filter((o) => o.security === security).map((o) => o.objectiveId).join(',')}`)
+    .join('|')
+}
+
+function validExtraSetup(run, smcId) {
+  // 추가 도전은 기본 SMC의 모든 조합을 완주하는 단계다. 업그레이드 기록은
+  // 별도 난도 기록으로 보관하되 이 진행도를 건너뛰게 하지는 않는다.
+  if ((run.smcUpgrade || 0) !== 0) return false
+  const slots = buildObjectiveSlots(smcId, run.smcUpgrade || 0)
+  if (run.objectives?.length !== slots.length) return false
+  return slots.every((slot, index) => run.objectives[index]?.security === slot.security && run.objectives[index]?.objectiveId)
+    && ['copper', 'silver', 'gold'].every((security) => {
+      const ids = run.objectives.filter((objective) => objective.security === security).map((objective) => objective.objectiveId)
+      return ids.length === new Set(ids).size
+    })
+}
+
 function completedExtraKeys(runs, smcId) {
   const keys = new Set()
   for (const run of runs) {
-    if (run.smcId !== smcId || run.outcome === 'fail') continue
-    const copperId = run.objectives?.find((objective) => objective.security === 'copper')?.objectiveId
-    const silverId = run.objectives?.find((objective) => objective.security === 'silver')?.objectiveId
-    const goldId = finalGoldId(run)
-    if (copperId && silverId && goldId) keys.add(`${goldId}|${copperId}|${silverId}`)
+    if (run.smcId !== smcId || run.outcome === 'fail' || !validExtraSetup(run, smcId)) continue
+    keys.add(objectiveKey(run.objectives))
   }
   return keys
 }
 
-// 추가 도전: 같은 보스에서 성공한 Bronze × Silver × Gold 세 장 조합의 진행도.
-export function extraChallengeProgress(runs, smcId, goldId, copperId) {
-  const keys = completedExtraKeys(runs, smcId)
-  const prefix = goldId ? `${goldId}|${copperId || ''}` : ''
-  const completed = [...keys].filter((key) => {
-    if (!goldId) return true
-    if (!copperId) return key.startsWith(`${goldId}|`)
-    return key.startsWith(`${prefix}|`)
-  }).length
-  const total = goldId ? (copperId ? SILVERS.length : COPPERS.length * SILVERS.length)
-    : GOLDS.length * COPPERS.length * SILVERS.length
-  return { completed, total }
+function permutationsCount(n, length) {
+  let result = 1
+  for (let i = 0; i < length; i++) result *= n - i
+  return result
 }
 
-export function unclearedExtraSilverIds(runs, smcId, goldId, copperId) {
+// 추가 도전: 보스의 전체 목표 구성. 같은 색 카드도 순서가 다르면 별도 조합이다.
+export function extraChallengeProgress(runs, smcId) {
   const keys = completedExtraKeys(runs, smcId)
-  return SILVERS
-    .map((silver) => silver.id)
-    .filter((silverId) => !keys.has(`${goldId}|${copperId}|${silverId}`))
+  const slots = buildObjectiveSlots(smcId)
+  const counts = Object.fromEntries(['copper', 'silver', 'gold'].map((security) => [security, slots.filter((slot) => slot.security === security).length]))
+  const total = permutationsCount(COPPERS.length, counts.copper)
+    * permutationsCount(SILVERS.length, counts.silver)
+    * permutationsCount(GOLDS.length, counts.gold)
+  return { completed: keys.size, total }
 }
 
-export function unclearedExtraCombos(runs, smcId) {
+function randomDistinctIds(cards, count, random) {
+  const pool = cards.map((card) => card.id)
+  const result = []
+  for (let i = 0; i < count; i++) {
+    const index = Math.min(pool.length - 1, Math.floor(random() * pool.length))
+    result.push(pool.splice(index, 1)[0])
+  }
+  return result
+}
+
+export function buildRandomObjectives(smcId, smcUpgrade = 0, random = Math.random, finalGoldId = null) {
+  const slots = buildObjectiveSlots(smcId, smcUpgrade)
+  const idsBySecurity = {
+    copper: randomDistinctIds(COPPERS, slots.filter((slot) => slot.security === 'copper').length, random),
+    silver: randomDistinctIds(SILVERS, slots.filter((slot) => slot.security === 'silver').length, random),
+    gold: randomDistinctIds(GOLDS, slots.filter((slot) => slot.security === 'gold').length, random),
+  }
+  if (finalGoldId) {
+    const golds = idsBySecurity.gold.filter((id) => id !== finalGoldId)
+    idsBySecurity.gold = [...golds.slice(0, -1), finalGoldId]
+  }
+  const indexes = { copper: 0, silver: 0, gold: 0 }
+  return slots.map((slot) => ({ ...slot, objectiveId: idsBySecurity[slot.security][indexes[slot.security]++] }))
+}
+
+function *permutations(ids, count, prefix = []) {
+  if (prefix.length === count) { yield prefix; return }
+  for (const id of ids) yield *permutations(ids.filter((candidate) => candidate !== id), count, [...prefix, id])
+}
+
+export function drawUnclearedExtraCombo(runs, smcId, random = Math.random) {
   const keys = completedExtraKeys(runs, smcId)
-  const combos = []
-  for (const gold of GOLDS) for (const copper of COPPERS) for (const silver of SILVERS) {
-    if (!keys.has(`${gold.id}|${copper.id}|${silver.id}`)) {
-      combos.push({ goldId: gold.id, copperId: copper.id, silverId: silver.id })
+  const progress = extraChallengeProgress(runs, smcId)
+  if (progress.completed >= progress.total) return null
+  for (let i = 0; i < 48; i++) {
+    const objectives = buildRandomObjectives(smcId, 0, random)
+    if (!keys.has(objectiveKey(objectives))) return { objectives }
+  }
+
+  const counts = buildObjectiveSlots(smcId)
+  const perSecurity = Object.fromEntries(['copper', 'silver', 'gold'].map((security) => [security, counts.filter((slot) => slot.security === security).length]))
+  for (const copper of permutations(COPPERS.map((card) => card.id), perSecurity.copper)) {
+    for (const silver of permutations(SILVERS.map((card) => card.id), perSecurity.silver)) {
+      for (const gold of permutations(GOLDS.map((card) => card.id), perSecurity.gold)) {
+        const ids = { copper, silver, gold }
+        const index = { copper: 0, silver: 0, gold: 0 }
+        const objectives = counts.map((slot) => ({ ...slot, objectiveId: ids[slot.security][index[slot.security]++] }))
+        if (!keys.has(objectiveKey(objectives))) return { objectives }
+      }
     }
   }
-  return combos
+  return null
 }

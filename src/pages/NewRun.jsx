@@ -1,149 +1,136 @@
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { SMCS, DECKERS, COPPERS, SILVERS, GOLDS, DECKER_COLORS, DECKER_BY_ID, tierKey } from '../data/gameData'
+import { SMCS, DECKERS, DECKER_BY_ID, DECKER_COLORS, SMC_BY_ID, buildObjectiveSlots, CARD_BY_ID, COPPERS, SILVERS, GOLDS, tierKey } from '../data/gameData'
 import { useT } from '../i18n'
 import { deckerName, cardName, smcName } from '../i18n/content'
 import { calcOutcome, OUTCOME_META } from '../lib/outcome'
 import { saveRun } from '../db/runs'
 import SelectField from '../components/SelectField'
 
-const CYCLE_DEFS = [
-  ['copper', COPPERS, 'game.securityShort.copper'],
-  ['silver', SILVERS, 'game.securityShort.silver'],
-  ['gold', GOLDS, 'newRun.goldTag'],
-]
+const cardsFor = { copper: COPPERS, silver: SILVERS, gold: GOLDS }
+const validSmc = (id) => SMC_BY_ID[id] ? id : SMCS[0].id
+const clampUpgrade = (value) => Math.min(2, Math.max(0, Number(value) || 0))
+
+function makeCycles(smcId, upgrade, savedIds = []) {
+  const used = { copper: new Set(), silver: new Set(), gold: new Set() }
+  return buildObjectiveSlots(smcId, upgrade).map((slot, index) => {
+    const preferred = savedIds[index]
+    const chosen = cardsFor[slot.security].find((card) => card.id === preferred && !used[slot.security].has(card.id))
+      || cardsFor[slot.security].find((card) => !used[slot.security].has(card.id))
+    used[slot.security].add(chosen.id)
+    return { ...slot, objectiveId: chosen.id, result: null }
+  })
+}
 
 export default function NewRun() {
   const nav = useNavigate()
   const { t } = useT()
   const [sp] = useSearchParams()
-  const [smcId, setSmcId] = useState(SMCS[0].id)
+  const querySmcId = validSmc(sp.get('smc'))
+  const queryUpgrade = clampUpgrade(sp.get('upgrade'))
+  const queryIds = sp.get('objectives')?.split(',').filter((id) => CARD_BY_ID[id])
+    || [sp.get('copper'), sp.get('silver'), sp.get('gold')].filter((id) => CARD_BY_ID[id])
+  const [smcId, setSmcId] = useState(querySmcId)
+  const [smcUpgrade, setSmcUpgrade] = useState(queryUpgrade)
   const [deckers, setDeckers] = useState([{ deckerId: DECKERS[0].id, playerName: '' }])
-  // result는 null로 시작한다 — 성공이 미리 골라져 있으면 실제로 확인하지 않고
-  // 저장해버리기 쉽다. 세 개를 모두 고르기 전에는 판정도 저장도 하지 않는다.
-  const [cycles, setCycles] = useState({
-    copper: { objectiveId: sp.get('copper') || COPPERS[0].id, result: null },
-    silver: { objectiveId: sp.get('silver') || SILVERS[0].id, result: null },
-    gold: { objectiveId: sp.get('gold') || GOLDS[0].id, result: null },
-  })
+  const [cycles, setCycles] = useState(() => makeCycles(querySmcId, queryUpgrade, queryIds))
 
-  // 초기값: 챌린지에서 넘어온 보스
-  useMemo(() => { const s = sp.get('smc'); if (s) setSmcId(s) }, []) // eslint-disable-line
-
-  const objectives = [
-    { cycleNo: 1, security: 'copper', ...cycles.copper, isFinal: false },
-    { cycleNo: 2, security: 'silver', ...cycles.silver, isFinal: false },
-    { cycleNo: 3, security: 'gold', ...cycles.gold, isFinal: true },
-  ]
-  const allChosen = CYCLE_DEFS.every(([sec]) => cycles[sec].result)
-  const outcome = allChosen ? calcOutcome(objectives) : null
+  const outcome = cycles.every((cycle) => cycle.result)
+    ? calcOutcome(cycles, { requireAllObjectives: SMC_BY_ID[smcId]?.requireAllObjectives }) : null
   const om = outcome ? OUTCOME_META[outcome] : null
 
-  function setResult(sec, result) {
-    setCycles((c) => ({ ...c, [sec]: { ...c[sec], result } }))
-  }
-  function setCard(sec, objectiveId) {
-    setCycles((c) => ({ ...c, [sec]: { ...c[sec], objectiveId } }))
-  }
-  function addDecker() {
-    const used = new Set(deckers.map((d) => d.deckerId))
-    const next = DECKERS.find((d) => !used.has(d.id)) || DECKERS[0]
-    setDeckers((d) => [...d, { deckerId: next.id, playerName: '' }])
-  }
-  function updDecker(i, patch) {
-    setDeckers((d) => d.map((x, idx) => (idx === i ? { ...x, ...patch } : x)))
-  }
-  function rmDecker(i) {
-    setDeckers((d) => d.filter((_, idx) => idx !== i))
+  function changeSetup(nextSmcId, nextUpgrade) {
+    setSmcId(nextSmcId)
+    setSmcUpgrade(nextUpgrade)
+    setCycles((previous) => makeCycles(nextSmcId, nextUpgrade, previous.map((cycle) => cycle.objectiveId)))
   }
 
+  function setResult(index, result) {
+    setCycles((items) => items.map((cycle, i) => i === index ? { ...cycle, result } : cycle))
+  }
+  function setCard(index, objectiveId) {
+    setCycles((items) => items.map((cycle, i) => i === index ? { ...cycle, objectiveId } : cycle))
+  }
+  function addDecker() {
+    const usedProfiles = new Set(deckers.map((decker) => DECKER_BY_ID[decker.deckerId]?.profileId))
+    const next = DECKERS.find((decker) => !usedProfiles.has(decker.profileId))
+    if (next) setDeckers((items) => [...items, { deckerId: next.id, playerName: '' }])
+  }
+  function updDecker(index, patch) {
+    setDeckers((items) => items.map((decker, i) => i === index ? { ...decker, ...patch } : decker))
+  }
+  function rmDecker(index) {
+    setDeckers((items) => items.filter((_, i) => i !== index))
+  }
   async function save() {
-    if (!allChosen) return
-    await saveRun({ smcId, deckers, objectives })
+    if (!outcome) return
+    await saveRun({ smcId, smcUpgrade, deckers, objectives: cycles })
     nav('/')
   }
 
-  const CardSelect = ({ sec, list }) => (
-    <SelectField
-      ariaLabel={t(`game.securityShort.${sec}`)}
-      value={cycles[sec].objectiveId}
-      options={list.map((card) => ({ value: card.id, label: cardName(card.id) }))}
-      onChange={(objectiveId) => setCard(sec, objectiveId)}
-    />
-  )
+  const finalResult = cycles.find((cycle) => cycle.isFinal)?.result
 
-  return (
-    <div className="page">
-      <header className="appbar">
-        <div><h1>{t('newRun.title')}</h1><div className="sub">{t('newRun.sub')}</div></div>
-      </header>
-
-      <div className="scroll">
-        <div className="field">
-          <div className="k">{t('newRun.boss')}</div>
-          <SelectField
-            ariaLabel={t('newRun.boss')}
-            className="big"
-            value={smcId}
-            options={SMCS.map((smc) => ({ value: smc.id, label: `${smcName(smc.id)} · ${t(`game.tier.${tierKey(smc.difficulty)}`)}` }))}
-            onChange={setSmcId}
-          />
-        </div>
-
-        <div className="field">
-          <div className="k">{t('newRun.deckers')}</div>
-          {deckers.map((d, i) => (
-            <div className="drow" key={i}>
-              <span className="dk" style={{ background: DECKER_COLORS[DECKER_BY_ID[d.deckerId]?.color] }} />
-              <SelectField
-                ariaLabel={t('newRun.deckers')}
-                value={d.deckerId}
-                options={DECKERS.map((decker) => ({ value: decker.id, label: deckerName(decker.id) }))}
-                onChange={(deckerId) => updDecker(i, { deckerId })}
-              />
-              <input className="cinput" placeholder={t('newRun.playerPlaceholder')} value={d.playerName}
-                onChange={(e) => updDecker(i, { playerName: e.target.value })} />
-              {deckers.length > 1 && <button className="rm" onClick={() => rmDecker(i)}>×</button>}
-            </div>
-          ))}
-          {deckers.length < DECKERS.length && (
-            <button className="addbtn" onClick={addDecker}>{t('newRun.addDecker')}</button>
-          )}
-        </div>
-
-        <div className="label">{t('newRun.cyclesLabel')}</div>
-        <div className="cyclelist">
-          {CYCLE_DEFS.map(([sec, list, tagKey]) => (
-            <div className="cyc" key={sec}>
-              <span className={'tier ' + sec} />
-              <div className="cyc-body">
-                <CardSelect sec={sec} list={list} />
-                <small>{t(tagKey)}</small>
-              </div>
-              <span className="toggle">
-                <button className={'s' + (cycles[sec].result === 'success' ? ' on' : '')}
-                  onClick={() => setResult(sec, 'success')}>{t('newRun.success')}</button>
-                <button className={'f' + (cycles[sec].result === 'fail' ? ' on' : '')}
-                  onClick={() => setResult(sec, 'fail')}>{t('newRun.fail')}</button>
-              </span>
-            </div>
-          ))}
-        </div>
-
-        {/* 결과를 다 고르기 전에는 판정 박스를 띄우지 않는다 */}
-        {outcome && (
-          <div className={'outcome ' + outcome}>
-            <div className="big" style={{ color: om.color }}>{om.icon} {t(`outcome.${outcome}`)}</div>
-            <div className="desc">
-              {t('newRun.verdictNote', {
-                result: t(cycles.gold.result === 'success' ? 'newRun.success' : 'newRun.fail'),
-              })}
-            </div>
-          </div>
-        )}
-
-        <button className="btn" onClick={save} disabled={!allChosen}>{t('newRun.save')}</button>
+  return <div className="page">
+    <header className="appbar"><div><h1>{t('newRun.title')}</h1><div className="sub">{t('newRun.sub')}</div></div></header>
+    <div className="scroll">
+      <div className="field">
+        <div className="k">{t('newRun.boss')}</div>
+        <SelectField ariaLabel={t('newRun.boss')} className="big" value={smcId}
+          options={SMCS.map((smc) => ({ value: smc.id, label: `${smcName(smc.id)} · ${t(`game.tier.${tierKey(smc.difficulty)}`)}` }))}
+          onChange={(nextSmcId) => changeSetup(nextSmcId, smcUpgrade)} />
       </div>
+      <div className="field">
+        <div className="k">{t('newRun.upgrade')}</div>
+        <SelectField ariaLabel={t('newRun.upgrade')} value={String(smcUpgrade)}
+          options={[0, 1, 2].map((level) => ({ value: String(level), label: t(`newRun.upgrade${level}`) }))}
+          onChange={(level) => changeSetup(smcId, clampUpgrade(level))} />
+        <small className="fieldhint">{t('newRun.upgradeHint')}</small>
+      </div>
+      <div className="field">
+        <div className="k">{t('newRun.deckers')}</div>
+        {deckers.map((decker, index) => {
+          const selectedElsewhere = deckers.filter((_, i) => i !== index).map((item) => item.deckerId)
+          const options = DECKERS.filter((candidate) => candidate.id === decker.deckerId
+            || !selectedElsewhere.some((id) => DECKER_BY_ID[id]?.profileId === candidate.profileId))
+          return <div className="drow" key={index}>
+            <span className="dk" style={{ background: DECKER_COLORS[DECKER_BY_ID[decker.deckerId]?.color] }} />
+            <SelectField ariaLabel={t('newRun.deckers')} value={decker.deckerId}
+              options={options.map((candidate) => ({ value: candidate.id, label: deckerName(candidate.id) }))}
+              onChange={(deckerId) => updDecker(index, { deckerId })} />
+            <input className="cinput" placeholder={t('newRun.playerPlaceholder')} value={decker.playerName}
+              onChange={(event) => updDecker(index, { playerName: event.target.value })} />
+            {deckers.length > 1 && <button className="rm" onClick={() => rmDecker(index)} aria-label={t('common.close')}>×</button>}
+          </div>
+        })}
+        {deckers.length < 4 && <button className="addbtn" onClick={addDecker}>{t('newRun.addDecker')}</button>}
+      </div>
+      <div className="label">{t('newRun.cyclesLabel')}</div>
+      <div className="cyclelist">
+        {cycles.map((cycle, index) => {
+          const used = new Set(cycles.filter((item, i) => i !== index && item.security === cycle.security).map((item) => item.objectiveId))
+          return <div className="cyc" key={cycle.cycleNo}>
+            <span className={'tier ' + cycle.security} />
+            <div className="cyc-body">
+              <SelectField ariaLabel={t(`game.securityShort.${cycle.security}`)} value={cycle.objectiveId}
+                options={cardsFor[cycle.security].filter((card) => !used.has(card.id) || card.id === cycle.objectiveId)
+                  .map((card) => ({ value: card.id, label: cardName(card.id) }))}
+                onChange={(objectiveId) => setCard(index, objectiveId)} />
+              <small>{cycle.isFinal ? t('newRun.goldTag') : `${t(`game.securityShort.${cycle.security}`)} · ${cycle.cycleNo}`}</small>
+            </div>
+            <span className="toggle">
+              <button className={'s' + (cycle.result === 'success' ? ' on' : '')} onClick={() => setResult(index, 'success')}>{t('newRun.success')}</button>
+              <button className={'f' + (cycle.result === 'fail' ? ' on' : '')} onClick={() => setResult(index, 'fail')}>{t('newRun.fail')}</button>
+            </span>
+          </div>
+        })}
+      </div>
+      {outcome && <div className={'outcome ' + outcome}>
+        <div className="big" style={{ color: om.color }}>{om.icon} {t(`outcome.${outcome}`)}</div>
+        <div className="desc">{SMC_BY_ID[smcId]?.requireAllObjectives
+          ? t('newRun.verdictAll')
+          : t('newRun.verdictNote', { result: t(finalResult === 'success' ? 'newRun.success' : 'newRun.fail') })}</div>
+      </div>}
+      <button className="btn" onClick={save} disabled={!outcome}>{t('newRun.save')}</button>
     </div>
-  )
+  </div>
 }

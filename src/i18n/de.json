@@ -104,6 +104,11 @@
     "sub": "NEUE PARTIE",
     "boss": "SMC",
     "deckers": "Decker · wer gespielt hat",
+    "upgrade": "SMC-Upgrade",
+    "upgrade0": "Basis-SMC",
+    "upgrade1": "Upgrade +1 · 1 Goldziel zusätzlich",
+    "upgrade2": "Upgrade +2 · 2 Goldziele zusätzlich",
+    "upgradeHint": "Ein Upgrade ergänzt auch die SMC-Sonderregeln.",
     "playerPlaceholder": "Spieler",
     "addDecker": "＋ Decker",
     "cyclesLabel": "Ziele je Zyklus · Ergebnis",
@@ -111,6 +116,7 @@
     "success": "Erfolg",
     "fail": "Fehler",
     "verdictNote": "Aus dem finalen Gold ermittelt: {result}",
+    "verdictAll": "Beim Sentinel müssen alle Ziele gelingen.",
     "save": "Partie speichern"
   },
   "shuffle": {

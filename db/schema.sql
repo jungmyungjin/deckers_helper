@@ -16,6 +16,7 @@
 --
 --  완주 기준 = (SMC, 최종 Gold 카드) = 7 × 12 = 84칸.
 --  판정: 최종 Gold 실패 → fail / 전부 성공 → perfect / 그 외 → success
+--  (Sentinel은 모든 목표의 실패가 fail.)
 -- =====================================================================
 
 create type run_outcome as enum ('fail', 'success', 'perfect');
@@ -25,6 +26,7 @@ create type run_outcome as enum ('fail', 'success', 'perfect');
 -- =====================================================================
 --  deckers    : [{ deckerId, playerName }]
 --  objectives : [{ cycleNo, objectiveId, security, result, isFinal }]
+--  smc_upgrade: 0(기본) | 1(+Gold 1장) | 2(+Gold 2장)
 --    security = 'copper' | 'silver' | 'gold' | 'ghost'
 --    result   = 'success' | 'fail'
 --    isFinal  = 최종 Gold 여부 (도장 보드의 축)
@@ -34,6 +36,7 @@ create table runs (
   id         uuid        primary key,          -- 클라이언트 생성. Dexie와 공유하는 PK
   user_id    uuid        not null references auth.users(id) on delete cascade,
   smc_id     text        not null,
+  smc_upgrade smallint   not null default 0 check (smc_upgrade between 0 and 2),
   played_at  timestamptz not null,             -- 실제로 플레이한 시각 (클라이언트)
   outcome    run_outcome not null,             -- objectives 에서 앱이 계산
   note       text        not null default '',
@@ -57,7 +60,9 @@ create index idx_runs_live on runs (user_id, played_at desc) where deleted_at is
 --  updated_at 자동 갱신 — 클라이언트가 보낸 값은 무시하고 서버가 덮어쓴다
 -- =====================================================================
 create or replace function touch_updated_at()
-returns trigger language plpgsql as $$
+returns trigger
+set search_path = ''
+language plpgsql as $$
 begin
   new.updated_at = now();
   return new;
@@ -74,8 +79,8 @@ alter table runs enable row level security;
 
 create policy "own runs" on runs
   for all to authenticated
-  using (user_id = auth.uid())
-  with check (user_id = auth.uid());
+  using (user_id = (select auth.uid()))
+  with check (user_id = (select auth.uid()));
 
 -- =====================================================================
 --  reports — 앱 안에서 개발자에게 보내는 오류/제안 제보
@@ -104,6 +109,7 @@ create table reports (
 
 -- 아직 처리 안 한 제보를 최신순으로
 create index idx_reports_open on reports (created_at desc) where resolved_at is null;
+create index idx_reports_user on reports (user_id);
 
 alter table reports enable row level security;
 
@@ -118,4 +124,4 @@ create policy "anyone can report" on reports
 -- 본인이 보낸 제보만 조회 가능
 create policy "own reports" on reports
   for select to authenticated
-  using (user_id = auth.uid());
+  using (user_id = (select auth.uid()));

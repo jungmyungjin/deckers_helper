@@ -103,6 +103,11 @@
     "sub": "NEW RUN",
     "boss": "SMC",
     "deckers": "Deckers · who played",
+    "upgrade": "SMC upgrade",
+    "upgrade0": "Base SMC",
+    "upgrade1": "Upgrade +1 · add 1 Gold objective",
+    "upgrade2": "Upgrade +2 · add 2 Gold objectives",
+    "upgradeHint": "An upgrade also adds the SMC's special rules.",
     "playerPlaceholder": "Player",
     "addDecker": "＋ Add decker",
     "cyclesLabel": "Objectives by cycle · results",
@@ -110,6 +115,7 @@
     "success": "Success",
     "fail": "Failed",
     "verdictNote": "Judged from the final Gold: {result}",
+    "verdictAll": "Sentinel requires success on every objective.",
     "save": "Save run"
   },
   "shuffle": {

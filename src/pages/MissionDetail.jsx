@@ -60,8 +60,6 @@ export default function MissionDetail() {
 
         {attempts.map((run) => {
           const om = OUTCOME_META[run.outcome]
-          const copper = run.objectives.find((o) => o.security === 'copper')
-          const silver = run.objectives.find((o) => o.security === 'silver')
           return (
             <div className="attempt" key={run.id}>
               <div className="arow">
@@ -69,10 +67,10 @@ export default function MissionDetail() {
                 <span className="ares">{t(`outcome.${run.outcome}`)}</span>
                 <span className="adate">{formatDateTime(run.playedAt)}</span>
               </div>
-              <div className="trio">
-                <span className="tchip c"><small>{t('game.securityShort.copper')}</small>{copper ? cardName(copper.objectiveId) : '—'}</span>
-                <span className="tchip s"><small>{t('game.securityShort.silver')}</small>{silver ? cardName(silver.objectiveId) : '—'}</span>
-                <span className="tchip g"><small>{t('game.securityShort.gold')}</small>{cardName(goldId)}</span>
+              <div className="trio objective-history">
+                {run.objectives.map((objective) => <span className={'tchip ' + ({ copper: 'c', silver: 's', gold: 'g' }[objective.security])} key={objective.cycleNo}>
+                  <small>{t(`game.securityShort.${objective.security}`)}</small>{cardName(objective.objectiveId)}
+                </span>)}
               </div>
               <div className="wholine">
                 {run.deckers.length === 0 && <span className="p">{t('common.noDecker')}</span>}

@@ -64,6 +64,7 @@ async function pushLocal(userId) {
       id: r.id,
       user_id: userId,
       smc_id: r.smcId,
+      smc_upgrade: r.smcUpgrade || 0,
       played_at: r.playedAt,
       outcome: r.outcome,
       note: r.note || '',
@@ -104,6 +105,7 @@ async function pullCloud(userId) {
       await db.runs.put({
         id: r.id,
         smcId: r.smc_id,
+        smcUpgrade: r.smc_upgrade || 0,
         playedAt: r.played_at,
         outcome: r.outcome,
         note: r.note || '',

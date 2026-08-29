@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { extraChallengeProgress, unclearedCombos, unclearedExtraCombos, useRuns } from '../db/runs'
+import { buildRandomObjectives, drawUnclearedExtraCombo, extraChallengeProgress, finalGoldId, unclearedCombos, useRuns } from '../db/runs'
 import { useSync } from '../lib/SyncProvider'
 import { useT } from '../i18n'
 import { cardName, smcName } from '../i18n/content'
-import { COPPERS, SILVERS, SMCS } from '../data/gameData'
+import { SMCS } from '../data/gameData'
 import SelectField from '../components/SelectField'
 
 const pick = (a) => a[Math.floor(Math.random() * a.length)]
@@ -19,18 +19,18 @@ export default function Shuffle() {
   const showExtra = extraUnlocked || import.meta.env.DEV
   const [extraSmcId, setExtraSmcId] = useState(SMCS[0].id)
   const [draw, setDraw] = useState(null)
-  const extraCombos = unclearedExtraCombos(runs, extraSmcId)
+  const selectedExtraProgress = extraChallengeProgress(runs, extraSmcId)
 
   function roll() {
     if (uncleared.length === 0) { setDraw(null); return }
     const combo = pick(uncleared)
-    setDraw({ ...combo, copper: pick(COPPERS).id, silver: pick(SILVERS).id })
+    setDraw({ ...combo, objectives: buildRandomObjectives(combo.smcId, 0, Math.random, combo.goldId) })
   }
 
   function rollExtra() {
-    if (extraCombos.length === 0) { setDraw(null); return }
-    const combo = pick(extraCombos)
-    setDraw({ smcId: extraSmcId, copper: combo.copperId, silver: combo.silverId, goldId: combo.goldId, extra: true })
+    const combo = drawUnclearedExtraCombo(runs, extraSmcId)
+    if (!combo) { setDraw(null); return }
+    setDraw({ smcId: extraSmcId, ...combo, extra: true })
   }
 
   const d = draw
@@ -66,23 +66,23 @@ export default function Shuffle() {
         {d && (
           <div className="challenge">
             <div className="tag">{t('shuffle.todayTag')}</div>
-            <div className="boss">{cardName(d.goldId)}</div>
+            <div className="boss">{cardName(finalGoldId({ objectives: d.objectives }))}</div>
             <div className="vs">{d.extra ? t('shuffle.vsExtra', { name: smcName(d.smcId) }) : t('shuffle.vsUncleared', { name: smcName(d.smcId) })}</div>
             <div className="deck-strip">
-              <span className="mini cop"><small>{t('game.securityShort.copper')}</small>{cardName(d.copper)}</span>
-              <span className="mini sil"><small>{t('game.securityShort.silver')}</small>{cardName(d.silver)}</span>
-              <span className="mini gol"><small>{t('game.securityShort.gold')}</small>{cardName(d.goldId)}</span>
+              {d.objectives.map((objective) => <span className={'mini ' + objective.security} key={objective.cycleNo}>
+                <small>{t(`game.securityShort.${objective.security}`)}</small>{cardName(objective.objectiveId)}
+              </span>)}
             </div>
           </div>
         )}
 
         {d && (
           <>
-            <button className="reshuffle" onClick={roll}>
+            <button className="reshuffle" onClick={d.extra ? rollExtra : roll}>
               {d.extra ? t('shuffle.extraReshuffle') : t('shuffle.reshuffle', { count: uncleared.length })}
             </button>
             <button className="btn ghost" onClick={() =>
-              nav(`/new?smc=${d.smcId}&copper=${d.copper}&silver=${d.silver}&gold=${d.goldId}`)}>
+              nav(`/new?smc=${d.smcId}&objectives=${d.objectives.map((objective) => objective.objectiveId).join(',')}`)}>
               {t('shuffle.startRecord')}
             </button>
           </>
@@ -98,8 +98,8 @@ export default function Shuffle() {
                 options={SMCS.map((smc) => ({ value: smc.id, label: smcName(smc.id) }))}
                 onChange={setExtraSmcId} />
             </div>
-            <button className="btn" onClick={rollExtra} disabled={!hydrated || extraCombos.length === 0}>
-              {extraCombos.length === 0 ? t('extra.complete') : t('shuffle.extraDraw')}
+            <button className="btn" onClick={rollExtra} disabled={!hydrated || selectedExtraProgress.completed >= selectedExtraProgress.total}>
+              {selectedExtraProgress.completed >= selectedExtraProgress.total ? t('extra.complete') : t('shuffle.extraDraw')}
             </button>
           </div>
           <div className="extra-progress-list">
