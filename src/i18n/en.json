@@ -1,6 +1,7 @@
 {
   "app": {
-    "title": "Deckers Challenge Log"
+    "title": "Deckers Challenge Log",
+    "subtitle": "CHALLENGE LOG"
   },
   "nav": {
     "board": "Board",

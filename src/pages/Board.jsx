@@ -19,7 +19,9 @@ export default function Board() {
       <header className="appbar">
         <div>
           <h1>{t('board.title')}</h1>
-          <div className="sub">{t('board.sub', { stamps: stats.stamps, total: stats.totalCells })}</div>
+          {/* 홈 화면 헤더는 브랜드를 보여주는 자리로 쓴다. 여기 있던 진행률은
+              바로 아래 통계와 진행 바에 같은 값이 이미 두 번 나온다. */}
+          <div className="sub">{t('app.subtitle')}</div>
         </div>
       </header>
 
