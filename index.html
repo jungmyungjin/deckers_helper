@@ -11,6 +11,16 @@
     <!-- 상태 표시줄 뒤까지 그린다. 안전 영역은 styles.css 가 env(safe-area-inset-*) 로 처리. -->
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="mobile-web-app-capable" content="yes" />
+    <!-- 링크를 공유했을 때 뜨는 카드. og:image 는 배포 도메인이 정해지면
+         절대 URL(https://…/og.png)로 바꾸는 편이 크롤러 호환에 안전하다. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Deckers Challenge Log" />
+    <meta property="og:title" content="Deckers Challenge Log" />
+    <meta property="og:description" content="Run log, card reference and progress for the board game Deckers." />
+    <meta property="og:image" content="/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="description" content="Run log, card reference and progress for the board game Deckers." />
     <!-- lang 은 앱 시작 시 src/i18n 의 syncDocumentLang() 이 현재 언어로 덮어쓴다 -->
     <title>Deckers Challenge Log</title>
