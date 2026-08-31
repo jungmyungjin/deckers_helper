@@ -9,6 +9,7 @@ import { formatDateGroup, formatDateTimeStacked, groupRunsByCalendarDay } from '
 import { OUTCOME_META } from '../lib/outcome'
 import Modal from '../components/Modal'
 import BossSigil from '../components/BossSigil'
+import ProfileButton from '../components/ProfileButton'
 
 export default function History() {
   const nav = useNavigate()
@@ -22,6 +23,7 @@ export default function History() {
     <div className="page">
       <header className="appbar">
         <div><h1>{t('history.title')}</h1><div className="sub">{t('history.runs', { count: runs.length })}</div></div>
+        <ProfileButton />
       </header>
       <div className="scroll">
         {runs.length > 0 && <div className="history-summary">

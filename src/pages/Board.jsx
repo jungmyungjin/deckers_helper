@@ -5,6 +5,7 @@ import { useT } from '../i18n'
 import BossSigil from '../components/BossSigil'
 import { cardName, smcName } from '../i18n/content'
 import { SMCS, GOLDS } from '../data/gameData'
+import ProfileButton from '../components/ProfileButton'
 
 export default function Board() {
   const nav = useNavigate()
@@ -23,6 +24,7 @@ export default function Board() {
               바로 아래 통계와 진행 바에 같은 값이 이미 두 번 나온다. */}
           <div className="sub">{t('app.subtitle')}</div>
         </div>
+        <ProfileButton />
       </header>
 
       <div className="scroll">
@@ -78,6 +80,9 @@ export default function Board() {
         <p className="goldkey">
           <b>{t('board.goldKey')}</b> {GOLDS.map((g) => `${g.code} ${cardName(g.id)}`).join(' · ')}
         </p>
+        {/* 카드 목록은 하단 탭에서 빠졌다. 표의 약어를 읽다가 전체를 보고 싶어지는
+            자리라, 범례 바로 아래에서 잇는다. */}
+        <button className="btn ghost" onClick={() => nav('/cards')}>{t('board.allCards')}</button>
 
         {stats.total === 0 && (
           <div className="empty">{hydrated ? t('board.empty') : t('common.loading')}</div>

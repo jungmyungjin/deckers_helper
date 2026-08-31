@@ -7,6 +7,7 @@ import { cardName, smcName } from '../i18n/content'
 import { SMCS } from '../data/gameData'
 import SelectField from '../components/SelectField'
 import BossSigil from '../components/BossSigil'
+import ProfileButton from '../components/ProfileButton'
 
 const pick = (a) => a[Math.floor(Math.random() * a.length)]
 
@@ -40,6 +41,7 @@ export default function Shuffle() {
     <div className="page">
       <header className="appbar">
         <div><h1>{t('shuffle.title')}</h1></div>
+        <ProfileButton />
       </header>
       <div className="scroll">
         {/* 뽑기 전에는 카드 자체가 버튼 — 따로 누를 버튼을 밑에 두지 않는다 */}

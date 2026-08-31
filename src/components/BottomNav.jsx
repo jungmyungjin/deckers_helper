@@ -6,15 +6,14 @@ import BrandMark from './BrandMark'
 // 부제는 번역한다(app.subtitle) — 이름이 아니라 설명이기 때문.
 const PRODUCT_WORD = 'DECKERS'
 
-// label 은 i18n 키. 하단 탭 6개가 480px를 나눠 쓰므로 어느 언어에서든
-// 8자를 넘지 않게 번역할 것 (i18n/de.json 주석 참고).
+// label 은 i18n 키. 탭은 4개까지만 둔다 — iOS 는 5개, Material 은 3~5개가 상한이고
+// 6개였을 때는 번역 길이까지 규칙으로 묶어야 했다. 목표 카드는 보드에서, 프로필은
+// 헤더 아이콘에서 들어간다.
 const items = [
   { to: '/', ico: '🏆', key: 'nav.board', end: true },
   { to: '/history', ico: '📜', key: 'nav.history' },
   { to: '/new', ico: '➕', key: 'nav.new' },
   { to: '/shuffle', ico: '🎲', key: 'nav.shuffle' },
-  { to: '/cards', ico: '🃏', key: 'nav.cards' },
-  { to: '/profile', ico: '👤', key: 'nav.profile' },
 ]
 
 export default function BottomNav() {

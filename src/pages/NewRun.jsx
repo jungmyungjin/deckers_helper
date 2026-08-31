@@ -7,6 +7,7 @@ import { calcOutcome, OUTCOME_META } from '../lib/outcome'
 import { saveRun } from '../db/runs'
 import SelectField from '../components/SelectField'
 import BossSigil from '../components/BossSigil'
+import ProfileButton from '../components/ProfileButton'
 
 const cardsFor = { copper: COPPERS, silver: SILVERS, gold: GOLDS }
 const validSmc = (id) => SMC_BY_ID[id] ? id : SMCS[0].id
@@ -72,7 +73,7 @@ export default function NewRun() {
   const finalResult = cycles.find((cycle) => cycle.isFinal)?.result
 
   return <div className="page">
-    <header className="appbar"><div><h1>{t('newRun.title')}</h1><div className="sub">{t('newRun.sub')}</div></div></header>
+    <header className="appbar"><div><h1>{t('newRun.title')}</h1><div className="sub">{t('newRun.sub')}</div></div><ProfileButton /></header>
     <div className="scroll">
       <div className="bossmark">
         <div className="bm-badge"><BossSigil smcId={smcId} /></div>
