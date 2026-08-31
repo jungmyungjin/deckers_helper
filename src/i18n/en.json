@@ -274,5 +274,9 @@
     "pushFailed": "Couldn't upload your runs",
     "pullFailed": "Couldn't load your runs",
     "reportFailed": "Couldn't send your report"
+  },
+  "auth": {
+    "signInFailed": "Couldn't start sign-in · please try again in a moment",
+    "callbackFailed": "Sign-in didn't complete · please try again"
   }
 }

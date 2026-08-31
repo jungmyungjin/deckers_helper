@@ -275,5 +275,9 @@
     "pushFailed": "Partien konnten nicht hochgeladen werden",
     "pullFailed": "Partien konnten nicht geladen werden",
     "reportFailed": "Meldung konnte nicht gesendet werden"
+  },
+  "auth": {
+    "signInFailed": "Anmeldung konnte nicht gestartet werden · bitte gleich noch einmal versuchen",
+    "callbackFailed": "Anmeldung wurde nicht abgeschlossen · bitte erneut versuchen"
   }
 }

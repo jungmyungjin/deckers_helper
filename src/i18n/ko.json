@@ -253,5 +253,9 @@
     "pushFailed": "기록을 올리지 못했어요",
     "pullFailed": "기록을 불러오지 못했어요",
     "reportFailed": "제보를 보내지 못했어요"
+  },
+  "auth": {
+    "signInFailed": "로그인을 시작하지 못했어요 · 잠시 뒤 다시 시도해 주세요",
+    "callbackFailed": "로그인이 완료되지 않았어요 · 다시 시도해 주세요"
   }
 }

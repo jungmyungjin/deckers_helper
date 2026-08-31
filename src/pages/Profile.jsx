@@ -24,7 +24,7 @@ export default function Profile() {
   const stats = computeStats(runs)
   const val = { stamps: stats.stamps, perfects: stats.perfects }
   const unlocked = ACHIEVEMENTS.filter((a) => val[a.metric] >= a.threshold).length
-  const { user, signIn, signOut, enabled, doSync, status, message } = useSync()
+  const { user, signIn, signOut, enabled, doSync, status, message, authErrorKey } = useSync()
   const syncing = status === 'syncing'
 
   return (
@@ -48,6 +48,7 @@ export default function Profile() {
               </svg>
               {t('profile.signIn')}
             </button>
+            {authErrorKey && <div className="syncmsg bad">{t(authErrorKey)}</div>}
             <div className="guest">
               {enabled ? t('profile.guestNote') : t('profile.guestNoteDisabled')}
             </div>

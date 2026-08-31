@@ -23,6 +23,17 @@ DB에는 **유저 기록만** 들어간다. SMC·덱커·목표 카드는 [`src/
 
 > 이 등록을 빠뜨리면 배포 도메인에서 로그인 자체가 되지 않는다.
 > 앱은 `redirectTo: window.location.origin`으로 돌아오므로 접속한 주소가 그대로 등록돼 있어야 한다.
+> 실패해서 돌아오면 프로필 화면의 로그인 버튼 아래에 안내가 뜨고, 콘솔에 GoTrue가
+> 보낸 `error` / `error_description`이 그대로 찍힌다.
+
+### 왜 PKCE인가
+
+[`src/lib/supabase.js`](../src/lib/supabase.js)는 `flowType: 'pkce'`로 클라이언트를 만든다.
+supabase-js 기본값은 implicit이고, 그러면 토큰이 `#access_token=…` 프래그먼트로 돌아온다.
+이 앱은 HashRouter라 프래그먼트가 곧 라우트여서 같은 자리를 두고 다투게 된다 —
+로그인 직후 supabase가 해시를 비우면 히스토리에 빈 항목이 끼고, 액세스 토큰이
+주소창과 방문 기록에 남는다. PKCE는 `?code=`(쿼리)로 돌아오므로 라우터와 겹치지 않고,
+코드 교환이 끝나면 `history.replaceState`로 조용히 지워진다.
 
 ## 3. 앱 환경변수
 

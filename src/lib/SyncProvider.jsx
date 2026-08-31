@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
-import { supabase, hasSupabase } from './supabase'
+import { supabase, hasSupabase, oauthUrlError } from './supabase'
 import { syncAll } from './sync'
 import { pendingReportCount } from '../db/reports'
 import { t } from '../i18n'
@@ -24,6 +24,9 @@ export function SyncProvider({ children }) {
   // 로그인 세션이 있는데 첫 pull이 끝나기 전이면 false — 이때의 "기록 없음"은
   // 진짜 빈 상태가 아니라 아직 안 받아온 상태다.
   const [hydrated, setHydrated] = useState(!hasSupabase)
+  // 로그인 자체가 실패했을 때 보여줄 문구의 i18n 키. 동기화 오류(message)와 섞지
+  // 않는다 — 배너의 '재시도'가 동기화를 다시 도는 버튼이라, 로그인 실패에는 맞지 않는다.
+  const [authErrorKey, setAuthErrorKey] = useState(oauthUrlError ? 'auth.callbackFailed' : null)
 
   const userId = user?.id ?? null
 
@@ -43,7 +46,8 @@ export function SyncProvider({ children }) {
       const u = session?.user ?? null
       setUser(u)
       setAuthReady(true)
-      if (!u) { setHydrated(true); setStatus('idle'); setMessage('') }
+      if (u) setAuthErrorKey(null)
+      else { setHydrated(true); setStatus('idle'); setMessage('') }
     })
 
     return () => { active = false; sub.subscription.unsubscribe() }
@@ -87,16 +91,30 @@ export function SyncProvider({ children }) {
     return () => window.removeEventListener('online', onOnline)
   }, [doSync])
 
-  const signIn = () => supabase?.auth.signInWithOAuth({
-    provider: 'google',
-    options: { redirectTo: window.location.origin },
-  })
+  // 성공하면 이 함수가 끝나기 전에 브라우저가 Google로 떠난다.
+  // 여기서 error가 잡히는 건 아예 출발하지 못한 경우 — 조용히 삼키면
+  // 사용자에게는 '버튼을 눌렀는데 아무 일도 없는' 화면이 된다.
+  const signIn = useCallback(async () => {
+    if (!supabase) return
+    setAuthErrorKey(null)
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: window.location.origin },
+    })
+    if (error) {
+      console.warn('[deckers] Google 로그인을 시작하지 못했습니다', error)
+      setAuthErrorKey('auth.signInFailed')
+    }
+  }, [])
 
-  const signOut = () => supabase?.auth.signOut()
+  const signOut = useCallback(() => {
+    setAuthErrorKey(null)
+    return supabase?.auth.signOut()
+  }, [])
 
   return (
     <Ctx.Provider value={{
-      user, authReady, hydrated, status, message,
+      user, authReady, hydrated, status, message, authErrorKey,
       doSync, signIn, signOut, enabled: hasSupabase,
     }}>
       {children}
