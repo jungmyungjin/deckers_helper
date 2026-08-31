@@ -87,8 +87,32 @@ select created_at, message, context->>'stack' as stack, context->>'componentStac
 from reports where kind = 'crash' order by created_at desc;
 ```
 
-- **알림:** 대시보드 → Database → **Webhooks**에서 `reports` INSERT 훅을 만들어
-  Discord/Slack 웹훅 URL로 보내면 제보가 들어올 때 바로 알림이 온다. 코드 변경 불필요.
+### 메일 알림
+
+제보가 들어오면 **메일로 온다.** `reports` INSERT 트리거가 `pg_net`으로 Resend API를
+호출한다 ([`db/schema.sql`](../db/schema.sql) 마지막 절). 앱 코드와 무관하게 DB 안에서만
+도는 구조라, 배포본을 건드리지 않고 켜고 끌 수 있다.
+
+새 프로젝트에 붙일 때 필요한 건 Vault 값 두 개뿐이다. **키가 스키마에 남지 않도록**
+함수에는 이름만 두고 값은 Vault에 넣는다 — 이 레포는 퍼블릭이다.
+
+```sql
+select vault.create_secret('re_...',          'resend_api_key',  'Resend API 키');
+select vault.create_secret('you@example.com', 'report_email_to', '제보 받을 주소');
+```
+
+- **도메인 인증 전에는** `onboarding@resend.dev`에서 발송되고 Resend 계정 이메일로만
+  배달된다. 안 보이면 스팸함부터 확인.
+- **발송 이력:** `select status_code, content, created from net._http_response
+  order by created desc;` — 200이면 Resend가 접수한 것.
+- **키 교체:** 함수는 그대로 두고 Vault 값만 바꾼다.
+  `select vault.update_secret((select id from vault.secrets where name = 'resend_api_key'), '새키');`
+- **크래시만 받으려면** 트리거에 `when (new.kind = 'crash')`를 붙인다.
+
+알림이 실패해도 제보 저장은 성공한다 — Vault에 값이 없으면 함수가 조용히 통과한다.
+
+메일 대신 Discord/Slack이면 대시보드 → Database → **Webhooks**에서 `reports` INSERT 훅을
+만들어 웹훅 URL만 넣으면 된다. 이쪽은 Vault도 트리거도 필요 없다.
 
 ## 향후 개선 여지
 

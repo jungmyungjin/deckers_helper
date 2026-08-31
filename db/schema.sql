@@ -125,3 +125,82 @@ create policy "anyone can report" on reports
 create policy "own reports" on reports
   for select to authenticated
   using (user_id = (select auth.uid()));
+
+-- =====================================================================
+--  제보 메일 알림 — 새 reports 행이 들어오면 Resend 로 메일을 보낸다
+-- =====================================================================
+--  대시보드를 들여다봐야만 제보를 알 수 있던 문제를 없앤다.
+--
+--  키와 받을 주소는 Vault 에 둔다. 함수 정의에는 이름만 남으므로 이 파일을
+--  스키마 덤프로 갱신해도 비밀이 따라오지 않는다 — 이 레포는 퍼블릭이다.
+--  아래 두 줄은 프로젝트마다 값이 다르므로 직접 실행한다(커밋하지 않는다).
+--
+--    select vault.create_secret('re_...',            'resend_api_key',  'Resend API 키');
+--    select vault.create_secret('you@example.com',   'report_email_to', '제보 받을 주소');
+--
+--  키 교체는 함수를 건드릴 필요 없이 Vault 값만 갈아끼우면 된다:
+--    select vault.update_secret(
+--      (select id from vault.secrets where name = 'resend_api_key'), '새키');
+
+create extension if not exists pg_net;
+
+create or replace function notify_report_by_email()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+declare
+  api_key text;
+  mail_to text;
+begin
+  select decrypted_secret into api_key
+    from vault.decrypted_secrets where name = 'resend_api_key';
+  select decrypted_secret into mail_to
+    from vault.decrypted_secrets where name = 'report_email_to';
+
+  -- 설정이 없으면 조용히 통과한다. 알림 때문에 제보 저장 자체가 실패하면 본말전도다.
+  if api_key is null or mail_to is null then
+    return new;
+  end if;
+
+  -- pg_net 은 비동기다. 메일 API 가 느리거나 죽어도 insert 를 붙잡지 않는다.
+  -- 발송 결과는 net._http_response 에 남는다.
+  perform net.http_post(
+    url := 'https://api.resend.com/emails',
+    headers := jsonb_build_object(
+      'Authorization', 'Bearer ' || api_key,
+      'Content-Type', 'application/json'
+    ),
+    body := jsonb_build_object(
+      'from', 'Deckers <onboarding@resend.dev>',
+      'to', jsonb_build_array(mail_to),
+      'subject', format('[Deckers] %s — %s', new.kind,
+                        replace(left(new.message, 40), E'\n', ' ')),
+      'text', concat_ws(E'\n',
+        new.message,
+        '',
+        '--------------------',
+        '종류   : ' || new.kind,
+        '버전   : ' || coalesce(new.context->>'appVersion', '—'),
+        '화면   : ' || coalesce(new.context->>'route', '—'),
+        '계정   : ' || coalesce(new.context->>'account', '—'),
+        '언어   : ' || coalesce(new.context->>'locale', '—'),
+        '설치   : ' || case when (new.context->>'standalone') = 'true'
+                            then 'PWA' else '브라우저' end,
+        '기록수 : ' || coalesce(new.context->>'runCount', '—'),
+        '기기   : ' || coalesce(new.context->>'userAgent', '—'),
+        '시각   : ' || new.created_at::text,
+        case when new.context ? 'stack'
+             then E'\nstack:\n' || (new.context->>'stack') end
+      )
+    )
+  );
+  return new;
+end $$;
+
+-- 버그까지 다 오는 게 시끄러우면 when (new.kind = 'crash') 를 붙여 좁힌다.
+drop trigger if exists reports_email_notify on reports;
+create trigger reports_email_notify
+  after insert on reports
+  for each row execute function notify_report_by_email();
