@@ -247,7 +247,7 @@ table.mx tbody th{position:sticky;left:0;z-index:1;text-align:left;padding:0 9px
     border-top:none;border-right:1px solid var(--line);
     padding:20px 14px;gap:4px;justify-content:flex-start;
   }
-  .nav-brand{display:flex;align-items:center;gap:11px;padding:6px 12px 20px;margin-bottom:6px;border-bottom:1px solid var(--line-soft)}
+  .nav-brand{display:flex;align-items:center;gap:11px;padding:6px 12px 20px;margin-bottom:6px;border-bottom:1px solid var(--line-soft);color:inherit;text-decoration:none;border-radius:10px}
   /* 문자 글리프(◈) 자리에 실제 앱 마크가 들어간다. 도형 자체가 색을 갖고 있어 판을 깔지 않는다. */
   .nav-logo{width:34px;height:34px;display:block;flex:none}
   .nav-word{font-family:var(--disp);font-weight:700;font-size:15px;letter-spacing:.03em;line-height:1.2;display:flex;flex-direction:column}
@@ -506,3 +506,6 @@ table.mx tbody th .rowname{margin-left:6px}
 .pickboss{margin:-4px 0 10px;padding:12px;border:1px solid var(--line-soft);border-radius:11px;
   background:var(--ink-850)}
 .pickboss .btn{margin-top:10px}
+
+/* 사이드바 로고는 홈으로 가는 링크다 — 눌리는 것임을 hover 로 알린다. */
+@media (hover:hover){ .nav-brand:hover .nav-word{color:var(--cyan)} }
