@@ -76,7 +76,8 @@ button,a,select,input,textarea{-webkit-tap-highlight-color:transparent}
 .appbar h1{font-family:var(--disp);font-weight:600;font-size:var(--t-xl);margin:0;letter-spacing:.02em}
 .appbar .sub{font-family:var(--mono);font-size:var(--t-xs);color:var(--fg-faint);letter-spacing:.08em;margin-top:2px}
 .titlewrap{display:flex;align-items:center;gap:10px}
-.back{font-size:22px;color:var(--cyan);line-height:1;padding:0 4px}
+/* 44px 터치 영역. 시각적 위치는 그대로 두려고 음수 마진으로 여백을 상쇄한다. */
+.back{font-size:22px;color:var(--cyan);line-height:1;width:44px;height:44px;margin:-8px 0 -8px -12px;display:grid;place-items:center;flex:none}
 .avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--ghost),var(--cyan));display:grid;place-items:center;font-size:var(--t-base);font-weight:600;color:#fff}
 
 /* bottom nav */
@@ -89,8 +90,8 @@ button,a,select,input,textarea{-webkit-tap-highlight-color:transparent}
 
 /* ---- segmented tabs (카드/히스토리 필터) ---- */
 .segtabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
-.segtab{flex:1;min-width:64px;padding:8px 6px;border:1px solid var(--line);border-radius:9px;background:var(--ink-800);color:var(--fg-faint);font-family:var(--mono);font-size:var(--t-sm);letter-spacing:.03em}
-.segtab.sm{font-size:var(--t-xs);padding:7px 5px}
+.segtab{flex:1;min-width:64px;padding:11px 6px;border:1px solid var(--line);border-radius:9px;background:var(--ink-800);color:var(--fg-faint);font-family:var(--mono);font-size:var(--t-sm);letter-spacing:.03em}
+.segtab.sm{font-size:var(--t-xs);padding:10px 5px}
 .segtab.on{background:var(--ink-750);color:var(--fg);border-color:var(--cyan)}
 
 /* ---- 카드 그리드 ---- */
@@ -137,7 +138,9 @@ button,a,select,input,textarea{-webkit-tap-highlight-color:transparent}
 .runwho{font-family:var(--mono);font-size:var(--t-label);color:var(--fg-faint);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .runmeta{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex:none}
 .runtime{font-family:var(--mono);font-size:var(--t-label);color:var(--fg-faint);text-align:right;white-space:pre;line-height:1.5}
-.delx{color:var(--fg-faint);width:32px;height:32px;border-radius:6px;display:grid;place-items:center}
+/* 카드 전체가 클릭 가능(미션 상세로 이동)한 안에 있는 파괴적 버튼이다. 44px 로 키우고
+   오른쪽 끝으로 더 밀어 '열려다 지우는' 오탭 거리를 벌린다. */
+.delx{color:var(--fg-faint);width:44px;height:44px;margin:-6px -8px -6px 0;border-radius:8px;display:grid;place-items:center}
 .delx svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 @media (hover:hover){ .delx:hover{color:var(--danger);background:rgba(224,101,94,.1)} }
 
@@ -160,8 +163,9 @@ button,a,select,input,textarea{-webkit-tap-highlight-color:transparent}
 .uname{font-family:var(--disp);font-weight:600;font-size:var(--t-lg)}
 .uemail{font-family:var(--mono);font-size:var(--t-xs);color:var(--fg-faint);margin-top:2px}
 .userbtns{display:flex;gap:8px;margin-top:12px}
-.minibtn{flex:1;background:var(--cyan);color:#08222a;font-family:var(--disp);font-weight:700;border-radius:9px;padding:9px;font-size:var(--t-base)}
+.minibtn{flex:1;background:var(--cyan);color:#08222a;font-family:var(--disp);font-weight:700;border-radius:9px;padding:11px;font-size:var(--t-base)}
 .minibtn.ghost{background:var(--ink-750);color:var(--fg);border:1px solid var(--line)}
+.minibtn:disabled{opacity:.5;cursor:not-allowed}
 .syncmsg{font-family:var(--body);font-size:var(--t-label);color:var(--safe);margin-top:10px;text-align:center}
 .syncmsg.bad{color:var(--danger)}
 
@@ -221,6 +225,19 @@ button,a,select,input,textarea{-webkit-tap-highlight-color:transparent}
 /* =========================================================
    반응형 — 태블릿/노트북(≥768px): 하단 탭 → 좌측 사이드바
    ========================================================= */
+/* matrix — 아래 미디어쿼리에서 셀·헤더를 키운다. 같은 선택자라 순서가 곧 우선순위이므로
+   이 기본 규칙은 반드시 미디어쿼리보다 앞에 있어야 한다. (뒤에 두었더니 확대가 죽어 있었다) */
+/* matrix */
+.matrix{overflow:auto;border:1px solid var(--line-soft);border-radius:12px;background:var(--ink-850);max-height:360px}
+table.mx{border-collapse:separate;border-spacing:0}
+table.mx thead th{position:sticky;top:0;z-index:2;background:var(--ink-800);padding:8px 0;font-family:var(--mono);font-weight:500;font-size:var(--t-label);color:var(--gold);width:34px;text-align:center}
+table.mx thead th.corner{left:0;z-index:3;text-align:left;padding-left:9px;width:70px;color:var(--fg-faint)}
+table.mx tbody th{position:sticky;left:0;z-index:1;text-align:left;padding:0 9px;font-family:var(--disp);font-weight:600;font-size:var(--t-xs);color:var(--fg);white-space:nowrap;background:var(--ink-850);border-top:1px solid var(--line-soft);height:30px}
+.cell{width:34px;height:34px;display:inline-grid;place-items:center;border-radius:6px;margin:2px;background:var(--ink-800);border:1px solid var(--line-soft);font-size:var(--t-base);color:var(--fg-faint)}
+.cell.done{background:rgba(110,201,138,.14);border-color:rgba(110,201,138,.4);color:var(--safe)}
+.cell.perfect{background:rgba(220,182,79,.16);border-color:rgba(220,182,79,.5);color:var(--gold)}
+@media (hover:hover){ button.cell:hover{border-color:var(--cyan)} }
+
 @media (min-width:768px){
   .app{max-width:1160px;flex-direction:row-reverse;height:100vh}
   .app-main{border-left:1px solid var(--line)}
@@ -231,7 +248,8 @@ button,a,select,input,textarea{-webkit-tap-highlight-color:transparent}
     padding:20px 14px;gap:4px;justify-content:flex-start;
   }
   .nav-brand{display:flex;align-items:center;gap:11px;padding:6px 12px 20px;margin-bottom:6px;border-bottom:1px solid var(--line-soft)}
-  .nav-logo{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(135deg,var(--gold),var(--copper));color:#1a140e;font-size:17px;font-weight:700}
+  /* 문자 글리프(◈) 자리에 실제 앱 마크가 들어간다. 도형 자체가 색을 갖고 있어 판을 깔지 않는다. */
+  .nav-logo{width:34px;height:34px;display:block;flex:none}
   .nav-word{font-family:var(--disp);font-weight:700;font-size:15px;letter-spacing:.03em;line-height:1.2;display:flex;flex-direction:column}
   .nav-word small{font-family:var(--mono);font-size:var(--t-label);color:var(--fg-faint);letter-spacing:.06em;font-weight:400;margin-top:2px}
 
@@ -285,16 +303,6 @@ button,a,select,input,textarea{-webkit-tap-highlight-color:transparent}
 .label::after{content:"";flex:1;height:1px;background:var(--line-soft)}
 .empty{color:var(--fg-dim);font-size:var(--t-base);text-align:center;padding:22px 10px;border:1px dashed var(--line);border-radius:12px}
 
-/* matrix */
-.matrix{overflow:auto;border:1px solid var(--line-soft);border-radius:12px;background:var(--ink-850);max-height:360px}
-table.mx{border-collapse:separate;border-spacing:0}
-table.mx thead th{position:sticky;top:0;z-index:2;background:var(--ink-800);padding:8px 0;font-family:var(--mono);font-weight:500;font-size:var(--t-label);color:var(--gold);width:34px;text-align:center}
-table.mx thead th.corner{left:0;z-index:3;text-align:left;padding-left:9px;width:70px;color:var(--fg-faint)}
-table.mx tbody th{position:sticky;left:0;z-index:1;text-align:left;padding:0 9px;font-family:var(--disp);font-weight:600;font-size:var(--t-xs);color:var(--fg);white-space:nowrap;background:var(--ink-850);border-top:1px solid var(--line-soft);height:30px}
-.cell{width:34px;height:34px;display:inline-grid;place-items:center;border-radius:6px;margin:2px;background:var(--ink-800);border:1px solid var(--line-soft);font-size:var(--t-base);color:var(--fg-faint)}
-.cell.done{background:rgba(110,201,138,.14);border-color:rgba(110,201,138,.4);color:var(--safe)}
-.cell.perfect{background:rgba(220,182,79,.16);border-color:rgba(220,182,79,.5);color:var(--gold)}
-@media (hover:hover){ button.cell:hover{border-color:var(--cyan)} }
 .goldkey{font-family:var(--mono);font-size:var(--t-label);color:var(--fg-faint);line-height:1.7;margin-top:10px}
 .goldkey b{color:var(--gold);display:block;margin-bottom:3px}
 
@@ -302,7 +310,10 @@ table.mx tbody th{position:sticky;left:0;z-index:1;text-align:left;padding:0 9px
 .challenge-progress{height:6px;margin-top:13px;overflow:hidden;background:var(--ink-750);border-radius:8px}
 .challenge-progress i{display:block;height:100%;background:linear-gradient(90deg,var(--ghost),var(--cyan));border-radius:inherit}
 .extra-challenge .boss{font-size:1.3rem;margin:11px 0 2px}
-.extra-boss-select{margin-top:16px;text-align:left}
+  /* 추가 도전 카드에서 고른 보스를 눈으로 확인하는 자리. 카드가 이미 태그·제목·설명·
+     드롭다운·버튼으로 빽빽해서 이름 없이 배지만 둔다. */
+.extra-bossmark{display:flex;justify-content:center;margin-top:15px}
+.extra-boss-select{margin-top:13px;text-align:left}
 .extra-challenge .btn{margin-bottom:0}
 .extra-progress-list{margin-top:18px;padding-top:16px;border-top:1px solid var(--line-soft)}
 .extra-progress-row{display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:center;margin-bottom:12px;font-family:var(--disp);font-size:var(--t-sm);color:var(--fg-dim)}
@@ -353,7 +364,7 @@ table.mx tbody th{position:sticky;left:0;z-index:1;text-align:left;padding:0 9px
 .select-chevron{flex:none;width:20px;height:20px;color:var(--cyan);stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .16s ease}
 .select-trigger[aria-expanded="true"] .select-chevron{transform:rotate(180deg)}
 .select-menu{position:absolute;z-index:20;top:calc(100% + 6px);left:0;right:0;max-height:242px;overflow-y:auto;padding:5px;background:var(--ink-750);border:1px solid var(--cyan);border-radius:10px;box-shadow:0 14px 30px rgba(0,0,0,.42)}
-.select-option{display:block;width:100%;padding:10px 11px;border-radius:7px;color:var(--fg-dim);font-size:var(--t-base);line-height:1.4;text-align:left}
+.select-option{display:block;width:100%;padding:12px 11px;border-radius:7px;color:var(--fg-dim);font-size:var(--t-base);line-height:1.4;text-align:left}
 .select-option:hover,.select-option:focus-visible{background:rgba(84,195,214,.12);color:var(--fg);outline:none}
 .select-option.selected{background:rgba(84,195,214,.17);color:var(--cyan);font-weight:600}
 .select-field.big .select-trigger{min-height:48px}
@@ -361,8 +372,8 @@ table.mx tbody th{position:sticky;left:0;z-index:1;text-align:left;padding:0 9px
 .drow .dk{width:10px;height:10px;border-radius:50%;flex:none}
 .drow .select-field{flex:1;min-width:0}
 .drow .cinput{width:96px;flex:none}
-.rm{color:var(--danger);font-size:18px;width:26px;flex:none}
-.addbtn{font-family:var(--mono);font-size:var(--t-sm);color:var(--cyan);border:1px dashed var(--line);border-radius:10px;padding:8px;width:100%;margin-top:2px}
+.rm{color:var(--danger);font-size:18px;width:44px;height:44px;flex:none;margin-right:-6px}
+.addbtn{font-family:var(--mono);font-size:var(--t-sm);color:var(--cyan);border:1px dashed var(--line);border-radius:10px;padding:11px;width:100%;margin-top:2px}
 .cyclelist{display:flex;flex-direction:column;gap:8px}
 .cyc{display:flex;align-items:flex-start;gap:9px;background:var(--ink-800);border:1px solid var(--line-soft);border-radius:10px;padding:9px 10px}
 .cyc .tier{width:10px;height:10px;margin-top:15px;border-radius:50%;flex:none}
@@ -370,7 +381,7 @@ table.mx tbody th{position:sticky;left:0;z-index:1;text-align:left;padding:0 9px
 .cyc-body{flex:1;min-width:0}
 .cyc-body .select-trigger{height:40px;min-height:40px;padding:8px 10px;font-size:16px}
 .cyc-body small{display:block;font-family:var(--mono);font-size:var(--t-label);color:var(--fg-faint);letter-spacing:.05em;margin-top:3px}
-.toggle{display:flex;align-self:flex-start;height:40px;border:1px solid var(--line);border-radius:8px;overflow:hidden;font-family:var(--mono);font-size:var(--t-xs);flex:none}
+.toggle{display:flex;align-self:flex-start;height:44px;border:1px solid var(--line);border-radius:8px;overflow:hidden;font-family:var(--mono);font-size:var(--t-xs);flex:none}
 .toggle button{padding:0 12px;color:var(--fg-faint)}
 .toggle .s.on{background:rgba(110,201,138,.2);color:var(--safe)}
 .toggle .f.on{background:rgba(224,101,94,.2);color:var(--danger)}
@@ -433,4 +444,53 @@ table.mx tbody th{position:sticky;left:0;z-index:1;text-align:left;padding:0 9px
 }
 @media (min-width:1080px){
   .cardgrid{grid-template-columns:repeat(4,1fr)}
+}
+
+/* 새 기록 상단의 보스 상징. 폼이 드롭다운만 늘어선 화면이라, 무엇과 싸웠는지
+   시각적으로 잡아주는 닻이 하나 필요하다. 크기는 결과 입력이라는 화면 목적을
+   방해하지 않는 선(60px)에서 멈춘다. */
+.bossmark{display:flex;flex-direction:column;align-items:center;text-align:center;margin:2px 0 16px}
+.bm-badge{width:60px;height:60px;padding:11px;border-radius:50%;
+  background:radial-gradient(circle at 50% 35%,var(--ink-750),var(--ink-850));
+  border:1px solid var(--line-soft);box-shadow:0 0 0 4px rgba(220,182,79,.07)}
+.bm-badge svg{width:100%;height:100%;display:block}
+.bm-name{font-family:var(--disp);font-size:var(--t-base);font-weight:600;color:var(--fg);margin-top:8px}
+.bm-meta{font-family:var(--mono);font-size:var(--t-xs);letter-spacing:.08em;color:var(--fg-faint);margin-top:2px}
+
+/* 보스 상징을 목록에 붙일 때. 이름 옆에서 이름을 밀어내지 않는 크기로만 쓴다 —
+   상징은 스캔을 빠르게 하려고 있는 것이지, 이름을 대신하려는 게 아니다. */
+table.mx tbody th .rowsig{width:17px;height:17px;vertical-align:-4px}
+table.mx tbody th .rowname{margin-left:6px}
+.epname{display:flex;align-items:center;gap:7px;min-width:0}
+.epname .epsig{width:17px;height:17px;flex:none}
+.runtitle .tsig{width:16px;height:16px;vertical-align:-3px;margin-right:5px}
+
+/* 헤더 우측 프로필. 하단 탭에서 빠진 대신 어느 화면에서든 닿을 수 있어야 한다.
+   터치 표준(44px)을 지키되 시각적 크기는 34px로 — 헤더가 무거워지면 안 된다. */
+.hdr-profile{flex:none;width:44px;height:44px;margin:-5px -6px -5px 0;display:grid;place-items:center;
+  border-radius:50%;color:var(--fg-faint);text-decoration:none}
+.hdr-profile:hover,.hdr-profile.active{color:var(--cyan)}
+.hdr-profile svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6;
+  stroke-linecap:round;stroke-linejoin:round}
+.hp-initial{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--gold),var(--copper));color:var(--ink-900);
+  font-family:var(--disp);font-weight:700;font-size:var(--t-sm)}
+
+/* 마우스가 있는 환경에서만 hover 를 준다 — 터치에서 :hover 는 탭 후 눌린 채로 남는다.
+   파일의 다른 hover 규칙들과 같은 방식이다. 여기 모아둔 것들은 그동안 피드백이
+   전혀 없어 웹에서 눌리는 요소인지 알기 어려웠다. */
+@media (hover:hover){
+  .btn:not(.ghost):not(:disabled):hover,
+  .minibtn:not(.ghost):not(:disabled):hover,
+  .modal-btn.danger:hover{filter:brightness(1.08)}
+
+  .btn.ghost:not(:disabled):hover,
+  .minibtn.ghost:hover,
+  .modal-btn.ghost:hover,
+  .segtab:hover,
+  .reshuffle:hover{border-color:var(--cyan);color:var(--fg)}
+
+  .addbtn:hover{border-color:var(--cyan);background:rgba(84,195,214,.06)}
+  .back:hover{background:rgba(84,195,214,.12);border-radius:10px}
+  .rm:hover{background:rgba(224,101,94,.12);border-radius:10px}
 }

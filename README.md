@@ -1,4 +1,4 @@
-# Deckers Challenge Log
+![Deckers Challenge Log](docs/logo-lockup.png)
 
 보드게임 [Deckers](https://boardgamegeek.com/boardgame/443306/deckers) 컴패니언 PWA.
 플레이 기록, 목표 카드 조회, 진행 상황을 한 곳에서 본다.

@@ -30,9 +30,13 @@ export default function Profile() {
   return (
     <div className="page">
       <header className="appbar">
-        <div>
-          <h1>{t('profile.title')}</h1>
-          <div className="sub">{user ? t('profile.subSignedIn') : t('profile.subGuest')}</div>
+        {/* 하단 탭에서 빠져 헤더 아이콘으로 들어오는 하위 화면이 됐다 — 돌아갈 길을 준다 */}
+        <div className="titlewrap">
+          <button className="back" onClick={() => nav(-1)}>‹</button>
+          <div>
+            <h1>{t('profile.title')}</h1>
+            <div className="sub">{user ? t('profile.subSignedIn') : t('profile.subGuest')}</div>
+          </div>
         </div>
       </header>
       <div className="scroll">

@@ -2,10 +2,12 @@ import { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { SMCS, DECKERS, DECKER_BY_ID, DECKER_COLORS, SMC_BY_ID, buildObjectiveSlots, CARD_BY_ID, COPPERS, SILVERS, GOLDS, tierKey } from '../data/gameData'
 import { useT } from '../i18n'
-import { deckerName, cardName, smcName } from '../i18n/content'
+import { cardName, deckerName, smcName } from '../i18n/content'
 import { calcOutcome, OUTCOME_META } from '../lib/outcome'
 import { saveRun } from '../db/runs'
 import SelectField from '../components/SelectField'
+import BossSigil from '../components/BossSigil'
+import ProfileButton from '../components/ProfileButton'
 
 const cardsFor = { copper: COPPERS, silver: SILVERS, gold: GOLDS }
 const validSmc = (id) => SMC_BY_ID[id] ? id : SMCS[0].id
@@ -71,8 +73,16 @@ export default function NewRun() {
   const finalResult = cycles.find((cycle) => cycle.isFinal)?.result
 
   return <div className="page">
-    <header className="appbar"><div><h1>{t('newRun.title')}</h1><div className="sub">{t('newRun.sub')}</div></div></header>
+    <header className="appbar"><div><h1>{t('newRun.title')}</h1><div className="sub">{t('newRun.sub')}</div></div><ProfileButton /></header>
     <div className="scroll">
+      <div className="bossmark">
+        <div className="bm-badge"><BossSigil smcId={smcId} /></div>
+        <div className="bm-name">{smcName(smcId)}</div>
+        <div className="bm-meta">{t('newRun.bossMeta', {
+          tier: t(`game.tier.${tierKey(SMC_BY_ID[smcId].difficulty)}`),
+          cycles: SMC_BY_ID[smcId].cycles,
+        })}</div>
+      </div>
       <div className="field">
         <div className="k">{t('newRun.boss')}</div>
         <SelectField ariaLabel={t('newRun.boss')} className="big" value={smcId}
@@ -95,7 +105,8 @@ export default function NewRun() {
           return <div className="drow" key={index}>
             <span className="dk" style={{ background: DECKER_COLORS[DECKER_BY_ID[decker.deckerId]?.color] }} />
             <SelectField ariaLabel={t('newRun.deckers')} value={decker.deckerId}
-              options={options.map((candidate) => ({ value: candidate.id, label: deckerName(candidate.id) }))}
+              options={options.map((candidate) => ({ value: candidate.id, label: deckerName(candidate.id),
+                color: DECKER_COLORS[candidate.color] }))}
               onChange={(deckerId) => updDecker(index, { deckerId })} />
             <input className="cinput" placeholder={t('newRun.playerPlaceholder')} value={decker.playerName}
               onChange={(event) => updDecker(index, { playerName: event.target.value })} />

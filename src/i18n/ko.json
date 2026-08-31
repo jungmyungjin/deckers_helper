@@ -1,4 +1,8 @@
 {
+  "app": {
+    "title": "Deckers 챌린지 로그",
+    "subtitle": "챌린지 로그"
+  },
   "nav": {
     "board": "보드",
     "history": "히스토리",
@@ -48,6 +52,7 @@
     "legendUntried": "미도전",
     "corner": "SMC ＼ Gold",
     "goldKey": "Gold 코드",
+    "allCards": "목표 카드 40장 보기",
     "empty": "아직 기록이 없어요. 하단 ➕ 기록에서 첫 판을 남겨보세요."
   },
   "history": {
@@ -99,6 +104,7 @@
     "title": "새 기록",
     "sub": "NEW RUN",
     "boss": "보스 (SMC)",
+    "bossMeta": "{tier} · {cycles} 사이클",
     "deckers": "덱커 · 조종한 사람",
     "upgrade": "SMC 업그레이드",
     "upgrade0": "기본 SMC",

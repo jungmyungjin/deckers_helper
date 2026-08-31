@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { OBJECTIVE_CARDS, SECURITY_COLORS } from '../data/gameData'
 import { useT } from '../i18n'
 import { cardName, hasCardBody, hasCardResult } from '../i18n/content'
@@ -8,6 +9,7 @@ import Modal from '../components/Modal'
 const TABS = ['copper', 'silver', 'gold', 'ghost']
 
 export default function Cards() {
+  const nav = useNavigate()
   const { t } = useT()
   const [tab, setTab] = useState('gold')
   const [active, setActive] = useState(null)
@@ -18,9 +20,13 @@ export default function Cards() {
   return (
     <div className="page">
       <header className="appbar">
-        <div>
-          <h1>{t('cards.title')}</h1>
-          <div className="sub">{t('cards.sub', { count: filled })}</div>
+        {/* 하단 탭에서 빠져 보드에서 들어오는 하위 화면이 됐다 — 돌아갈 길을 준다 */}
+        <div className="titlewrap">
+          <button className="back" onClick={() => nav(-1)}>‹</button>
+          <div>
+            <h1>{t('cards.title')}</h1>
+            <div className="sub">{t('cards.sub', { count: filled })}</div>
+          </div>
         </div>
       </header>
       <div className="scroll">

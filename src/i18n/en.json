@@ -1,4 +1,8 @@
 {
+  "app": {
+    "title": "Deckers Challenge Log",
+    "subtitle": "CHALLENGE LOG"
+  },
   "nav": {
     "board": "Board",
     "history": "History",
@@ -48,6 +52,7 @@
     "legendUntried": "Untried",
     "corner": "SMC ＼ Gold",
     "goldKey": "Gold codes",
+    "allCards": "Browse all 40 objective cards",
     "empty": "No runs yet. Tap ➕ Log below to record your first game."
   },
   "history": {
@@ -102,6 +107,7 @@
     "title": "New Run",
     "sub": "NEW RUN",
     "boss": "SMC",
+    "bossMeta": "{tier} · {cycles} cycles",
     "deckers": "Deckers · who played",
     "upgrade": "SMC upgrade",
     "upgrade0": "Base SMC",

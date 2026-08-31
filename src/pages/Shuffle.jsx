@@ -6,6 +6,8 @@ import { useT } from '../i18n'
 import { cardName, smcName } from '../i18n/content'
 import { SMCS } from '../data/gameData'
 import SelectField from '../components/SelectField'
+import BossSigil from '../components/BossSigil'
+import ProfileButton from '../components/ProfileButton'
 
 const pick = (a) => a[Math.floor(Math.random() * a.length)]
 
@@ -39,6 +41,7 @@ export default function Shuffle() {
     <div className="page">
       <header className="appbar">
         <div><h1>{t('shuffle.title')}</h1></div>
+        <ProfileButton />
       </header>
       <div className="scroll">
         {/* 뽑기 전에는 카드 자체가 버튼 — 따로 누를 버튼을 밑에 두지 않는다 */}
@@ -93,6 +96,10 @@ export default function Shuffle() {
             <div className="tag">{t('extra.title')}</div>
             <div className="boss">{t('shuffle.extraDrawTitle')}</div>
             <div className="vs">{t('extra.intro')}</div>
+            {/* 고른 보스를 바로 아래 드롭다운이 이름으로 말해주므로 배지에는 이름을 붙이지 않는다 */}
+            <div className="extra-bossmark">
+              <div className="bm-badge"><BossSigil smcId={extraSmcId} /></div>
+            </div>
             <div className="extra-boss-select">
               <SelectField ariaLabel={t('extra.boss')} value={extraSmcId}
                 options={SMCS.map((smc) => ({ value: smc.id, label: smcName(smc.id) }))}
@@ -106,7 +113,7 @@ export default function Shuffle() {
             {SMCS.map((smc) => {
               const progress = extraChallengeProgress(runs, smc.id)
               return <div className="extra-progress-row" key={smc.id}>
-                <span>{smcName(smc.id)}</span>
+                <span className="epname"><BossSigil smcId={smc.id} className="epsig" />{smcName(smc.id)}</span>
                 <div className="challenge-progress" role="progressbar"
                   aria-label={t('extra.progressBoss', { name: smcName(smc.id), completed: progress.completed, total: progress.total })}
                   aria-valuemin="0" aria-valuemax={progress.total} aria-valuenow={progress.completed}>

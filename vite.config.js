@@ -34,8 +34,12 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
       manifest: {
-        // manifest 는 언어를 하나만 담을 수 있어 로마자로 고정한다.
-        // 앱 안의 문구는 src/i18n 이 3개 언어로 처리한다.
+        // id 는 앱의 고유 식별자다. 없으면 start_url 이 그 역할을 대신하는데,
+        // 나중에 start_url 이 바뀌면 브라우저가 다른 앱으로 보고 중복 설치한다.
+        id: '/',
+        // 주 사용자가 한국어권이라 ko. manifest 는 언어를 하나만 담을 수 있어
+        // 이름은 로마자로 고정한다 — 앱 안의 문구는 src/i18n 이 3개 언어로 처리한다.
+        lang: 'ko',
         name: 'Deckers Challenge Log',
         short_name: 'Deckers',
         description: 'Run log, card reference and progress for the board game Deckers',
