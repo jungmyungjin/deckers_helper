@@ -41,14 +41,19 @@ export function setLocale(next) {
   if (!BUNDLES[next] || next === current) return
   current = next
   try { localStorage.setItem(STORAGE_KEY, next) } catch { /* 저장 못 해도 이번 세션은 동작 */ }
-  syncDocumentLang()
+  syncDocumentMeta()
   listeners.forEach((fn) => fn())
 }
 
 // <html lang> 을 맞춰두면 CSS에서 :lang(ko) 로 한글 전용 서체·자간을 덮어쓸 수 있고
 // 스크린 리더도 올바른 언어로 읽는다.
-export function syncDocumentLang() {
+//
+// 탭 제목도 함께 맞춘다. index.html 의 <title> 은 정적이라 언어를 따라가지 못했다 —
+// 탭을 여러 개 띄워두면 어느 것이 이 앱인지 한글 사용자에게는 안 잡힌다.
+// 크롤러가 보는 값은 여전히 index.html 쪽이다(JS 실행 전에 읽으므로).
+export function syncDocumentMeta() {
   document.documentElement.lang = current
+  document.title = t('app.title')
 }
 
 function subscribe(fn) {

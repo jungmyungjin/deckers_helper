@@ -1,4 +1,7 @@
 {
+  "app": {
+    "title": "Deckers Challenge Log"
+  },
   "_note": "독일어 UI 문구. 원어민 검수 필요. 특히 game.security.ghost 는 독일어판 실물 표기를 확인할 것. nav.* 는 하단 탭 폭 때문에 8자 이하를 지킬 것.",
   "nav": {
     "board": "Board",

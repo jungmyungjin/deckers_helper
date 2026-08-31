@@ -1,4 +1,7 @@
 {
+  "app": {
+    "title": "Deckers Challenge Log"
+  },
   "nav": {
     "board": "Board",
     "history": "History",
