@@ -9,7 +9,6 @@
     "history": "Verlauf",
     "new": "Neu",
     "shuffle": "Challenge",
-    "cards": "Karten",
     "profile": "Profil"
   },
   "common": {
@@ -44,7 +43,6 @@
   },
   "board": {
     "title": "Missions-Board",
-    "sub": "GOLD × SMC · {stamps} / {total}",
     "stamps": "Geschafft / {total}",
     "plays": "Partien",
     "perfects": "Perfekt",
@@ -63,32 +61,17 @@
       "other": "{count} PARTIEN"
     },
     "lastPlayed": "Zuletzt gespielt · {date}",
-    "filterAll": "Alle",
-    "filterPerfect": "🥇 Perfekt",
-    "filterSuccess": "✓ Erfolg",
-    "filterFail": "✕ Fehler",
-    "allBosses": "Alle SMCs",
     "empty": "Noch keine Partien. Trage deine erste ein.",
-    "confirmDelete": "Diese Partie löschen?",
     "delete": "Löschen",
     "deleteTitle": "Diese Partie löschen?",
     "deleteCopy": "Diese Partie wird auch von synchronisierten Geräten entfernt."
   },
   "extra": {
     "title": "Zusatzherausforderungen",
-    "entryTitle": "Zusatzherausforderungen",
-    "entryUnlocked": "Alle Gold-Missionen geschafft · Neue Kombination wählen",
-    "entryPreview": "DEV · Vorschau nach dem Abschluss",
-    "back": "Vorheriger Schritt",
     "intro": "Wähle einen Boss und ziehe eine Kombination, die du noch nicht geschafft hast.",
     "boss": "Boss wählen",
-    "gold": "Gold wählen",
-    "copper": "Bronze wählen",
-    "silver": "Verbleibende Silber-Kombinationen",
     "complete": "Alle Silber-Karten dieser Kombination sind geschafft!",
-    "progressBoss": "Kombinationsfortschritt für {name}: {completed} / {total}",
-    "progressGold": "Kombinationsfortschritt für {name}: {completed} / {total}",
-    "progressCopper": "Kombinationsfortschritt für {name}: {completed} / {total}"
+    "progressBoss": "Kombinationsfortschritt für {name}: {completed} / {total}"
   },
   "mission": {
     "invalid": "Unbekannte Mission",
@@ -109,7 +92,7 @@
     "sub": "NEUE PARTIE",
     "boss": "SMC",
     "bossMeta": "{tier} · {cycles} Zyklen",
-    "deckers": "Decker · wer gespielt hat",
+    "deckers": "Decker · Spieler",
     "upgrade": "SMC-Upgrade",
     "upgrade0": "Basis-SMC",
     "upgrade1": "Upgrade +1 · 1 Goldziel zusätzlich",
@@ -134,9 +117,9 @@
       "other": "{count} Missionen offen"
     },
     "syncing": "Partien werden abgeglichen",
-    "tapToDraw": "Tippen und Challenge ziehen",
-    "todayTag": "Challenge des Tages",
-    "extraDrawTitle": "Eine neue Herausforderung nach dem Abschluss",
+    "tapToDraw": "Tippen für die nächste Mission",
+    "todayTag": "Mission des Tages",
+    "extraDrawTitle": "Neue Kombinationen nach 100%",
     "extraDraw": "Kombination für diesen Boss ziehen",
     "extraReshuffle": "🎲 Andere Kombination für diesen Boss ziehen",
     "reshuffle": {

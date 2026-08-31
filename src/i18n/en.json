@@ -8,7 +8,6 @@
     "history": "History",
     "new": "Log",
     "shuffle": "Challenge",
-    "cards": "Cards",
     "profile": "Profile"
   },
   "common": {
@@ -43,7 +42,6 @@
   },
   "board": {
     "title": "Mission Board",
-    "sub": "GOLD × SMC · {stamps} / {total}",
     "stamps": "Cleared / {total}",
     "plays": "Runs",
     "perfects": "Perfect",
@@ -62,32 +60,17 @@
       "other": "{count} RUNS"
     },
     "lastPlayed": "Last played · {date}",
-    "filterAll": "All",
-    "filterPerfect": "🥇 Perfect",
-    "filterSuccess": "✓ Success",
-    "filterFail": "✕ Failed",
-    "allBosses": "All SMCs",
     "empty": "No runs yet. Log your first game.",
-    "confirmDelete": "Delete this run?",
     "delete": "Delete",
     "deleteTitle": "Delete this run?",
     "deleteCopy": "This run will also be removed from synced devices."
   },
   "extra": {
     "title": "Extra Challenges",
-    "entryTitle": "Extra Challenges",
-    "entryUnlocked": "All Gold missions cleared · Try a new combination",
-    "entryPreview": "DEV · Preview of the post-completion screen",
-    "back": "Previous step",
     "intro": "Choose a boss and draw a combination you have not conquered yet.",
     "boss": "Choose a boss",
-    "gold": "Choose Gold",
-    "copper": "Choose Bronze",
-    "silver": "Remaining Silver combinations",
     "complete": "You cleared every Silver card for this combination!",
-    "progressBoss": "{name} combination progress: {completed} / {total}",
-    "progressGold": "{name} combination progress: {completed} / {total}",
-    "progressCopper": "{name} combination progress: {completed} / {total}"
+    "progressBoss": "{name} combination progress: {completed} / {total}"
   },
   "mission": {
     "invalid": "Unknown mission",
@@ -108,7 +91,7 @@
     "sub": "NEW RUN",
     "boss": "SMC",
     "bossMeta": "{tier} · {cycles} cycles",
-    "deckers": "Deckers · who played",
+    "deckers": "Deckers · player",
     "upgrade": "SMC upgrade",
     "upgrade0": "Base SMC",
     "upgrade1": "Upgrade +1 · add 1 Gold objective",
@@ -133,9 +116,9 @@
       "other": "{count} missions still uncleared"
     },
     "syncing": "Syncing runs",
-    "tapToDraw": "Tap to draw a challenge",
-    "todayTag": "Today's challenge",
-    "extraDrawTitle": "A new challenge after completion",
+    "tapToDraw": "Tap to see the next mission",
+    "todayTag": "Today's mission",
+    "extraDrawTitle": "New combinations after 100%",
     "extraDraw": "Draw a combination for this boss",
     "extraReshuffle": "🎲 Draw another combination for this boss",
     "reshuffle": {
