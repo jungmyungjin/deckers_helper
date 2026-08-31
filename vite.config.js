@@ -32,7 +32,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg'],
+      includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
       manifest: {
         // manifest 는 언어를 하나만 담을 수 있어 로마자로 고정한다.
         // 앱 안의 문구는 src/i18n 이 3개 언어로 처리한다.
@@ -42,9 +42,13 @@ export default defineConfig({
         theme_color: '#0e0c15',
         background_color: '#0e0c15',
         display: 'standalone',
+        // 아이콘이 실제로 존재해야 Android 가 "앱 설치"를 제안한다 — 192px 이상 필수.
+        // maskable 은 어댑티브 아이콘용. 런처가 바깥을 원/사각으로 잘라내므로
+        // 배경을 꽉 채우고 글리프를 안쪽으로 줄인 별도 파일을 쓴다.
         icons: [
           { src: 'icon-192.png', sizes: '192x192', type: 'image/png' },
-          { src: 'icon-512.png', sizes: '512x512', type: 'image/png' }
+          { src: 'icon-512.png', sizes: '512x512', type: 'image/png' },
+          { src: 'icon-512-maskable.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
         ]
       }
     })

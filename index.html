@@ -5,6 +5,12 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#0e0c15" />
+    <!-- iOS 는 매니페스트 아이콘을 안 본다. 이게 없으면 홈 화면에 페이지 스크린샷이 박힌다. -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Deckers" />
+    <!-- 상태 표시줄 뒤까지 그린다. 안전 영역은 styles.css 가 env(safe-area-inset-*) 로 처리. -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="description" content="Run log, card reference and progress for the board game Deckers." />
     <!-- lang 은 앱 시작 시 src/i18n 의 syncDocumentLang() 이 현재 언어로 덮어쓴다 -->
     <title>Deckers Challenge Log</title>
