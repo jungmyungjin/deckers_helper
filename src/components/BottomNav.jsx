@@ -1,8 +1,10 @@
 import { NavLink } from 'react-router-dom'
 import { useT } from '../i18n'
+import BrandMark from './BrandMark'
 
 // 제품명은 번역하지 않는다 — 세 언어에서 같은 이름으로 불려야 한다.
-const PRODUCT = { word: 'DECKERS', sub: 'CHALLENGE LOG' }
+// 부제는 번역한다(app.subtitle) — 이름이 아니라 설명이기 때문.
+const PRODUCT_WORD = 'DECKERS'
 
 // label 은 i18n 키. 하단 탭 6개가 480px를 나눠 쓰므로 어느 언어에서든
 // 8자를 넘지 않게 번역할 것 (i18n/de.json 주석 참고).
@@ -20,8 +22,8 @@ export default function BottomNav() {
   return (
     <nav className="nav">
       <div className="nav-brand">
-        <span className="nav-logo">◈</span>
-        <span className="nav-word">{PRODUCT.word}<small>{PRODUCT.sub}</small></span>
+        <BrandMark className="nav-logo" />
+        <span className="nav-word">{PRODUCT_WORD}<small>{t('app.subtitle')}</small></span>
       </div>
       {items.map((it) => (
         <NavLink key={it.to} to={it.to} end={it.end}

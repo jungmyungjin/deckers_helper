@@ -231,7 +231,8 @@ button,a,select,input,textarea{-webkit-tap-highlight-color:transparent}
     padding:20px 14px;gap:4px;justify-content:flex-start;
   }
   .nav-brand{display:flex;align-items:center;gap:11px;padding:6px 12px 20px;margin-bottom:6px;border-bottom:1px solid var(--line-soft)}
-  .nav-logo{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(135deg,var(--gold),var(--copper));color:#1a140e;font-size:17px;font-weight:700}
+  /* 문자 글리프(◈) 자리에 실제 앱 마크가 들어간다. 도형 자체가 색을 갖고 있어 판을 깔지 않는다. */
+  .nav-logo{width:34px;height:34px;display:block;flex:none}
   .nav-word{font-family:var(--disp);font-weight:700;font-size:15px;letter-spacing:.03em;line-height:1.2;display:flex;flex-direction:column}
   .nav-word small{font-family:var(--mono);font-size:var(--t-label);color:var(--fg-faint);letter-spacing:.06em;font-weight:400;margin-top:2px}
 
