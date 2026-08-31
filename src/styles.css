@@ -312,7 +312,10 @@ table.mx tbody th{position:sticky;left:0;z-index:1;text-align:left;padding:0 9px
 .extra-challenge .boss{font-size:1.3rem;margin:11px 0 2px}
   /* 추가 도전 카드에서 고른 보스를 눈으로 확인하는 자리. 카드가 이미 태그·제목·설명·
      드롭다운·버튼으로 빽빽해서 이름 없이 배지만 둔다. */
-.extra-bossmark{display:flex;justify-content:center;margin-top:15px}
+.challenge-bossmark{display:flex;justify-content:center;margin-top:14px}
+/* 결과 카드에서는 큰 글씨가 Gold 카드명이라 SMC 가 vs 한 줄에만 있었다.
+   상징을 목표 카드명보다 먼저 두어 무엇과 싸우는지를 앞세운다. */
+.challenge .challenge-bossmark{margin:12px 0 2px}
 .extra-boss-select{margin-top:13px;text-align:left}
 .extra-challenge .btn{margin-bottom:0}
 .extra-progress-list{margin-top:18px;padding-top:16px;border-top:1px solid var(--line-soft)}
@@ -406,7 +409,10 @@ table.mx tbody th{position:sticky;left:0;z-index:1;text-align:left;padding:0 9px
 .challenge.tap:disabled{opacity:.55;cursor:default}
 .challenge .dice{display:block;font-size:38px;line-height:1;margin:15px 0 11px}
 .challenge .tapmsg{display:block;font-family:var(--disp);font-weight:700;font-size:1.05rem}
-.challenge .boss{font-family:var(--disp);font-weight:700;font-size:1.6rem;margin:8px 0 2px}
+/* 상징 아래 SMC 이름. Gold 카드명(.boss)보다 작지만 또렷하게 — 시나리오를
+   관리하는 쪽이라 먼저 읽히되, 이번에 깰 목표가 주인공인 건 그대로다. */
+.challenge-smc{font-family:var(--disp);font-weight:600;font-size:var(--t-base);color:var(--fg);margin-top:8px}
+.challenge .boss{font-family:var(--disp);font-weight:700;font-size:1.6rem;margin:2px 0 12px}
 .challenge .vs{font-family:var(--mono);font-size:var(--t-xs);color:var(--fg-faint);margin-bottom:10px}
 .deck-strip{display:flex;gap:7px;margin-top:12px;justify-content:center;flex-wrap:wrap}
 /* 카드 이름이 들어가는 유일한 좁은 칸. 이름은 게임이 정한 값이라 줄일 수 없어
@@ -494,3 +500,9 @@ table.mx tbody th .rowname{margin-left:6px}
   .back:hover{background:rgba(84,195,214,.12);border-radius:10px}
   .rm:hover{background:rgba(224,101,94,.12);border-radius:10px}
 }
+
+/* 챌린지 화면의 '보스 지정해서 뽑기' — 토글 버튼을 눌렀을 때 펼쳐지는 부분.
+   토글 바로 아래에 붙여 어느 버튼에 딸린 것인지 분명히 한다. */
+.pickboss{margin:-4px 0 10px;padding:12px;border:1px solid var(--line-soft);border-radius:11px;
+  background:var(--ink-850)}
+.pickboss .btn{margin-top:10px}
