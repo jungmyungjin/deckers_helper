@@ -8,7 +8,7 @@
     "board": "Board",
     "history": "Verlauf",
     "new": "Neu",
-    "shuffle": "Zufall",
+    "shuffle": "Challenge",
     "cards": "Karten",
     "profile": "Profil"
   },
@@ -126,7 +126,7 @@
     "save": "Partie speichern"
   },
   "shuffle": {
-    "title": "Zufalls-Challenge",
+    "title": "Challenge",
     "doneTag": "Komplett",
     "doneMsg": "🎉 Alle Missionen geschafft!",
     "remaining": {
@@ -138,14 +138,15 @@
     "todayTag": "Challenge des Tages",
     "extraDrawTitle": "Eine neue Herausforderung nach dem Abschluss",
     "extraDraw": "Kombination für diesen Boss ziehen",
-    "vsExtra": "vs {name} · offene Zusatzkombination",
     "extraReshuffle": "🎲 Andere Kombination für diesen Boss ziehen",
-    "vsUncleared": "vs {name} · noch offen",
     "reshuffle": {
       "one": "🎲 Neu ziehen — noch {count} Mission",
       "other": "🎲 Neu ziehen — noch {count} Missionen"
     },
-    "startRecord": "Partie mit diesem Setup →"
+    "startRecord": "Partie mit diesem Setup →",
+    "pickBoss": "Bestimmten Boss ziehen",
+    "pickBossDraw": "Diesen Boss ziehen",
+    "bossDone": "alles geschafft"
   },
   "cards": {
     "title": "Zielkarten",

@@ -99,6 +99,19 @@ export function unclearedCombos(runs) {
   return out
 }
 
+// 다음에 도전할 칸을 정한다. 난도가 낮은 SMC 부터, 그 안에서는 Gold 카드 순서대로
+// — 아직 안 깬 첫 칸이다. unclearedCombos 가 이미 SMCS(난도 오름차순) x GOLDS 순으로
+// 훑으므로 맨 앞이 곧 그 칸이다.
+//
+// 남은 것 전체에서 고르게 뽑던 때는 입문 보스를 남겨둔 채 최상급이 걸리곤 했다.
+// 뽑기가 도전이 아니라 벽이 됐다.
+//
+// 무작위는 칸이 아니라 셋업에 남는다 — 같은 칸을 다시 뽑아도 Copper/Silver 목표는
+// 매번 다르게 굴러간다.
+export function drawUncleared(runs) {
+  return unclearedCombos(runs)[0] ?? null
+}
+
 function objectiveKey(objectives) {
   return ['copper', 'silver', 'gold']
     .map((security) => `${security}:${objectives.filter((o) => o.security === security).map((o) => o.objectiveId).join(',')}`)

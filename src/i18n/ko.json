@@ -122,7 +122,7 @@
     "save": "기록 저장"
   },
   "shuffle": {
-    "title": "랜덤 챌린지",
+    "title": "챌린지",
     "doneTag": "완주",
     "doneMsg": "🎉 모든 미션 클리어!",
     "remaining": "아직 못 깬 미션 {count}개",
@@ -131,11 +131,12 @@
     "todayTag": "오늘의 도전",
     "extraDrawTitle": "완주 이후의 새로운 도전",
     "extraDraw": "이 보스로 조합 뽑기",
-    "vsExtra": "vs {name} · 아직 안 깬 추가 조합",
     "extraReshuffle": "🎲 이 보스의 다른 조합 뽑기",
-    "vsUncleared": "vs {name} · 아직 못 깬 Gold",
     "reshuffle": "🎲 다시 셔플 — 남은 미션 {count}개 중",
-    "startRecord": "이 셋업으로 기록 시작 →"
+    "startRecord": "이 셋업으로 기록 시작 →",
+    "pickBoss": "보스 지정해서 뽑기",
+    "pickBossDraw": "이 보스로 뽑기",
+    "bossDone": "전부 클리어"
   },
   "cards": {
     "title": "목표 카드",

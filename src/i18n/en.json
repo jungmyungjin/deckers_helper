@@ -7,7 +7,7 @@
     "board": "Board",
     "history": "History",
     "new": "Log",
-    "shuffle": "Draw",
+    "shuffle": "Challenge",
     "cards": "Cards",
     "profile": "Profile"
   },
@@ -125,7 +125,7 @@
     "save": "Save run"
   },
   "shuffle": {
-    "title": "Random Challenge",
+    "title": "Challenge",
     "doneTag": "Complete",
     "doneMsg": "🎉 Every mission cleared!",
     "remaining": {
@@ -137,14 +137,15 @@
     "todayTag": "Today's challenge",
     "extraDrawTitle": "A new challenge after completion",
     "extraDraw": "Draw a combination for this boss",
-    "vsExtra": "vs {name} · uncompleted extra combination",
     "extraReshuffle": "🎲 Draw another combination for this boss",
-    "vsUncleared": "vs {name} · still uncleared",
     "reshuffle": {
       "one": "🎲 Draw again — {count} mission left",
       "other": "🎲 Draw again — {count} missions left"
     },
-    "startRecord": "Log a run with this setup →"
+    "startRecord": "Log a run with this setup →",
+    "pickBoss": "Draw a specific boss",
+    "pickBossDraw": "Draw this boss",
+    "bossDone": "all cleared"
   },
   "cards": {
     "title": "Objective Cards",
