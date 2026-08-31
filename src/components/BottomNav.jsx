@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { useT } from '../i18n'
 import BrandMark from './BrandMark'
 
@@ -20,10 +20,12 @@ export default function BottomNav() {
   const { t } = useT()
   return (
     <nav className="nav">
-      <div className="nav-brand">
+      {/* 넓은 화면에서만 보이는 블록이다. 로고를 누르면 홈으로 — 웹의 오랜 관례라
+          여기서만 안 되면 오히려 눈에 띈다. 활성 표시는 붙이지 않는다(보드 탭이 이미 한다). */}
+      <Link to="/" className="nav-brand">
         <BrandMark className="nav-logo" />
         <span className="nav-word">{PRODUCT_WORD}<small>{t('app.subtitle')}</small></span>
-      </div>
+      </Link>
       {items.map((it) => (
         <NavLink key={it.to} to={it.to} end={it.end}
           className={({ isActive }) => 'nav-item' + (isActive ? ' on' : '')}>
