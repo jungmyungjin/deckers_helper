@@ -434,3 +434,22 @@ table.mx tbody th{position:sticky;left:0;z-index:1;text-align:left;padding:0 9px
 @media (min-width:1080px){
   .cardgrid{grid-template-columns:repeat(4,1fr)}
 }
+
+/* 새 기록 상단의 보스 상징. 폼이 드롭다운만 늘어선 화면이라, 무엇과 싸웠는지
+   시각적으로 잡아주는 닻이 하나 필요하다. 크기는 결과 입력이라는 화면 목적을
+   방해하지 않는 선(60px)에서 멈춘다. */
+.bossmark{display:flex;flex-direction:column;align-items:center;text-align:center;margin:2px 0 16px}
+.bm-badge{width:60px;height:60px;padding:11px;border-radius:50%;
+  background:radial-gradient(circle at 50% 35%,var(--ink-750),var(--ink-850));
+  border:1px solid var(--line-soft);box-shadow:0 0 0 4px rgba(220,182,79,.07)}
+.bm-badge svg{width:100%;height:100%;display:block}
+.bm-name{font-family:var(--disp);font-size:var(--t-base);font-weight:600;color:var(--fg);margin-top:8px}
+.bm-meta{font-family:var(--mono);font-size:var(--t-xs);letter-spacing:.08em;color:var(--fg-faint);margin-top:2px}
+
+/* 보스 상징을 목록에 붙일 때. 이름 옆에서 이름을 밀어내지 않는 크기로만 쓴다 —
+   상징은 스캔을 빠르게 하려고 있는 것이지, 이름을 대신하려는 게 아니다. */
+table.mx tbody th .rowsig{width:17px;height:17px;vertical-align:-4px}
+table.mx tbody th .rowname{margin-left:6px}
+.epname{display:flex;align-items:center;gap:7px;min-width:0}
+.epname .epsig{width:17px;height:17px;flex:none}
+.runtitle .tsig{width:16px;height:16px;vertical-align:-3px;margin-right:5px}

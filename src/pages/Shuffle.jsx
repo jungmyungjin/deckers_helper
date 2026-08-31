@@ -6,6 +6,7 @@ import { useT } from '../i18n'
 import { cardName, smcName } from '../i18n/content'
 import { SMCS } from '../data/gameData'
 import SelectField from '../components/SelectField'
+import BossSigil from '../components/BossSigil'
 
 const pick = (a) => a[Math.floor(Math.random() * a.length)]
 
@@ -106,7 +107,7 @@ export default function Shuffle() {
             {SMCS.map((smc) => {
               const progress = extraChallengeProgress(runs, smc.id)
               return <div className="extra-progress-row" key={smc.id}>
-                <span>{smcName(smc.id)}</span>
+                <span className="epname"><BossSigil smcId={smc.id} className="epsig" />{smcName(smc.id)}</span>
                 <div className="challenge-progress" role="progressbar"
                   aria-label={t('extra.progressBoss', { name: smcName(smc.id), completed: progress.completed, total: progress.total })}
                   aria-valuemin="0" aria-valuemax={progress.total} aria-valuenow={progress.completed}>

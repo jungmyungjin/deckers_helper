@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useRuns, computeBoard, computeStats } from '../db/runs'
 import { useSync } from '../lib/SyncProvider'
 import { useT } from '../i18n'
+import BossSigil from '../components/BossSigil'
 import { cardName, smcName } from '../i18n/content'
 import { SMCS, GOLDS } from '../data/gameData'
 
@@ -52,7 +53,7 @@ export default function Board() {
             <tbody>
               {SMCS.map((smc) => (
                 <tr key={smc.id}>
-                  <th>{smcName(smc.id)}</th>
+                  <th><BossSigil smcId={smc.id} className="rowsig" /><span className="rowname">{smcName(smc.id)}</span></th>
                   {GOLDS.map((g) => {
                     const cell = board[`${smc.id}|${g.id}`]
                     const cls = cell ? (cell.perfect ? 'cell perfect' : 'cell done') : 'cell'

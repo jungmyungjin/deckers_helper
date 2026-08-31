@@ -6,6 +6,7 @@ import { deckerName, cardName, smcName } from '../i18n/content'
 import { calcOutcome, OUTCOME_META } from '../lib/outcome'
 import { saveRun } from '../db/runs'
 import SelectField from '../components/SelectField'
+import BossSigil from '../components/BossSigil'
 
 const cardsFor = { copper: COPPERS, silver: SILVERS, gold: GOLDS }
 const validSmc = (id) => SMC_BY_ID[id] ? id : SMCS[0].id
@@ -73,6 +74,14 @@ export default function NewRun() {
   return <div className="page">
     <header className="appbar"><div><h1>{t('newRun.title')}</h1><div className="sub">{t('newRun.sub')}</div></div></header>
     <div className="scroll">
+      <div className="bossmark">
+        <div className="bm-badge"><BossSigil smcId={smcId} /></div>
+        <div className="bm-name">{smcName(smcId)}</div>
+        <div className="bm-meta">{t('newRun.bossMeta', {
+          tier: t(`game.tier.${tierKey(SMC_BY_ID[smcId].difficulty)}`),
+          cycles: SMC_BY_ID[smcId].cycles,
+        })}</div>
+      </div>
       <div className="field">
         <div className="k">{t('newRun.boss')}</div>
         <SelectField ariaLabel={t('newRun.boss')} className="big" value={smcId}

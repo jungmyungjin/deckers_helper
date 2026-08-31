@@ -99,6 +99,7 @@
     "title": "새 기록",
     "sub": "NEW RUN",
     "boss": "보스 (SMC)",
+    "bossMeta": "{tier} · {cycles} 사이클",
     "deckers": "덱커 · 조종한 사람",
     "upgrade": "SMC 업그레이드",
     "upgrade0": "기본 SMC",

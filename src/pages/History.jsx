@@ -7,6 +7,7 @@ import { cardName, deckerName, smcName } from '../i18n/content'
 import { formatDateGroup, formatDateTimeStacked, groupRunsByCalendarDay } from '../lib/format'
 import { OUTCOME_META } from '../lib/outcome'
 import Modal from '../components/Modal'
+import BossSigil from '../components/BossSigil'
 
 export default function History() {
   const nav = useNavigate()
@@ -42,6 +43,7 @@ export default function History() {
               <span className={'runbadge ab-' + run.outcome}>{om.icon}</span>
               <div className="runinfo">
                 <div className="runtitle">
+                  <BossSigil smcId={run.smcId} className="tsig" />
                   {smcName(run.smcId)} <span className="rungold">· {gid ? cardName(gid) : '—'}</span>
                 </div>
                 <div className="runwho">

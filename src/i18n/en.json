@@ -102,6 +102,7 @@
     "title": "New Run",
     "sub": "NEW RUN",
     "boss": "SMC",
+    "bossMeta": "{tier} · {cycles} cycles",
     "deckers": "Deckers · who played",
     "upgrade": "SMC upgrade",
     "upgrade0": "Base SMC",

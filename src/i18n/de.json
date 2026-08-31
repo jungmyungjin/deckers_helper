@@ -103,6 +103,7 @@
     "title": "Neue Partie",
     "sub": "NEUE PARTIE",
     "boss": "SMC",
+    "bossMeta": "{tier} · {cycles} Zyklen",
     "deckers": "Decker · wer gespielt hat",
     "upgrade": "SMC-Upgrade",
     "upgrade0": "Basis-SMC",
