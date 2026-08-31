@@ -303,7 +303,10 @@ table.mx tbody th{position:sticky;left:0;z-index:1;text-align:left;padding:0 9px
 .challenge-progress{height:6px;margin-top:13px;overflow:hidden;background:var(--ink-750);border-radius:8px}
 .challenge-progress i{display:block;height:100%;background:linear-gradient(90deg,var(--ghost),var(--cyan));border-radius:inherit}
 .extra-challenge .boss{font-size:1.3rem;margin:11px 0 2px}
-.extra-boss-select{margin-top:16px;text-align:left}
+  /* 추가 도전 카드에서 고른 보스를 눈으로 확인하는 자리. 카드가 이미 태그·제목·설명·
+     드롭다운·버튼으로 빽빽해서 이름 없이 배지만 둔다. */
+.extra-bossmark{display:flex;justify-content:center;margin-top:15px}
+.extra-boss-select{margin-top:13px;text-align:left}
 .extra-challenge .btn{margin-bottom:0}
 .extra-progress-list{margin-top:18px;padding-top:16px;border-top:1px solid var(--line-soft)}
 .extra-progress-row{display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:center;margin-bottom:12px;font-family:var(--disp);font-size:var(--t-sm);color:var(--fg-dim)}

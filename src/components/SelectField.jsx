@@ -1,5 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react'
 
+// options[].color 를 주면 그 색을 글자에 입힌다. 덱커처럼 항목 자체가 고유색을
+// 가진 목록에서, 색을 배경으로 칠하면 여섯 줄이 알록달록해져 오히려 읽기 나쁘다.
 export default function SelectField({ ariaLabel, className = '', disabled = false, onChange, options, style, value }) {
   const [open, setOpen] = useState(false)
   const rootRef = useRef(null)
@@ -71,7 +73,9 @@ export default function SelectField({ ariaLabel, className = '', disabled = fals
         onClick={() => (open ? setOpen(false) : showList())}
         onKeyDown={handleTriggerKeyDown}
       >
-        <span className="select-value">{selected?.label}</span>
+        <span className="select-value" style={selected?.color ? { color: selected.color } : undefined}>
+          {selected?.label}
+        </span>
         <svg className="select-chevron" viewBox="0 0 20 20" aria-hidden="true">
           <path d="m6 8 4 4 4-4" />
         </svg>
@@ -89,6 +93,7 @@ export default function SelectField({ ariaLabel, className = '', disabled = fals
               onClick={() => choose(option.value)}
               onFocus={() => setActiveIndex(index)}
               onKeyDown={(event) => handleOptionKeyDown(event, index)}
+              style={option.color ? { color: option.color } : undefined}
             >
               {option.label}
             </button>

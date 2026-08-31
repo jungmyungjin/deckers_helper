@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { DECKER_BY_ID, DECKER_COLORS } from '../data/gameData'
 import { useRuns, deleteRun, finalGoldId } from '../db/runs'
 import { useSync } from '../lib/SyncProvider'
 import { useT } from '../i18n'
@@ -46,11 +47,19 @@ export default function History() {
                   <BossSigil smcId={run.smcId} className="tsig" />
                   {smcName(run.smcId)} <span className="rungold">· {gid ? cardName(gid) : '—'}</span>
                 </div>
+                {/* 덱커 이름에만 고유색을 준다. 조종한 사람 이름은 회색 그대로 — 색은
+                    "어느 덱커였나"를 가리키는 표식이지 사람을 가리키는 게 아니다. */}
                 <div className="runwho">
                   {run.deckers.length === 0 ? t('common.noDecker') :
-                    run.deckers.map((d) =>
-                      `${deckerName(d.deckerId)}${d.playerName ? '·' + d.playerName : ''}`
-                    ).join(' / ')}
+                    run.deckers.map((d, i) => (
+                      <span key={i}>
+                        {i > 0 && ' / '}
+                        <span style={{ color: DECKER_COLORS[DECKER_BY_ID[d.deckerId]?.color] }}>
+                          {deckerName(d.deckerId)}
+                        </span>
+                        {d.playerName ? '·' + d.playerName : ''}
+                      </span>
+                    ))}
                 </div>
               </div>
               <div className="runmeta">

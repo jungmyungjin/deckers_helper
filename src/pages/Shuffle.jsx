@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { buildRandomObjectives, drawUnclearedExtraCombo, extraChallengeProgress, finalGoldId, unclearedCombos, useRuns } from '../db/runs'
 import { useSync } from '../lib/SyncProvider'
 import { useT } from '../i18n'
-import { cardName, smcName, smcNameFull } from '../i18n/content'
+import { cardName, smcName } from '../i18n/content'
 import { SMCS } from '../data/gameData'
 import SelectField from '../components/SelectField'
 import BossSigil from '../components/BossSigil'
@@ -94,9 +94,13 @@ export default function Shuffle() {
             <div className="tag">{t('extra.title')}</div>
             <div className="boss">{t('shuffle.extraDrawTitle')}</div>
             <div className="vs">{t('extra.intro')}</div>
+            {/* 고른 보스를 바로 아래 드롭다운이 이름으로 말해주므로 배지에는 이름을 붙이지 않는다 */}
+            <div className="extra-bossmark">
+              <div className="bm-badge"><BossSigil smcId={extraSmcId} /></div>
+            </div>
             <div className="extra-boss-select">
               <SelectField ariaLabel={t('extra.boss')} value={extraSmcId}
-                options={SMCS.map((smc) => ({ value: smc.id, label: smcNameFull(smc.id) }))}
+                options={SMCS.map((smc) => ({ value: smc.id, label: smcName(smc.id) }))}
                 onChange={setExtraSmcId} />
             </div>
             <button className="btn" onClick={rollExtra} disabled={!hydrated || selectedExtraProgress.completed >= selectedExtraProgress.total}>
