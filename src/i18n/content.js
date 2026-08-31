@@ -23,6 +23,26 @@ export const smcName = (id) => field('smc', id, 'name') || id
 export const deckerName = (id) => field('decker', id, 'name') || id
 export const cardName = (id) => field('card', id, 'name') || id
 
+/**
+ * 이름 뒤에 원문을 괄호로 붙인다. 실물 카드와 대조하는 자리 — 보스·덱커를 고르는
+ * 드롭다운 — 에서만 쓴다. 한국어판을 가진 사람에게는 한글이, 영문판을 가진
+ * 사람에게는 괄호 안이 카드와 일치한다.
+ *
+ * 이미 고른 뒤에 보여주는 자리(배지·히스토리·보드 행 머리)에는 쓰지 않는다.
+ * 거기서는 길이가 곧 비용이고, 대조할 일이 없다.
+ *
+ * 현지 이름이 없거나 원문과 같으면 괄호를 붙이지 않는다 — 영어·독일어에서는
+ * 저절로 원문 하나만 남는다.
+ */
+function withOriginal(kind, id, local) {
+  const original = CONTENT[FALLBACK]?.[kind]?.[id]?.name
+  return original && original !== local ? `${local} (${original})` : local
+}
+
+export const smcNameFull = (id) => withOriginal('smc', id, smcName(id))
+export const deckerNameFull = (id) => withOriginal('decker', id, deckerName(id))
+export const cardNameFull = (id) => withOriginal('card', id, cardName(id))
+
 export const smcSpecial = (id) => field('smc', id, 'special')
 export const deckerAbility = (id) => field('decker', id, 'ability')
 

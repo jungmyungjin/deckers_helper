@@ -1,25 +1,76 @@
 {
-  "_note": "한국어판 기준. name 을 비워두면 en.json 의 영어 이름으로 폴백한다 — 한국어판 실물 카드명을 확인한 뒤 채우면 된다. 본문은 기존에 정리해 둔 요약.",
+  "_note": "한국어판 기준. SMC 7종의 name 은 한국어판 실물 표기를 확인해 넣은 값이다. 덱커 10명의 name 은 아직 실물 확인 전의 음차 표기 — 다르면 덮어쓸 것. name 을 비우면 en.json 으로 폴백한다. 카드 40장의 name 은 아직 6장만 채워져 있다.",
   "smc": {
-    "alpha-moby": { "special": "첫 사이클 Spawn 없음. 매 턴 Active Decker 칸에 Spark 1" },
-    "spider": { "special": "Spawn 때 Spark 확산으로 포위" },
-    "glom": { "special": "셋업 Program 일괄 배치. End of Turn에 Spark 뭉침" },
-    "logi": { "special": "Spawn 시 주사위 없음. 검은 Spark" },
-    "viking": { "special": "Spawn 중 Guardian 생성 촉진. 홀수 칸 폭발" },
-    "sentinel": { "special": "모든 목표 달성 필수. Infect 대체" },
-    "mother": { "special": "시작부터 Spark 다수. 매 턴 entry Spark 1" }
+    "alpha-moby": {
+      "name": "알파-모비",
+      "special": "첫 사이클 Spawn 없음. 매 턴 Active Decker 칸에 Spark 1"
+    },
+    "spider": {
+      "name": "스파이더",
+      "special": "Spawn 때 Spark 확산으로 포위"
+    },
+    "glom": {
+      "name": "응집체",
+      "special": "셋업 Program 일괄 배치. End of Turn에 Spark 뭉침"
+    },
+    "logi": {
+      "name": "로직스",
+      "special": "Spawn 시 주사위 없음. 검은 Spark"
+    },
+    "viking": {
+      "name": "바이킹",
+      "special": "Spawn 중 Guardian 생성 촉진. 홀수 칸 폭발"
+    },
+    "sentinel": {
+      "name": "센티넬",
+      "special": "모든 목표 달성 필수. Infect 대체"
+    },
+    "mother": {
+      "name": "마더",
+      "special": "시작부터 Spark 다수. 매 턴 entry Spark 1"
+    }
   },
   "decker": {
-    "oshin-noro": { "ability": "자기 칸 Infect 특수" },
-    "monty-quantum": { "ability": "Ghosting 스페셜리스트" },
-    "tilda-sweet": { "ability": "더 적은 command로 업로드" },
-    "hettie-magnetic": { "ability": "이동 시 말 1 추가 운반" },
-    "angel-nitrate": { "ability": "Spark를 인접 칸으로 리다이렉트" },
-    "leiko-mori": { "ability": "시작 타입을 셋업 중 선택" },
-    "rupert-stanz": { "ability": "특수 말을 supply에서 투입" },
-    "tokyo-black": { "ability": "현재 서버 타일 재배치" },
-    "kelly-nexus": { "ability": "첫 두 턴 카드 2장 추가 보유" },
-    "techno-twins": { "ability": "아바타 2개 독립 행동" }
+    "oshin-noro": {
+      "name": "오신 노로",
+      "ability": "자기 칸 Infect 특수"
+    },
+    "monty-quantum": {
+      "name": "몬티 퀀텀",
+      "ability": "Ghosting 스페셜리스트"
+    },
+    "tilda-sweet": {
+      "name": "틸다 스위트",
+      "ability": "더 적은 command로 업로드"
+    },
+    "hettie-magnetic": {
+      "name": "헤티 마그네틱",
+      "ability": "이동 시 말 1 추가 운반"
+    },
+    "angel-nitrate": {
+      "name": "엔젤 나이트레이트",
+      "ability": "Spark를 인접 칸으로 리다이렉트"
+    },
+    "leiko-mori": {
+      "name": "레이코 모리",
+      "ability": "시작 타입을 셋업 중 선택"
+    },
+    "rupert-stanz": {
+      "name": "루퍼트 스탄츠",
+      "ability": "특수 말을 supply에서 투입"
+    },
+    "tokyo-black": {
+      "name": "도쿄 블랙",
+      "ability": "현재 서버 타일 재배치"
+    },
+    "kelly-nexus": {
+      "name": "켈리 넥서스",
+      "ability": "첫 두 턴 카드 2장 추가 보유"
+    },
+    "techno-twins": {
+      "name": "테크노 트윈스",
+      "ability": "아바타 2개 독립 행동"
+    }
   },
   "card": {
     "copper-404-not-found": {

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { buildRandomObjectives, drawUnclearedExtraCombo, extraChallengeProgress, finalGoldId, unclearedCombos, useRuns } from '../db/runs'
 import { useSync } from '../lib/SyncProvider'
 import { useT } from '../i18n'
-import { cardName, smcName } from '../i18n/content'
+import { cardName, smcName, smcNameFull } from '../i18n/content'
 import { SMCS } from '../data/gameData'
 import SelectField from '../components/SelectField'
 import BossSigil from '../components/BossSigil'
@@ -96,7 +96,7 @@ export default function Shuffle() {
             <div className="vs">{t('extra.intro')}</div>
             <div className="extra-boss-select">
               <SelectField ariaLabel={t('extra.boss')} value={extraSmcId}
-                options={SMCS.map((smc) => ({ value: smc.id, label: smcName(smc.id) }))}
+                options={SMCS.map((smc) => ({ value: smc.id, label: smcNameFull(smc.id) }))}
                 onChange={setExtraSmcId} />
             </div>
             <button className="btn" onClick={rollExtra} disabled={!hydrated || selectedExtraProgress.completed >= selectedExtraProgress.total}>

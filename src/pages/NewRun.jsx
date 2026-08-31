@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { SMCS, DECKERS, DECKER_BY_ID, DECKER_COLORS, SMC_BY_ID, buildObjectiveSlots, CARD_BY_ID, COPPERS, SILVERS, GOLDS, tierKey } from '../data/gameData'
 import { useT } from '../i18n'
-import { deckerName, cardName, smcName } from '../i18n/content'
+import { cardNameFull, deckerNameFull, smcName, smcNameFull } from '../i18n/content'
 import { calcOutcome, OUTCOME_META } from '../lib/outcome'
 import { saveRun } from '../db/runs'
 import SelectField from '../components/SelectField'
@@ -85,7 +85,7 @@ export default function NewRun() {
       <div className="field">
         <div className="k">{t('newRun.boss')}</div>
         <SelectField ariaLabel={t('newRun.boss')} className="big" value={smcId}
-          options={SMCS.map((smc) => ({ value: smc.id, label: `${smcName(smc.id)} · ${t(`game.tier.${tierKey(smc.difficulty)}`)}` }))}
+          options={SMCS.map((smc) => ({ value: smc.id, label: `${smcNameFull(smc.id)} · ${t(`game.tier.${tierKey(smc.difficulty)}`)}` }))}
           onChange={(nextSmcId) => changeSetup(nextSmcId, smcUpgrade)} />
       </div>
       <div className="field">
@@ -104,7 +104,7 @@ export default function NewRun() {
           return <div className="drow" key={index}>
             <span className="dk" style={{ background: DECKER_COLORS[DECKER_BY_ID[decker.deckerId]?.color] }} />
             <SelectField ariaLabel={t('newRun.deckers')} value={decker.deckerId}
-              options={options.map((candidate) => ({ value: candidate.id, label: deckerName(candidate.id) }))}
+              options={options.map((candidate) => ({ value: candidate.id, label: deckerNameFull(candidate.id) }))}
               onChange={(deckerId) => updDecker(index, { deckerId })} />
             <input className="cinput" placeholder={t('newRun.playerPlaceholder')} value={decker.playerName}
               onChange={(event) => updDecker(index, { playerName: event.target.value })} />
@@ -122,7 +122,7 @@ export default function NewRun() {
             <div className="cyc-body">
               <SelectField ariaLabel={t(`game.securityShort.${cycle.security}`)} value={cycle.objectiveId}
                 options={cardsFor[cycle.security].filter((card) => !used.has(card.id) || card.id === cycle.objectiveId)
-                  .map((card) => ({ value: card.id, label: cardName(card.id) }))}
+                  .map((card) => ({ value: card.id, label: cardNameFull(card.id) }))}
                 onChange={(objectiveId) => setCard(index, objectiveId)} />
               <small>{cycle.isFinal ? t('newRun.goldTag') : `${t(`game.securityShort.${cycle.security}`)} · ${cycle.cycleNo}`}</small>
             </div>
