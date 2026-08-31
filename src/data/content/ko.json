@@ -1,0 +1,55 @@
+{
+  "_note": "한국어판 기준. name 을 비워두면 en.json 의 영어 이름으로 폴백한다 — 한국어판 실물 카드명을 확인한 뒤 채우면 된다. 본문은 기존에 정리해 둔 요약.",
+  "smc": {
+    "alpha-moby": { "special": "첫 사이클 Spawn 없음. 매 턴 Active Decker 칸에 Spark 1" },
+    "spider": { "special": "Spawn 때 Spark 확산으로 포위" },
+    "glom": { "special": "셋업 Program 일괄 배치. End of Turn에 Spark 뭉침" },
+    "logi": { "special": "Spawn 시 주사위 없음. 검은 Spark" },
+    "viking": { "special": "Spawn 중 Guardian 생성 촉진. 홀수 칸 폭발" },
+    "sentinel": { "special": "모든 목표 달성 필수. Infect 대체" },
+    "mother": { "special": "시작부터 Spark 다수. 매 턴 entry Spark 1" }
+  },
+  "decker": {
+    "oshin-noro": { "ability": "자기 칸 Infect 특수" },
+    "monty-quantum": { "ability": "Ghosting 스페셜리스트" },
+    "tilda-sweet": { "ability": "더 적은 command로 업로드" },
+    "hettie-magnetic": { "ability": "이동 시 말 1 추가 운반" },
+    "angel-nitrate": { "ability": "Spark를 인접 칸으로 리다이렉트" },
+    "leiko-mori": { "ability": "시작 타입을 셋업 중 선택" },
+    "rupert-stanz": { "ability": "특수 말을 supply에서 투입" },
+    "tokyo-black": { "ability": "현재 서버 타일 재배치" },
+    "kelly-nexus": { "ability": "첫 두 턴 카드 2장 추가 보유" },
+    "techno-twins": { "ability": "아바타 2개 독립 행동" }
+  },
+  "card": {
+    "copper-404-not-found": {
+      "goal": "각 Decker home server 4번 칸에 모든 [Spark]·[Guardian]이 없어야 함",
+      "rules": "Command Phase 중 [Spark]가 6번 칸에 들어오려 하면 대신 같은 서버 4번 칸에 배치",
+      "fail": "모든 서버(home 외 포함) 1번 칸마다 [Spark] 1개"
+    },
+    "copper-shattered-glass": {
+      "goal": "이 카드 위에 최소 X개의 [말]",
+      "setup": "각 Decker는 자기 entry space의 [X] 1개를 [Y] 1개로 교체 가능",
+      "rules": "Modify 액션 시 supply에서 [X] 1개를 카드 위에 올림"
+    },
+    "silver-access-shutdown": {
+      "success": "모든 서버 4번 칸마다 [X] 1개",
+      "fail": "4·5번 칸에 [X]/[Y] 있는 각 서버 6번 칸에 [X] 1개"
+    },
+    "silver-neural-matrix": {
+      "goal": "X개 서버의 각 홀수 칸에 최소 1개의 [X]/[Y] (X = Decker 수 + 1)",
+      "rules": "특수 규칙 없음"
+    },
+    "gold-blackout": {
+      "goal": "각 Decker home server 1·3·5번 칸에 최소 1개의 [X]/[Y]. 모든 avatar가 entry space에",
+      "setup": "각 Decker home server 1·3·5번 칸에서 모든 [Spark] 제거",
+      "rules": "Command Phase 중 avatar는 Move로 1·3·5번 칸 진입 불가(ghost는 가능)",
+      "success": "각 Decker entry space에 [X] 1개"
+    },
+    "gold-hackman": {
+      "goal": "① HackMan 제거([Guardian] 제거하듯) ② 모든 avatar가 각자 entry space에",
+      "setup": "supply(비면 network)에서 [X] 1개를 [Y] 위에 쌓음 = \"HackMan\"",
+      "rules": "HackMan과 모든 [말]은 [Guardian]처럼 작동. 매 Start of Turn마다 Active Decker 칸으로 이동"
+    }
+  }
+}

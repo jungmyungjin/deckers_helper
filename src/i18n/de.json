@@ -1,0 +1,283 @@
+{
+  "_note": "독일어 UI 문구. 원어민 검수 필요. 특히 game.security.ghost 는 독일어판 실물 표기를 확인할 것. nav.* 는 하단 탭 폭 때문에 8자 이하를 지킬 것.",
+  "nav": {
+    "board": "Board",
+    "history": "Verlauf",
+    "new": "Neu",
+    "shuffle": "Zufall",
+    "cards": "Karten",
+    "profile": "Profil"
+  },
+  "common": {
+    "loading": "Partien werden geladen…",
+    "retry": "Erneut",
+    "close": "Schließen",
+    "cancel": "Abbrechen",
+    "noDecker": "Kein Decker erfasst"
+  },
+  "game": {
+    "tier": {
+      "intro": "Einstieg",
+      "mid": "Mittel",
+      "top": "Schwerste"
+    },
+    "security": {
+      "copper": "Bronze",
+      "silver": "Silber",
+      "gold": "Gold",
+      "ghost": "Mother's Ghost"
+    },
+    "securityShort": {
+      "copper": "BRONZE",
+      "silver": "SILBER",
+      "gold": "GOLD"
+    }
+  },
+  "outcome": {
+    "fail": "Fehler",
+    "success": "Erfolg",
+    "perfect": "Perfekt"
+  },
+  "board": {
+    "title": "Missions-Board",
+    "sub": "GOLD × SMC · {stamps} / {total}",
+    "stamps": "Geschafft / {total}",
+    "plays": "Partien",
+    "perfects": "Perfekt",
+    "legendClear": "Geschafft",
+    "legendPerfect": "Perfekt",
+    "legendUntried": "Offen",
+    "corner": "SMC ＼ Gold",
+    "goldKey": "Gold-Kürzel",
+    "empty": "Noch keine Partie. Unten auf ➕ Neu tippen und die erste eintragen."
+  },
+  "history": {
+    "title": "Verlauf",
+    "runs": {
+      "one": "{count} PARTIE",
+      "other": "{count} PARTIEN"
+    },
+    "lastPlayed": "Zuletzt gespielt · {date}",
+    "filterAll": "Alle",
+    "filterPerfect": "🥇 Perfekt",
+    "filterSuccess": "✓ Erfolg",
+    "filterFail": "✕ Fehler",
+    "allBosses": "Alle SMCs",
+    "empty": "Noch keine Partien. Trage deine erste ein.",
+    "confirmDelete": "Diese Partie löschen?",
+    "delete": "Löschen",
+    "deleteTitle": "Diese Partie löschen?",
+    "deleteCopy": "Diese Partie wird auch von synchronisierten Geräten entfernt."
+  },
+  "extra": {
+    "title": "Zusatzherausforderungen",
+    "entryTitle": "Zusatzherausforderungen",
+    "entryUnlocked": "Alle Gold-Missionen geschafft · Neue Kombination wählen",
+    "entryPreview": "DEV · Vorschau nach dem Abschluss",
+    "back": "Vorheriger Schritt",
+    "intro": "Wähle einen Boss und ziehe eine Kombination, die du noch nicht geschafft hast.",
+    "boss": "Boss wählen",
+    "gold": "Gold wählen",
+    "copper": "Bronze wählen",
+    "silver": "Verbleibende Silber-Kombinationen",
+    "complete": "Alle Silber-Karten dieser Kombination sind geschafft!",
+    "progressBoss": "Kombinationsfortschritt für {name}: {completed} / {total}",
+    "progressGold": "Kombinationsfortschritt für {name}: {completed} / {total}",
+    "progressCopper": "Kombinationsfortschritt für {name}: {completed} / {total}"
+  },
+  "mission": {
+    "invalid": "Unbekannte Mission",
+    "vs": "vs {name}",
+    "kicker": "◆ Gold-Mission × SMC",
+    "statePerfect": "🥇 Geschafft · Perfekt",
+    "stateClear": "✓ Geschafft",
+    "stateUntried": "Offen",
+    "attempts": "Versuche",
+    "wins": "Siege",
+    "perfects": "Perfekt",
+    "fails": "Fehler",
+    "listLabel": "Versuche · je Kombination",
+    "empty": "Noch kein Versuch bei dieser Mission."
+  },
+  "newRun": {
+    "title": "Neue Partie",
+    "sub": "NEUE PARTIE",
+    "boss": "SMC",
+    "deckers": "Decker · wer gespielt hat",
+    "upgrade": "SMC-Upgrade",
+    "upgrade0": "Basis-SMC",
+    "upgrade1": "Upgrade +1 · 1 Goldziel zusätzlich",
+    "upgrade2": "Upgrade +2 · 2 Goldziele zusätzlich",
+    "upgradeHint": "Ein Upgrade ergänzt auch die SMC-Sonderregeln.",
+    "playerPlaceholder": "Spieler",
+    "addDecker": "＋ Decker",
+    "cyclesLabel": "Ziele je Zyklus · Ergebnis",
+    "goldTag": "GOLD · final → geschafft",
+    "success": "Erfolg",
+    "fail": "Fehler",
+    "verdictNote": "Aus dem finalen Gold ermittelt: {result}",
+    "verdictAll": "Beim Sentinel müssen alle Ziele gelingen.",
+    "save": "Partie speichern"
+  },
+  "shuffle": {
+    "title": "Zufalls-Challenge",
+    "doneTag": "Komplett",
+    "doneMsg": "🎉 Alle Missionen geschafft!",
+    "remaining": {
+      "one": "{count} Mission offen",
+      "other": "{count} Missionen offen"
+    },
+    "syncing": "Partien werden abgeglichen",
+    "tapToDraw": "Tippen und Challenge ziehen",
+    "todayTag": "Challenge des Tages",
+    "extraDrawTitle": "Eine neue Herausforderung nach dem Abschluss",
+    "extraDraw": "Kombination für diesen Boss ziehen",
+    "vsExtra": "vs {name} · offene Zusatzkombination",
+    "extraReshuffle": "🎲 Andere Kombination für diesen Boss ziehen",
+    "vsUncleared": "vs {name} · noch offen",
+    "reshuffle": {
+      "one": "🎲 Neu ziehen — noch {count} Mission",
+      "other": "🎲 Neu ziehen — noch {count} Missionen"
+    },
+    "startRecord": "Partie mit diesem Setup →"
+  },
+  "cards": {
+    "title": "Zielkarten",
+    "sub": "40 Karten · {count} mit Volltext",
+    "badgeFull": "Text",
+    "badgeNameOnly": "Name"
+  },
+  "flipCard": {
+    "goalTag": "◆ {security} · Ziel",
+    "goal": "Ziel",
+    "setup": "Aufbau",
+    "rules": "Regeln",
+    "success": "Erfolg",
+    "fail": "Fehler",
+    "bodyPending": "Text noch nicht erfasst",
+    "seePhysical": "Karte zur Hand nehmen",
+    "resultTag": "Ergebnis",
+    "resultTitle": "SUCCESS / FAIL",
+    "resultPending": "Ergebnistext noch nicht erfasst",
+    "tapToResult": "tippen → Ergebnis ⟳",
+    "tap": "tippen ⟳",
+    "tapToFront": "tippen → Vorderseite ⟳"
+  },
+  "profile": {
+    "title": "Profil · Erfolge",
+    "subSignedIn": "Partien liegen im Konto",
+    "subGuest": "Nur auf diesem Gerät",
+    "signIn": "Mit Google anmelden und abgleichen",
+    "signInDisabledHint": "Anmeldung ist gerade nicht möglich",
+    "guestNote": "Nur auf diesem Gerät · nach der Anmeldung kommen die bisherigen Partien mit",
+    "guestNoteDisabled": "Anmeldung ist gerade nicht möglich · Partien bleiben auf diesem Gerät",
+    "sync": "🔄 Abgleich",
+    "syncing": "Abgleich…",
+    "signOut": "Abmelden",
+    "stamps": "Gold geschafft",
+    "winRate": "Siegquote",
+    "plays": "Partien",
+    "achievements": "{unlocked} von {total} Erfolgen",
+    "reportRow": "Fehler melden",
+    "reportRowSub": "Sag uns, was nicht geht",
+    "reportRowPending": {
+      "one": "{count} Meldung wartet",
+      "other": "{count} Meldungen warten"
+    },
+    "languageRow": "Sprache",
+    "languageSub": "Gilt für App und Kartennamen"
+  },
+  "achievements": {
+    "stamps-1": "Erster Einbruch",
+    "stamps-5": "Geübter Decker",
+    "stamps-25": "Veteran",
+    "stamps-84": "Alles geschafft",
+    "perfects-1": "Makelloser Hack",
+    "perfects-10": "Perfekter Hacker",
+    "unitStamps": "geschafft",
+    "unitPerfects": "Perfekt"
+  },
+  "report": {
+    "title": "Fehler melden",
+    "sub": "Geht direkt an die Entwicklung",
+    "intro": "Eine kurze Beschreibung hilft sehr. App-Version und der Bildschirm, auf dem du warst, werden automatisch mitgeschickt.",
+    "placeholder": "Auf welchem Bildschirm warst du, was hast du gemacht, und was ist passiert?",
+    "showContext": "▸ Was mitgeschickt wird",
+    "hideContext": "▾ Was mitgeschickt wird",
+    "send": "An die Entwicklung senden",
+    "sending": "Wird gesendet…",
+    "sent": "Gesendet. Wir schauen es uns an — danke!",
+    "queued": "Konnte gerade nicht gesendet werden und liegt auf diesem Gerät. Es geht raus, sobald du wieder online bist.",
+    "disabled": "Meldungen können gerade nicht gesendet werden. Sie liegt auf diesem Gerät und geht später raus.",
+    "pending": {
+      "one": "{count} Meldung wartet auf Versand",
+      "other": "{count} Meldungen warten auf Versand"
+    },
+    "ctx": {
+      "appVersion": "App-Version",
+      "route": "Bildschirm",
+      "account": "Konto",
+      "accountSignedIn": "Angemeldet",
+      "accountGuest": "Nicht angemeldet",
+      "accountUnknown": "Unbekannt",
+      "connection": "Verbindung",
+      "online": "Verbunden",
+      "offline": "Getrennt",
+      "install": "Läuft als",
+      "installApp": "Installierte App",
+      "installBrowser": "Browser",
+      "sync": "Abgleich",
+      "runCount": "Gespeicherte Partien",
+      "runCountValue": {
+        "one": "{count} Partie",
+        "other": "{count} Partien"
+      },
+      "device": "Gerät",
+      "language": "Sprache"
+    },
+    "route": {
+      "board": "Missions-Board",
+      "history": "Verlauf",
+      "shuffle": "Zufalls-Challenge",
+      "new": "Neue Partie",
+      "cards": "Zielkarten",
+      "profile": "Profil",
+      "report": "Fehler melden",
+      "mission": "Missionsdetails"
+    }
+  },
+  "crash": {
+    "title": "Da ist etwas schiefgelaufen",
+    "sub": "In der App ist ein unerwartetes Problem aufgetreten.",
+    "safe": "Deine Partien liegen weiterhin auf diesem Gerät.",
+    "retry": "Nochmal versuchen",
+    "goHome": "Zurück zum Board",
+    "send": "Diesen Fehler senden",
+    "sending": "Wird gesendet…",
+    "sent": "Gesendet — danke!",
+    "queued": "Gespeichert · geht online raus",
+    "failed": "Senden fehlgeschlagen",
+    "note": "Fehler, App-Version und Bildschirm werden mitgeschickt."
+  },
+  "sync": {
+    "syncing": "Partien werden abgeglichen…",
+    "statusIdle": "Bereit",
+    "statusSyncing": "Abgleich läuft",
+    "statusDone": "Fertig",
+    "statusError": "Fehlgeschlagen",
+    "done": "Partien abgeglichen",
+    "upToDate": "Alles aktuell",
+    "reportsSent": {
+      "one": "{count} Meldung gesendet",
+      "other": "{count} Meldungen gesendet"
+    },
+    "failed": "Abgleich fehlgeschlagen",
+    "pushFailed": "Partien konnten nicht hochgeladen werden",
+    "pullFailed": "Partien konnten nicht geladen werden",
+    "reportFailed": "Meldung konnte nicht gesendet werden"
+  },
+  "auth": {
+    "signInFailed": "Anmeldung konnte nicht gestartet werden · bitte gleich noch einmal versuchen",
+    "callbackFailed": "Anmeldung wurde nicht abgeschlossen · bitte erneut versuchen"
+  }
+}
