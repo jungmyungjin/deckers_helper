@@ -87,16 +87,31 @@ syncStatus, syncMessage, runCount, screen, language, userAgent, at`.
 - 🥇: 그 셀에서 `outcome = perfect` 런 ≥ 1
 
 보드·통계·업적·미클리어 조합은 전부 `runs`에서 파생 계산한다
-([`src/db/runs.js`](../src/db/runs.js)). 따로 저장하지 않으므로 원본과 어긋날 일이 없고,
-`runs`만 동기화되면 모든 기기에서 같은 화면이 나온다.
+([`src/lib/derive.js`](../src/lib/derive.js), 업적은
+[`src/lib/achievements.js`](../src/lib/achievements.js)). 따로 저장하지 않으므로 원본과
+어긋날 일이 없고, `runs`만 동기화되면 모든 기기에서 같은 화면이 나온다.
+
+**파생 계산은 `db/`가 아니라 `lib/`에 둔다.** 런 배열만 받는 순수 함수라 Dexie도
+React도 필요 없다 — 같이 두면 파생 계산 하나를 쓰려고 IndexedDB 전체를 끌고
+들어와야 하고, 테스트가 먼저 그 벽에 부딪힌다. `db/runs.js`에는 읽기·쓰기와 훅만 남는다.
 
 ## 로컬(Dexie) 스토어
 
 ```
 runs     'id, smcId, playedAt, outcome, dirty'
-meta     'key'        // 유저별 pull 커서 등
+meta     'key'        // 유저별 pull 커서, 업적 해금 표시 등
 reports  'id, dirty, createdAt'
 ```
+
+`meta`에 들어가는 키:
+
+| 키 | 값 |
+|---|---|
+| `lastPulledAt:{userId}` | 증분 pull 커서 |
+| `seenAchievements:{userId}` | 이미 토스트로 보여준 업적 id 목록 ([achievements.md](achievements.md)) |
+| `purgedRunCount` | 물리 삭제한 런의 누적 횟수. tombstone이 남지 않는 삭제를 세기 위한 값 |
+
+셋 다 기기 로컬이고 동기화되지 않는다 — 서버에 올릴 값이 아니라 이 기기의 표시 상태다.
 
 서버 필드와 1:1 + 로컬 전용 3개:
 
@@ -137,7 +152,9 @@ reports  'id, dirty, createdAt'
 
 ## 남겨둔 것
 
-- **업적 해금 시각.** 업적은 `runs`에서 파생되므로 기기 간에는 이미 일치한다.
-  "언제 땄는지"를 남기려면 `user_achievements` 테이블과 해금 전이 감지가 필요하다.
+- **업적 해금 시각.** 업적은 `runs`에서 파생되므로 기기 간에는 이미 일치한다
+  ([achievements.md](achievements.md)). "언제 땄는지"를 남기려면 `user_achievements`
+  테이블과 해금 전이 감지가 필요하다. 해금 연출은 그 대신 로컬 `meta`의
+  `seenAchievements`(본 업적 id 목록)로 처리한다 — 기기마다 따로 뜬다.
 - **계정 전환.** 같은 기기에서 계정을 바꿔 로그인하면 이전 로컬 기록이 새 계정으로 병합된다.
   개인용 전제라 그대로 뒀다.

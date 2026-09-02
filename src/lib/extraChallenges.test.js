@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { drawUnclearedExtraCombo, extraChallengeProgress } from './runs'
+import { drawUnclearedExtraCombo, extraChallengeProgress } from './derive'
 
 const completed = {
   smcId: 'alpha-moby',

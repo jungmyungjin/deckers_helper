@@ -22,4 +22,5 @@ Supabase 없이도 게스트 모드로 완전히 동작한다. 로그인·기기
 - [docs/data-model.md](docs/data-model.md) — 데이터 모델과 동기화 규칙
 - [docs/i18n.md](docs/i18n.md) — 다국어 구조와 번역 규칙
 - [docs/supabase-setup.md](docs/supabase-setup.md) — Supabase·Google 로그인 설정
+- [docs/achievements.md](docs/achievements.md) — 업적 목록과 판정 조건
 - [docs/rules-summary.md](docs/rules-summary.md) — 게임 룰 요약

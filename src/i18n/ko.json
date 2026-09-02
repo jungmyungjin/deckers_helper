@@ -8,7 +8,6 @@
     "history": "히스토리",
     "new": "기록",
     "shuffle": "챌린지",
-    "cards": "카드",
     "profile": "프로필"
   },
   "common": {
@@ -43,7 +42,6 @@
   },
   "board": {
     "title": "미션 보드",
-    "sub": "GOLD × SMC · {stamps} / {total}",
     "stamps": "클리어 / {total}",
     "plays": "플레이",
     "perfects": "대성공",
@@ -59,32 +57,17 @@
     "title": "히스토리",
     "runs": "{count} RUNS",
     "lastPlayed": "최근 플레이 · {date}",
-    "filterAll": "전체",
-    "filterPerfect": "🥇 대성공",
-    "filterSuccess": "✓ 성공",
-    "filterFail": "✕ 실패",
-    "allBosses": "모든 보스",
     "empty": "아직 기록이 없어요. 첫 게임을 기록해보세요.",
-    "confirmDelete": "이 기록을 삭제할까요?",
     "delete": "삭제",
     "deleteTitle": "기록을 삭제할까요?",
     "deleteCopy": "삭제한 기록은 동기화된 기기에서도 사라집니다."
   },
   "extra": {
     "title": "추가 도전",
-    "entryTitle": "추가 도전",
-    "entryUnlocked": "모든 Gold 미션 클리어 · 새 조합에 도전하세요",
-    "entryPreview": "DEV · 완주 후 해금될 화면 미리 보기",
-    "back": "이전 단계",
     "intro": "보스를 골라 아직 정복하지 못한 조합을 뽑아보세요.",
     "boss": "보스 선택",
-    "gold": "Gold 선택",
-    "copper": "Bronze 선택",
-    "silver": "남은 Silver 조합",
     "complete": "이 조합의 Silver 카드를 모두 클리어했어요!",
-    "progressBoss": "{name} 조합 진행도: {completed} / {total}",
-    "progressGold": "{name} 조합 진행도: {completed} / {total}",
-    "progressCopper": "{name} 조합 진행도: {completed} / {total}"
+    "progressBoss": "{name} 조합 진행도: {completed} / {total}"
   },
   "mission": {
     "invalid": "잘못된 미션",
@@ -105,7 +88,7 @@
     "sub": "NEW RUN",
     "boss": "보스 (SMC)",
     "bossMeta": "{tier} · {cycles} 사이클",
-    "deckers": "덱커 · 조종한 사람",
+    "deckers": "덱커 · 플레이어",
     "upgrade": "SMC 업그레이드",
     "upgrade0": "기본 SMC",
     "upgrade1": "업그레이드 +1 · Gold 목표 1장 추가",
@@ -127,9 +110,9 @@
     "doneMsg": "🎉 모든 미션 클리어!",
     "remaining": "아직 못 깬 미션 {count}개",
     "syncing": "기록 동기화 중",
-    "tapToDraw": "눌러서 도전 조합 뽑기",
-    "todayTag": "오늘의 도전",
-    "extraDrawTitle": "완주 이후의 새로운 도전",
+    "tapToDraw": "눌러서 다음 미션 보기",
+    "todayTag": "오늘의 미션",
+    "extraDrawTitle": "완주 이후의 새로운 조합",
     "extraDraw": "이 보스로 조합 뽑기",
     "extraReshuffle": "🎲 이 보스의 다른 조합 뽑기",
     "reshuffle": "🎲 다시 셔플 — 남은 미션 {count}개 중",
@@ -174,22 +157,485 @@
     "stamps": "Gold 클리어",
     "winRate": "승률",
     "plays": "플레이",
-    "achievements": "업적 {total}개 중 {unlocked}",
     "reportRow": "오류 제보",
     "reportRowSub": "잘 안 되는 부분을 알려주세요",
     "reportRowPending": "전송 대기 중 {count}건",
     "languageRow": "언어",
-    "languageSub": "앱과 카드 표기에 함께 적용됩니다"
+    "languageSub": "앱과 카드 표기에 함께 적용됩니다",
+    "achievementsRow": "업적",
+    "achievementsRowSub": "업적 {open}/{openTotal} · 히든 {hidden}/{hiddenTotal}"
   },
   "achievements": {
-    "stamps-1": "첫 침투",
-    "stamps-5": "숙련 데커",
-    "stamps-25": "베테랑",
-    "stamps-84": "풀 클리어",
-    "perfects-1": "완벽한 해킹",
-    "perfects-10": "퍼펙트 해커",
-    "unitStamps": "클리어",
-    "unitPerfects": "대성공"
+    "title": "업적",
+    "sub": "기록에서 자동으로 계산됩니다",
+    "open": "업적",
+    "hidden": "히든",
+    "lockedTitle": "아직 찾지 못한 히든 업적",
+    "lockedSub": "조건은 해금될 때 공개됩니다",
+    "unlocked": "업적 해금",
+    "unlockedHidden": "히든 업적 해금",
+    "unlockedCount": "{count}개",
+    "close": "닫기",
+    "empty": "아직 기록이 없어요",
+    "sec": {
+      "run": "침투 · 완벽 · 출격",
+      "streak": "연승",
+      "dex": "도감",
+      "board": "보드",
+      "favorite": "편애",
+      "extra": "심화",
+      "hidden": "히든"
+    },
+    "list": {
+      "stamps-1": {
+        "name": "첫 침투",
+        "desc": "칸 1곳 클리어"
+      },
+      "stamps-5": {
+        "name": "숙련 데커",
+        "desc": "칸 5곳 클리어"
+      },
+      "stamps-25": {
+        "name": "베테랑",
+        "desc": "칸 25곳 클리어"
+      },
+      "stamps-50": {
+        "name": "절반의 지도",
+        "desc": "칸 50곳 클리어"
+      },
+      "stamps-84": {
+        "name": "풀 클리어",
+        "desc": "84칸 전부 클리어"
+      },
+      "perfects-1": {
+        "name": "완벽한 해킹",
+        "desc": "대성공 1판"
+      },
+      "perfects-10": {
+        "name": "퍼펙트 해커",
+        "desc": "대성공 10판"
+      },
+      "perfects-30": {
+        "name": "무결점",
+        "desc": "대성공 30판"
+      },
+      "plays-1": {
+        "name": "첫 접속",
+        "desc": "첫 기록 남기기"
+      },
+      "plays-25": {
+        "name": "단골",
+        "desc": "25판 기록"
+      },
+      "plays-100": {
+        "name": "백전",
+        "desc": "100판 기록"
+      },
+      "streak-3": {
+        "name": "상승세",
+        "desc": "3연승"
+      },
+      "streak-5": {
+        "name": "무패 행진",
+        "desc": "5연승"
+      },
+      "streak-10": {
+        "name": "불패",
+        "desc": "10연승"
+      },
+      "dex-boss": {
+        "name": "보스 도감",
+        "desc": "7보스 전부 1승 이상"
+      },
+      "dex-gold": {
+        "name": "Gold 도감",
+        "desc": "Gold 12종 전부로 1승"
+      },
+      "dex-decker": {
+        "name": "크루 완성",
+        "desc": "덱커 10명 전원 출전"
+      },
+      "crew-balance": {
+        "name": "균형 잡힌 크루",
+        "desc": "덱커 10명 각 3판 이상"
+      },
+      "board-row": {
+        "name": "한 줄 완주",
+        "desc": "한 보스의 Gold 12칸 전부"
+      },
+      "board-col": {
+        "name": "만능 열쇠",
+        "desc": "한 Gold 카드로 7보스 전부"
+      },
+      "main-decker-10": {
+        "name": "전담 요원",
+        "desc": "한 덱커로 10회 출전"
+      },
+      "main-decker-30": {
+        "name": "페르소나",
+        "desc": "한 덱커로 30회 출전"
+      },
+      "main-decker-60": {
+        "name": "분신",
+        "desc": "한 덱커로 60회 출전"
+      },
+      "nemesis-10": {
+        "name": "숙적",
+        "desc": "한 보스를 10판 상대"
+      },
+      "nemesis-25": {
+        "name": "집착",
+        "desc": "한 보스를 25판 상대"
+      },
+      "nemesis-50": {
+        "name": "필생의 적",
+        "desc": "한 보스를 50판 상대"
+      },
+      "one-cell-15": {
+        "name": "한 우물",
+        "desc": "한 칸에 15판 도전"
+      },
+      "extra-10": {
+        "name": "조합 사냥꾼",
+        "desc": "추가 도전 조합 10개 완주"
+      },
+      "extra-50": {
+        "name": "조합 수집가",
+        "desc": "추가 도전 조합 50개 완주"
+      },
+      "extra-200": {
+        "name": "조합 마스터",
+        "desc": "추가 도전 조합 200개 완주"
+      },
+      "comeback": {
+        "name": "역전의 서막",
+        "desc": "중간 목표를 전부 놓치고 최종 Gold 성공"
+      },
+      "lucky-3": {
+        "name": "운빨",
+        "desc": "그 역전을 세 번"
+      },
+      "first-perfect": {
+        "name": "첫판부터 완벽",
+        "desc": "통산 첫 기록이 대성공"
+      },
+      "flawless-3": {
+        "name": "무손실",
+        "desc": "대성공 3연속"
+      },
+      "sentinel-perfect": {
+        "name": "무결의 파수꾼",
+        "desc": "센티넬을 대성공으로"
+      },
+      "solo-perfect": {
+        "name": "고독한 해커",
+        "desc": "혼자서 대성공"
+      },
+      "full-crew": {
+        "name": "풀 크루",
+        "desc": "네 명이 함께 클리어"
+      },
+      "overload": {
+        "name": "과부하",
+        "desc": "업그레이드된 보스를 클리어"
+      },
+      "suicide-mission": {
+        "name": "자살 임무",
+        "desc": "최고 난도 2단계 업그레이드를 혼자서 클리어"
+      },
+      "ghost-seen": {
+        "name": "유령을 보았다",
+        "desc": "Mother's Ghost가 든 판을 클리어"
+      },
+      "rollercoaster": {
+        "name": "기복",
+        "desc": "한 판의 목표 결과가 성공과 실패로 번갈아"
+      },
+      "one-road": {
+        "name": "외길",
+        "desc": "최종 Gold를 같은 카드로 5연속"
+      },
+      "by-the-book": {
+        "name": "규정 준수",
+        "desc": "센티넬을 첫 도전에 클리어"
+      },
+      "one-shot": {
+        "name": "원샷",
+        "desc": "서로 다른 20칸을 각각 첫 도전에 클리어"
+      },
+      "persistence": {
+        "name": "집념",
+        "desc": "세 번 지고도 같은 칸을 끝내 클리어"
+      },
+      "breakthrough": {
+        "name": "끝내 뚫었다",
+        "desc": "다섯 번 지고도 같은 칸을 클리어"
+      },
+      "the-wall": {
+        "name": "벽",
+        "desc": "같은 칸에서 5연패"
+      },
+      "nemesis-card": {
+        "name": "천적",
+        "desc": "한 미션 카드에 누적 5패"
+      },
+      "unbeaten-boss": {
+        "name": "무패의 벽",
+        "desc": "한 보스에게 5연패"
+      },
+      "diagonal": {
+        "name": "계단",
+        "desc": "보드를 가로지르는 대각선 7칸"
+      },
+      "block": {
+        "name": "블록",
+        "desc": "맞닿은 네 칸을 정사각형으로"
+      },
+      "corners": {
+        "name": "모서리",
+        "desc": "보드 네 귀퉁이"
+      },
+      "first-loss": {
+        "name": "개막 패배",
+        "desc": "통산 첫 기록이 패배"
+      },
+      "tutorial-fail": {
+        "name": "튜토리얼 실패",
+        "desc": "알파-모비에게 패배"
+      },
+      "whale-phobia": {
+        "name": "고래 공포증",
+        "desc": "알파-모비에게 세 번 패배"
+      },
+      "mother-scold": {
+        "name": "엄마한테 혼났다",
+        "desc": "마더에게 패배"
+      },
+      "beaten-by-all": {
+        "name": "고루 맞았다",
+        "desc": "일곱 보스 전부에게 한 번씩 패배"
+      },
+      "total-failure": {
+        "name": "완벽한 실패",
+        "desc": "한 판에서 목표를 하나도 성공 못 함"
+      },
+      "zero-percent": {
+        "name": "아직은 때가 아니다",
+        "desc": "첫 열 판을 전부 패배"
+      },
+      "hubris": {
+        "name": "자만",
+        "desc": "대성공 바로 다음 판에서 패배"
+      },
+      "greed": {
+        "name": "욕심",
+        "desc": "2단계 업그레이드 첫 도전에서 패배"
+      },
+      "unlucky-13": {
+        "name": "불길한 예감",
+        "desc": "열세 번째 기록이 패배"
+      },
+      "err-404": {
+        "name": "404: 목표를 찾을 수 없음",
+        "desc": "404 Not Found 목표를 실패"
+      },
+      "access-denied": {
+        "name": "액세스 거부됨",
+        "desc": "Access Denied 목표를 실패"
+      },
+      "wrong-keycode": {
+        "name": "비밀번호가 틀렸습니다",
+        "desc": "Keycode 목표를 실패"
+      },
+      "glass-heart": {
+        "name": "유리 멘탈",
+        "desc": "Shattered Glass 목표를 실패"
+      },
+      "misdirected": {
+        "name": "완전히 속았다",
+        "desc": "Misdirection 목표를 실패"
+      },
+      "garbage-fail": {
+        "name": "쓰레기도 못 치움",
+        "desc": "Garbage Detail 목표를 실패"
+      },
+      "double-switch": {
+        "name": "더블 스위치",
+        "desc": "Double Switch가 든 판을 두 번 연속"
+      },
+      "fireworks": {
+        "name": "새해 불꽃놀이",
+        "desc": "1월 1일에 Fireworks 목표를 성공"
+      },
+      "full-course": {
+        "name": "풀코스",
+        "desc": "하루에 일곱 보스를 전부 상대"
+      },
+      "safe-zone": {
+        "name": "안전지대",
+        "desc": "알파-모비만 스무 판 연속"
+      },
+      "ordeal": {
+        "name": "고행",
+        "desc": "최고 난도만 열 판 연속"
+      },
+      "perfect-partner": {
+        "name": "단짝",
+        "desc": "같은 덱커로 대성공 다섯 판"
+      },
+      "double-life": {
+        "name": "이중생활",
+        "desc": "같은 프로필의 앞면과 뒷면을 모두 써봄"
+      },
+      "revolving-door": {
+        "name": "회전문 인사",
+        "desc": "하루에 덱커 여덟 명 이상 출전"
+      },
+      "loner": {
+        "name": "혼자가 편해",
+        "desc": "솔로로만 스무 판 연속"
+      },
+      "whimsical": {
+        "name": "변덕",
+        "desc": "열 판 연속 덱커 구성이 매번 다름"
+      },
+      "same-player-30": {
+        "name": "영원한 파트너",
+        "desc": "같은 사람 이름으로 서른 판"
+      },
+      "one-man-four": {
+        "name": "1인 4역",
+        "desc": "네 자리 이름이 전부 같음"
+      },
+      "method-acting": {
+        "name": "메소드 연기",
+        "desc": "플레이어 이름을 덱커 이름과 똑같이 적음"
+      },
+      "anonymous": {
+        "name": "익명의 데커",
+        "desc": "이름을 아무도 안 적고 클리어"
+      },
+      "night-owl": {
+        "name": "새벽 3시의 데커",
+        "desc": "0시에서 5시 사이에 남긴 기록"
+      },
+      "clock-444": {
+        "name": "4시 44분",
+        "desc": "기록 시각이 정확히 04:44"
+      },
+      "cinderella": {
+        "name": "신데렐라",
+        "desc": "기록 시각이 정확히 00:00"
+      },
+      "all-nighter": {
+        "name": "밤샘",
+        "desc": "23시대 기록 다음에 바로 0시대 기록"
+      },
+      "time-traveler": {
+        "name": "시간 여행자",
+        "desc": "두 기록의 간격이 1분도 안 됨"
+      },
+      "marathon": {
+        "name": "마라톤",
+        "desc": "하루에 세 판"
+      },
+      "seven-a-day": {
+        "name": "밥은 먹었니",
+        "desc": "하루에 일곱 판"
+      },
+      "on-fire": {
+        "name": "물올랐다",
+        "desc": "하루에 다섯 판을 치르고 전승"
+      },
+      "christmas": {
+        "name": "성탄절 침투",
+        "desc": "12월 25일에 남긴 기록"
+      },
+      "new-year": {
+        "name": "새해 첫 해킹",
+        "desc": "1월 1일에 남긴 기록"
+      },
+      "year-end": {
+        "name": "올해의 마지막 해킹",
+        "desc": "12월 31일 23시 이후"
+      },
+      "leap-day": {
+        "name": "4년에 한 번",
+        "desc": "2월 29일에 남긴 기록"
+      },
+      "friday-13": {
+        "name": "13일의 금요일",
+        "desc": "그날 패배"
+      },
+      "days-3": {
+        "name": "개근",
+        "desc": "사흘 연속 기록"
+      },
+      "days-7": {
+        "name": "출근 도장",
+        "desc": "이레 연속 기록"
+      },
+      "one-year": {
+        "name": "1주년",
+        "desc": "첫 기록으로부터 365일째 되는 날 플레이"
+      },
+      "return-90": {
+        "name": "재접속",
+        "desc": "90일 공백 뒤 복귀"
+      },
+      "anniversary": {
+        "name": "오랜 인연",
+        "desc": "첫 기록과 최근 기록이 1년 넘게 벌어짐"
+      },
+      "chronicler": {
+        "name": "기록가",
+        "desc": "메모를 남긴 기록 20개"
+      },
+      "silent-decker": {
+        "name": "침묵의 데커",
+        "desc": "메모 한 줄 없이 쉰 판"
+      },
+      "diligent": {
+        "name": "성실",
+        "desc": "열 판 연속 메모를 남김"
+      },
+      "diary": {
+        "name": "일기",
+        "desc": "메모를 300자 넘게"
+      },
+      "speechless": {
+        "name": "말잇못",
+        "desc": "메모가 딱 한 글자"
+      },
+      "copypaste": {
+        "name": "복붙",
+        "desc": "완전히 같은 메모를 두 판 연속"
+      },
+      "lol-only": {
+        "name": "웃프다",
+        "desc": "메모가 웃음소리로만 채워짐"
+      },
+      "run-42": {
+        "name": "삶, 우주, 그리고 모든 것",
+        "desc": "42번째 기록"
+      },
+      "run-84": {
+        "name": "84",
+        "desc": "84번째 기록 — 보드의 칸 수와 같아지는 순간"
+      },
+      "run-100": {
+        "name": "100번째 침투",
+        "desc": "100번째 기록"
+      },
+      "balance": {
+        "name": "완벽한 균형",
+        "desc": "스무 판을 넘긴 어느 순간 승과 패가 정확히 같아짐"
+      },
+      "undo-5": {
+        "name": "없던 일로",
+        "desc": "기록을 다섯 개 삭제"
+      }
+    }
   },
   "report": {
     "title": "오류 제보",

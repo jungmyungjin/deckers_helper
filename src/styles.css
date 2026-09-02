@@ -61,7 +61,7 @@ button,a,select,input,textarea{-webkit-tap-highlight-color:transparent}
 
 /* viewport-fit=cover 라 콘텐츠가 노치 아래까지 확장된다.
    좌우 인셋은 여기서, 상단은 .appbar, 하단은 .nav 에서 처리한다. */
-.app{max-width:480px;margin:0 auto;height:100%;display:flex;flex-direction:column;
+.app{position:relative;max-width:480px;margin:0 auto;height:100%;display:flex;flex-direction:column;
   background:var(--ink-900);box-shadow:0 0 60px rgba(0,0,0,.5);
   padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
 .app-main{flex:1;overflow:hidden;display:flex}
@@ -436,12 +436,73 @@ table.mx tbody th{position:sticky;left:0;z-index:1;text-align:left;padding:0 9px
 .gbtn:disabled{opacity:.55;cursor:default}
 .guest{text-align:center;font-family:var(--body);font-size:var(--t-xs);color:var(--cyan);padding:7px}
 .achgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.ach{background:var(--ink-800);border:1px solid var(--line-soft);border-radius:12px;padding:12px 10px;text-align:center}
+.ach{background:var(--ink-800);border:1px solid var(--line-soft);border-radius:12px;padding:12px 10px 11px;
+  text-align:center;display:flex;flex-direction:column;align-items:center;width:100%}
 .ach.lock{opacity:.45}
 .ach.on{border-color:rgba(220,182,79,.4);background:rgba(220,182,79,.06)}
-.ach .ai{font-size:23px}
+/* 히든은 색으로 갈라 둔다 — 골드는 오픈, 보라는 히든 */
+.ach.hid{border-color:rgba(164,115,214,.45);background:rgba(164,115,214,.07)}
+.ach .ai{font-size:23px;line-height:1.15}
 .ach .an{font-family:var(--disp);font-weight:600;font-size:var(--t-sm);margin-top:5px;line-height:1.4}
-.ach .ap{font-family:var(--mono);font-size:var(--t-label);color:var(--fg-faint);margin-top:2px}
+.ach .abar{width:100%;height:4px;border-radius:2px;background:var(--ink-700);margin-top:8px;overflow:hidden}
+.ach .abar i{display:block;height:100%;border-radius:2px;background:var(--gold);transition:width .4s}
+.ach .ap{font-family:var(--mono);font-size:var(--t-label);color:var(--fg-faint);margin-top:6px;font-variant-numeric:tabular-nums}
+.ach.hid .ap{font-family:var(--body);font-size:var(--t-xs);color:var(--fg-dim);line-height:1.45;letter-spacing:normal}
+
+/* 업적 화면 상단 게이지. 히든은 개수만 나간다 — 그게 유일한 노출이다. */
+.achgauge{background:var(--ink-800);border:1px solid var(--line-soft);border-radius:12px;padding:13px 14px}
+.agrow{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.agk{font-family:var(--mono);font-size:var(--t-label);letter-spacing:.12em;text-transform:uppercase;color:var(--fg-faint)}
+.agv{font-family:var(--disp);font-weight:700;font-size:var(--t-lg);font-variant-numeric:tabular-nums;color:var(--gold)}
+.agv small{color:var(--fg-faint);font-size:var(--t-sm)}
+.agrow.g .agv{color:var(--ghost)}
+.agbar{height:6px;border-radius:3px;background:var(--ink-700);margin-top:7px;overflow:hidden}
+.agbar i{display:block;height:100%;border-radius:3px;background:var(--gold);transition:width .4s}
+.agbar.g i{background:var(--ghost)}
+.agsep{height:1px;background:var(--line-soft);margin:12px 0}
+
+/* 잠긴 히든은 ??? 타일 수십 칸이 아니라 카드 하나로 접는다 */
+.hidlock{margin-top:10px;border:1px dashed rgba(164,115,214,.5);background:rgba(164,115,214,.05);
+  border-radius:12px;padding:15px 14px;display:flex;align-items:center;gap:13px}
+.hl-ico{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;flex:none;font-size:17px;
+  background:rgba(164,115,214,.12);border:1px solid rgba(164,115,214,.35)}
+.hl-b{flex:1;min-width:0}
+.hl-t{font-family:var(--disp);font-weight:600;font-size:var(--t-base)}
+.hl-s{font-family:var(--body);font-size:var(--t-xs);color:var(--fg-faint);margin-top:3px;line-height:1.45}
+.hl-n{font-family:var(--disp);font-weight:700;font-size:1.5rem;color:var(--ghost);font-variant-numeric:tabular-nums;flex:none}
+
+/* 업적 상세 */
+.achmodal{width:min(340px,100%);padding:22px 20px 18px;background:linear-gradient(155deg,var(--ink-750),var(--ink-850));
+  border:1px solid rgba(220,182,79,.5);border-radius:16px;box-shadow:0 20px 54px rgba(0,0,0,.56);text-align:center}
+.achmodal.hid{border-color:rgba(164,115,214,.55)}
+.am-icon{width:52px;height:52px;margin:0 auto 12px;display:grid;place-items:center;border-radius:14px;font-size:25px;
+  border:1px solid rgba(220,182,79,.5);background:rgba(220,182,79,.12)}
+.achmodal.hid .am-icon{border-color:rgba(164,115,214,.5);background:rgba(164,115,214,.13)}
+.achmodal h2{margin:0;font-family:var(--disp);font-size:1.2rem;font-weight:700}
+.am-copy{margin:10px 0 0;color:var(--fg-dim);font-size:var(--t-sm);line-height:1.65}
+.am-bar{height:6px;border-radius:3px;background:var(--ink-700);overflow:hidden;margin:14px 0 6px}
+.am-bar i{display:block;height:100%;border-radius:3px;background:var(--gold)}
+.am-num{display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:var(--t-xs);
+  color:var(--fg-faint);font-variant-numeric:tabular-nums}
+.achmodal .closebtn{width:100%;margin-top:16px}
+
+/* 해금 토스트 — 기록 저장 직후 하단 탭 위에 쌓인다 */
+.toaststack{position:absolute;left:12px;right:12px;bottom:calc(78px + env(safe-area-inset-bottom));
+  z-index:40;display:flex;flex-direction:column;gap:8px}
+.toast{display:flex;align-items:center;gap:11px;width:100%;text-align:left;padding:11px 13px;border-radius:12px;
+  background:linear-gradient(150deg,var(--ink-750),var(--ink-850));
+  border:1px solid rgba(220,182,79,.55);box-shadow:0 14px 34px rgba(0,0,0,.5);
+  animation:toastin .28s ease-out}
+.toast.g{border-color:rgba(164,115,214,.6)}
+@keyframes toastin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){ .toast{animation:none} }
+.toast .ti{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:17px;flex:none;
+  background:rgba(220,182,79,.12);border:1px solid rgba(220,182,79,.4)}
+.toast.g .ti{background:rgba(164,115,214,.13);border-color:rgba(164,115,214,.45)}
+.toast .tb{display:flex;flex-direction:column;gap:2px;min-width:0}
+.toast .tk{font-family:var(--mono);font-size:var(--t-label);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.toast.g .tk{color:var(--ghost)}
+.toast .tn{font-family:var(--disp);font-weight:600;font-size:var(--t-lg);line-height:1.25}
 
 /* 넓은 화면: 카드 그리드 다열 */
 @media (min-width:768px){

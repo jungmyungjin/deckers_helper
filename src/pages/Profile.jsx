@@ -1,20 +1,12 @@
+import { useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useRuns, computeStats } from '../db/runs'
+import { useDeletedRunCount, useRuns } from '../db/runs'
+import { computeStats } from '../lib/derive'
 import { useSync } from '../lib/SyncProvider'
 import { useT } from '../i18n'
 import { APP_VERSION, usePendingReportCount } from '../db/reports'
 import LanguageSelect from '../components/LanguageSelect'
-
-// 업적은 runs에서 파생된다 — 기록만 동기화되면 어느 기기에서든 같은 결과가 나온다.
-// 이름은 i18n(achievements.*)에서 가져온다.
-const ACHIEVEMENTS = [
-  { id: 'stamps-1', icon: '🩹', metric: 'stamps', threshold: 1 },
-  { id: 'stamps-5', icon: '💾', metric: 'stamps', threshold: 5 },
-  { id: 'stamps-25', icon: '🧬', metric: 'stamps', threshold: 25 },
-  { id: 'stamps-84', icon: '👑', metric: 'stamps', threshold: 84 },
-  { id: 'perfects-1', icon: '🌟', metric: 'perfects', threshold: 1 },
-  { id: 'perfects-10', icon: '💎', metric: 'perfects', threshold: 10 },
-]
+import { evaluate, summarize } from '../lib/achievements'
 
 export default function Profile() {
   const nav = useNavigate()
@@ -22,8 +14,8 @@ export default function Profile() {
   const pendingReports = usePendingReportCount()
   const runs = useRuns()
   const stats = computeStats(runs)
-  const val = { stamps: stats.stamps, perfects: stats.perfects }
-  const unlocked = ACHIEVEMENTS.filter((a) => val[a.metric] >= a.threshold).length
+  const deletedCount = useDeletedRunCount()
+  const achievements = useMemo(() => summarize(evaluate(runs, { deletedCount })), [runs, deletedCount])
   const { user, signIn, signOut, enabled, doSync, status, message, authErrorKey } = useSync()
   const syncing = status === 'syncing'
 
@@ -88,26 +80,17 @@ export default function Profile() {
           <div className="stat c-cyan"><div className="n">{stats.total}</div><div className="l">{t('profile.plays')}</div></div>
         </div>
 
-        <div className="label">{t('profile.achievements', { total: ACHIEVEMENTS.length, unlocked })}</div>
-        <div className="achgrid">
-          {ACHIEVEMENTS.map((a) => {
-            const on = val[a.metric] >= a.threshold
-            const unit = t(a.metric === 'stamps' ? 'achievements.unitStamps' : 'achievements.unitPerfects')
-            return (
-              <div className={'ach' + (on ? ' on' : ' lock')} key={a.id}>
-                <div className="ai">{a.icon}</div>
-                <div className="an">{t(`achievements.${a.id}`)}</div>
-                <div className="ap">
-                  {unit} {a.threshold}{!on ? ` · ${val[a.metric]}/${a.threshold}` : ''}
-                </div>
-              </div>
-            )
-          })}
-        </div>
-
-        <div className="label">{t('profile.languageRow')}</div>
-        <LanguageSelect />
-        <div className="guest">{t('profile.languageSub')}</div>
+        <button className="linkrow" onClick={() => nav('/achievements')}>
+          <span className="lr-ico">🏆</span>
+          <span className="lr-body">
+            <span className="lr-t">{t('profile.achievementsRow')}</span>
+            <span className="lr-s">{t('profile.achievementsRowSub', {
+              open: achievements.open.unlocked, openTotal: achievements.open.total,
+              hidden: achievements.hidden.unlocked, hiddenTotal: achievements.hidden.total,
+            })}</span>
+          </span>
+          <span className="lr-arrow">›</span>
+        </button>
 
         <button className="linkrow" onClick={() => nav('/report')}>
           <span className="lr-ico">🐞</span>
@@ -121,6 +104,10 @@ export default function Profile() {
           </span>
           <span className="lr-arrow">›</span>
         </button>
+
+        <div className="label">{t('profile.languageRow')}</div>
+        <LanguageSelect />
+        <div className="guest">{t('profile.languageSub')}</div>
 
         <div className="verline">v{APP_VERSION}</div>
       </div>

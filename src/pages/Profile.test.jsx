@@ -4,9 +4,10 @@ import { MemoryRouter } from 'react-router-dom'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import Profile from './Profile'
 
+// db 접근만 막으면 된다 — 파생 계산(lib/derive)은 순수 함수라 그대로 돌려도 된다
 vi.mock('../db/runs', () => ({
   useRuns: () => [],
-  computeStats: () => ({ stamps: 0, perfects: 0, totalCells: 84, winRate: 0, total: 0 }),
+  useDeletedRunCount: () => 0,
 }))
 vi.mock('../lib/SyncProvider', () => ({
   useSync: () => ({ user: null, signIn: vi.fn(), enabled: true, doSync: vi.fn(), status: 'idle', message: '' }),

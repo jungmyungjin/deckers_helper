@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { GOLDS, SMCS, SMC_BY_ID } from '../data/gameData'
-import { drawUncleared } from './runs'
+import { drawUncleared } from './derive'
 
 // 클리어 1건 = (smcId, 최종 Gold) 조합 하나를 깬 것
 const clear = (smcId, goldId) => ({
