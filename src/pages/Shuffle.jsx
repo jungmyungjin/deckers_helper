@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { buildRandomObjectives, drawUncleared, drawUnclearedExtraCombo, extraChallengeProgress, finalGoldId, unclearedCombos, useRuns } from '../db/runs'
+import { useRuns } from '../db/runs'
+import { buildRandomObjectives, drawUncleared, drawUnclearedExtraCombo, extraChallengeProgress, finalGoldId, unclearedCombos } from '../lib/derive'
 import { useSync } from '../lib/SyncProvider'
 import { useT } from '../i18n'
 import { cardName, smcName } from '../i18n/content'

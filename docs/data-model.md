@@ -87,8 +87,12 @@ syncStatus, syncMessage, runCount, screen, language, userAgent, at`.
 - 🥇: 그 셀에서 `outcome = perfect` 런 ≥ 1
 
 보드·통계·업적·미클리어 조합은 전부 `runs`에서 파생 계산한다
-([`src/db/runs.js`](../src/db/runs.js)). 따로 저장하지 않으므로 원본과 어긋날 일이 없고,
-`runs`만 동기화되면 모든 기기에서 같은 화면이 나온다.
+([`src/lib/derive.js`](../src/lib/derive.js)). 따로 저장하지 않으므로 원본과 어긋날 일이
+없고, `runs`만 동기화되면 모든 기기에서 같은 화면이 나온다.
+
+**파생 계산은 `db/`가 아니라 `lib/`에 둔다.** 런 배열만 받는 순수 함수라 Dexie도
+React도 필요 없다 — 같이 두면 파생 계산 하나를 쓰려고 IndexedDB 전체를 끌고
+들어와야 하고, 테스트가 먼저 그 벽에 부딪힌다. `db/runs.js`에는 읽기·쓰기와 훅만 남는다.
 
 ## 로컬(Dexie) 스토어
 

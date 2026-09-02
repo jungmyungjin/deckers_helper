@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { useRuns, attemptsFor } from '../db/runs'
+import { useRuns } from '../db/runs'
+import { attemptsFor } from '../lib/derive'
 import { useSync } from '../lib/SyncProvider'
 import { useT } from '../i18n'
 import { cardName, deckerName, smcName } from '../i18n/content'

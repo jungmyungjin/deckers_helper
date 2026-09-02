@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
-import { useRuns, computeBoard, computeStats } from '../db/runs'
+import { useRuns } from '../db/runs'
+import { computeBoard, computeStats } from '../lib/derive'
 import { useSync } from '../lib/SyncProvider'
 import { useT } from '../i18n'
 import BossSigil from '../components/BossSigil'

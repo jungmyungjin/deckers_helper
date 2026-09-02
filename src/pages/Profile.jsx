@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
-import { useRuns, computeStats } from '../db/runs'
+import { useRuns } from '../db/runs'
+import { computeStats } from '../lib/derive'
 import { useSync } from '../lib/SyncProvider'
 import { useT } from '../i18n'
 import { APP_VERSION, usePendingReportCount } from '../db/reports'
