@@ -166,7 +166,6 @@
     "stamps": "Gold cleared",
     "winRate": "Win rate",
     "plays": "Runs",
-    "achievements": "{unlocked} of {total} achievements",
     "reportRow": "Report a problem",
     "reportRowSub": "Tell us what isn't working",
     "reportRowPending": {
@@ -174,17 +173,484 @@
       "other": "{count} reports waiting to send"
     },
     "languageRow": "Language",
-    "languageSub": "Applies to the app and card names"
+    "languageSub": "Applies to the app and card names",
+    "achievementsRow": "Achievements",
+    "achievementsRowSub": "{open}/{openTotal} open · {hidden}/{hiddenTotal} hidden"
   },
   "achievements": {
-    "stamps-1": "First Breach",
-    "stamps-5": "Skilled Decker",
-    "stamps-25": "Veteran",
-    "stamps-84": "Full Clear",
-    "perfects-1": "Flawless Hack",
-    "perfects-10": "Perfect Hacker",
-    "unitStamps": "cleared",
-    "unitPerfects": "perfect"
+    "title": "Achievements",
+    "sub": "Derived from your logged runs",
+    "open": "Achievements",
+    "hidden": "Hidden",
+    "lockedTitle": "Hidden achievements still out there",
+    "lockedSub": "Conditions are revealed on unlock",
+    "unlocked": "Achievement unlocked",
+    "unlockedHidden": "Hidden achievement unlocked",
+    "unlockedCount": {
+      "one": "{count} achievement",
+      "other": "{count} achievements"
+    },
+    "close": "Close",
+    "empty": "No runs logged yet",
+    "sec": {
+      "run": "Clears · Perfects · Runs",
+      "streak": "Streaks",
+      "dex": "Collections",
+      "board": "Board",
+      "favorite": "Favourites",
+      "extra": "Extra challenge",
+      "hidden": "Hidden"
+    },
+    "list": {
+      "stamps-1": {
+        "name": "First Breach",
+        "desc": "Clear 1 cell"
+      },
+      "stamps-5": {
+        "name": "Seasoned Decker",
+        "desc": "Clear 5 cells"
+      },
+      "stamps-25": {
+        "name": "Veteran",
+        "desc": "Clear 25 cells"
+      },
+      "stamps-50": {
+        "name": "Half the Map",
+        "desc": "Clear 50 cells"
+      },
+      "stamps-84": {
+        "name": "Full Clear",
+        "desc": "Clear all 84 cells"
+      },
+      "perfects-1": {
+        "name": "Flawless Hack",
+        "desc": "One perfect run"
+      },
+      "perfects-10": {
+        "name": "Perfect Hacker",
+        "desc": "Ten perfect runs"
+      },
+      "perfects-30": {
+        "name": "Immaculate",
+        "desc": "Thirty perfect runs"
+      },
+      "plays-1": {
+        "name": "First Login",
+        "desc": "Log your first run"
+      },
+      "plays-25": {
+        "name": "Regular",
+        "desc": "Log 25 runs"
+      },
+      "plays-100": {
+        "name": "Hundred Runs",
+        "desc": "Log 100 runs"
+      },
+      "streak-3": {
+        "name": "On a Roll",
+        "desc": "Win three in a row"
+      },
+      "streak-5": {
+        "name": "Win Streak",
+        "desc": "Win five in a row"
+      },
+      "streak-10": {
+        "name": "Unbeaten",
+        "desc": "Win ten in a row"
+      },
+      "dex-boss": {
+        "name": "Boss Index",
+        "desc": "Beat all seven SMCs at least once"
+      },
+      "dex-gold": {
+        "name": "Gold Index",
+        "desc": "Win with each of the twelve Gold cards"
+      },
+      "dex-decker": {
+        "name": "Full Roster",
+        "desc": "Field all ten Deckers"
+      },
+      "crew-balance": {
+        "name": "Balanced Crew",
+        "desc": "Three runs with every Decker"
+      },
+      "board-row": {
+        "name": "Full Row",
+        "desc": "Clear all twelve Golds against one SMC"
+      },
+      "board-col": {
+        "name": "Skeleton Key",
+        "desc": "Beat all seven SMCs with one Gold card"
+      },
+      "main-decker-10": {
+        "name": "Regular Agent",
+        "desc": "Ten outings with one Decker"
+      },
+      "main-decker-30": {
+        "name": "Persona",
+        "desc": "Thirty outings with one Decker"
+      },
+      "main-decker-60": {
+        "name": "Alter Ego",
+        "desc": "Sixty outings with one Decker"
+      },
+      "nemesis-10": {
+        "name": "Nemesis",
+        "desc": "Face one SMC ten times"
+      },
+      "nemesis-25": {
+        "name": "Obsession",
+        "desc": "Face one SMC 25 times"
+      },
+      "nemesis-50": {
+        "name": "Lifelong Feud",
+        "desc": "Face one SMC 50 times"
+      },
+      "one-cell-15": {
+        "name": "One Well",
+        "desc": "Attempt one cell fifteen times"
+      },
+      "extra-10": {
+        "name": "Combo Hunter",
+        "desc": "Complete ten extra-challenge setups"
+      },
+      "extra-50": {
+        "name": "Combo Collector",
+        "desc": "Complete fifty extra-challenge setups"
+      },
+      "extra-200": {
+        "name": "Combo Master",
+        "desc": "Complete 200 extra-challenge setups"
+      },
+      "comeback": {
+        "name": "Against All Odds",
+        "desc": "Fail every mid objective, then take the final Gold"
+      },
+      "lucky-3": {
+        "name": "Sheer Luck",
+        "desc": "Pull that comeback three times"
+      },
+      "first-perfect": {
+        "name": "Beginner's Luck",
+        "desc": "Your very first run is perfect"
+      },
+      "flawless-3": {
+        "name": "No Damage",
+        "desc": "Three perfect runs in a row"
+      },
+      "sentinel-perfect": {
+        "name": "Flawless Sentinel",
+        "desc": "Beat Sentinel perfectly"
+      },
+      "solo-perfect": {
+        "name": "Lone Hacker",
+        "desc": "A perfect solo run"
+      },
+      "full-crew": {
+        "name": "Full Crew",
+        "desc": "Clear with four Deckers"
+      },
+      "overload": {
+        "name": "Overclocked",
+        "desc": "Beat an upgraded SMC"
+      },
+      "suicide-mission": {
+        "name": "Suicide Run",
+        "desc": "Solo a tier-2 upgraded top-difficulty SMC"
+      },
+      "ghost-seen": {
+        "name": "Ghost Sighting",
+        "desc": "Clear a run containing a Mother's Ghost card"
+      },
+      "rollercoaster": {
+        "name": "Rollercoaster",
+        "desc": "Objectives alternate success and failure all run"
+      },
+      "one-road": {
+        "name": "One Track",
+        "desc": "The same final Gold five runs running"
+      },
+      "by-the-book": {
+        "name": "By the Book",
+        "desc": "Beat Sentinel on the first try"
+      },
+      "one-shot": {
+        "name": "One Shot",
+        "desc": "Clear twenty different cells on the first attempt"
+      },
+      "persistence": {
+        "name": "Persistence",
+        "desc": "Clear a cell after three losses there"
+      },
+      "breakthrough": {
+        "name": "Breakthrough",
+        "desc": "Clear a cell after five losses there"
+      },
+      "the-wall": {
+        "name": "The Wall",
+        "desc": "Five straight losses on one cell"
+      },
+      "nemesis-card": {
+        "name": "Bad Blood",
+        "desc": "Lose five times to one mission card"
+      },
+      "unbeaten-boss": {
+        "name": "Untouchable",
+        "desc": "Five straight losses to one SMC"
+      },
+      "diagonal": {
+        "name": "Staircase",
+        "desc": "Clear the seven-cell diagonal"
+      },
+      "block": {
+        "name": "Block",
+        "desc": "Clear four adjacent cells in a square"
+      },
+      "corners": {
+        "name": "Four Corners",
+        "desc": "Clear all four corners of the board"
+      },
+      "first-loss": {
+        "name": "Rough Start",
+        "desc": "Your very first run is a loss"
+      },
+      "tutorial-fail": {
+        "name": "Tutorial Failed",
+        "desc": "Lose to Alpha-Moby"
+      },
+      "whale-phobia": {
+        "name": "Whale Phobia",
+        "desc": "Lose to Alpha-Moby three times"
+      },
+      "mother-scold": {
+        "name": "Grounded",
+        "desc": "Lose to Mother"
+      },
+      "beaten-by-all": {
+        "name": "Equal Opportunity",
+        "desc": "Lose to all seven SMCs"
+      },
+      "total-failure": {
+        "name": "Perfectly Awful",
+        "desc": "Fail every objective in one run"
+      },
+      "zero-percent": {
+        "name": "Not Your Year",
+        "desc": "Lose your first ten runs"
+      },
+      "hubris": {
+        "name": "Hubris",
+        "desc": "Lose the run right after a perfect one"
+      },
+      "greed": {
+        "name": "Greed",
+        "desc": "Lose your first tier-2 upgraded run"
+      },
+      "unlucky-13": {
+        "name": "Unlucky Thirteen",
+        "desc": "Your thirteenth run is a loss"
+      },
+      "err-404": {
+        "name": "404: Objective Not Found",
+        "desc": "Fail the 404 Not Found objective"
+      },
+      "access-denied": {
+        "name": "Access Denied",
+        "desc": "Fail the Access Denied objective"
+      },
+      "wrong-keycode": {
+        "name": "Wrong Passcode",
+        "desc": "Fail the Keycode objective"
+      },
+      "glass-heart": {
+        "name": "Glass Jaw",
+        "desc": "Fail the Shattered Glass objective"
+      },
+      "misdirected": {
+        "name": "Look Over There",
+        "desc": "Fail the Misdirection objective"
+      },
+      "garbage-fail": {
+        "name": "Can't Take Out the Trash",
+        "desc": "Fail the Garbage Detail objective"
+      },
+      "double-switch": {
+        "name": "Double Switch",
+        "desc": "Two runs in a row with Double Switch"
+      },
+      "fireworks": {
+        "name": "New Year's Fireworks",
+        "desc": "Land Fireworks on January 1"
+      },
+      "full-course": {
+        "name": "Full Course",
+        "desc": "Face all seven SMCs in one day"
+      },
+      "safe-zone": {
+        "name": "Comfort Zone",
+        "desc": "Twenty runs in a row against Alpha-Moby"
+      },
+      "ordeal": {
+        "name": "Ordeal",
+        "desc": "Ten runs in a row at top difficulty"
+      },
+      "perfect-partner": {
+        "name": "Partner in Crime",
+        "desc": "Five perfect runs with one Decker"
+      },
+      "double-life": {
+        "name": "Double Life",
+        "desc": "Play both sides of one Decker profile"
+      },
+      "revolving-door": {
+        "name": "Revolving Door",
+        "desc": "Field eight Deckers in a single day"
+      },
+      "loner": {
+        "name": "Better Alone",
+        "desc": "Twenty solo runs in a row"
+      },
+      "whimsical": {
+        "name": "Never the Same",
+        "desc": "Ten runs, ten different line-ups"
+      },
+      "same-player-30": {
+        "name": "Forever Partner",
+        "desc": "Thirty runs under the same player name"
+      },
+      "one-man-four": {
+        "name": "One-Man Band",
+        "desc": "All four player names identical"
+      },
+      "method-acting": {
+        "name": "Method Acting",
+        "desc": "Enter a Decker's own name as the player"
+      },
+      "anonymous": {
+        "name": "Anonymous",
+        "desc": "Clear a run with no player names at all"
+      },
+      "night-owl": {
+        "name": "3 A.M. Decker",
+        "desc": "Log a run between midnight and five"
+      },
+      "clock-444": {
+        "name": "4:44",
+        "desc": "Log a run at exactly 4:44"
+      },
+      "cinderella": {
+        "name": "Cinderella",
+        "desc": "Log a run at exactly midnight"
+      },
+      "all-nighter": {
+        "name": "All-Nighter",
+        "desc": "Log at eleven, then again after midnight"
+      },
+      "time-traveler": {
+        "name": "Time Traveller",
+        "desc": "Two runs logged under a minute apart"
+      },
+      "marathon": {
+        "name": "Marathon",
+        "desc": "Three runs in one day"
+      },
+      "seven-a-day": {
+        "name": "Did You Eat?",
+        "desc": "Seven runs in one day"
+      },
+      "on-fire": {
+        "name": "On Fire",
+        "desc": "Five runs in one day, all won"
+      },
+      "christmas": {
+        "name": "Christmas Raid",
+        "desc": "Log a run on December 25"
+      },
+      "new-year": {
+        "name": "New Year's Hack",
+        "desc": "Log a run on January 1"
+      },
+      "year-end": {
+        "name": "Last Hack of the Year",
+        "desc": "Log a run after eleven on December 31"
+      },
+      "leap-day": {
+        "name": "Once in Four Years",
+        "desc": "Log a run on February 29"
+      },
+      "friday-13": {
+        "name": "Friday the 13th",
+        "desc": "Lose on Friday the 13th"
+      },
+      "days-3": {
+        "name": "Three-Day Streak",
+        "desc": "Log runs three days running"
+      },
+      "days-7": {
+        "name": "Perfect Attendance",
+        "desc": "Log runs seven days running"
+      },
+      "one-year": {
+        "name": "One Year On",
+        "desc": "Play exactly 365 days after your first run"
+      },
+      "return-90": {
+        "name": "Reconnected",
+        "desc": "Return after a ninety-day gap"
+      },
+      "anniversary": {
+        "name": "Long Haul",
+        "desc": "Over a year between first and latest run"
+      },
+      "chronicler": {
+        "name": "Chronicler",
+        "desc": "Leave notes on twenty runs"
+      },
+      "silent-decker": {
+        "name": "Silent Decker",
+        "desc": "Fifty runs without a single note"
+      },
+      "diligent": {
+        "name": "Diligent",
+        "desc": "Notes on ten runs in a row"
+      },
+      "diary": {
+        "name": "Dear Diary",
+        "desc": "Write a note over 300 characters long"
+      },
+      "speechless": {
+        "name": "Speechless",
+        "desc": "A note exactly one character long"
+      },
+      "copypaste": {
+        "name": "Copy-Paste",
+        "desc": "The same note two runs running"
+      },
+      "lol-only": {
+        "name": "Just Laughing",
+        "desc": "A note that is nothing but laughter"
+      },
+      "run-42": {
+        "name": "Life, the Universe and Everything",
+        "desc": "Your forty-second run"
+      },
+      "run-84": {
+        "name": "Eighty-Four",
+        "desc": "Your eighty-fourth run, one for every cell"
+      },
+      "run-100": {
+        "name": "Hundredth Run",
+        "desc": "Your hundredth run"
+      },
+      "balance": {
+        "name": "Perfectly Balanced",
+        "desc": "Wins exactly equal losses, past twenty runs"
+      },
+      "undo-5": {
+        "name": "Never Happened",
+        "desc": "Delete five runs"
+      }
+    }
   },
   "report": {
     "title": "Report a problem",

@@ -167,7 +167,6 @@
     "stamps": "Gold geschafft",
     "winRate": "Siegquote",
     "plays": "Partien",
-    "achievements": "{unlocked} von {total} Erfolgen",
     "reportRow": "Fehler melden",
     "reportRowSub": "Sag uns, was nicht geht",
     "reportRowPending": {
@@ -175,17 +174,484 @@
       "other": "{count} Meldungen warten"
     },
     "languageRow": "Sprache",
-    "languageSub": "Gilt für App und Kartennamen"
+    "languageSub": "Gilt für App und Kartennamen",
+    "achievementsRow": "Erfolge",
+    "achievementsRowSub": "{open}/{openTotal} offen · {hidden}/{hiddenTotal} geheim"
   },
   "achievements": {
-    "stamps-1": "Erster Einbruch",
-    "stamps-5": "Geübter Decker",
-    "stamps-25": "Veteran",
-    "stamps-84": "Alles geschafft",
-    "perfects-1": "Makelloser Hack",
-    "perfects-10": "Perfekter Hacker",
-    "unitStamps": "geschafft",
-    "unitPerfects": "Perfekt"
+    "title": "Erfolge",
+    "sub": "Wird aus deinen Partien berechnet",
+    "open": "Erfolge",
+    "hidden": "Geheim",
+    "lockedTitle": "Noch nicht gefundene geheime Erfolge",
+    "lockedSub": "Bedingungen werden beim Freischalten verraten",
+    "unlocked": "Erfolg freigeschaltet",
+    "unlockedHidden": "Geheimer Erfolg freigeschaltet",
+    "unlockedCount": {
+      "one": "{count} Erfolg",
+      "other": "{count} Erfolge"
+    },
+    "close": "Schließen",
+    "empty": "Noch keine Partien",
+    "sec": {
+      "run": "Felder · Perfekt · Partien",
+      "streak": "Serien",
+      "dex": "Register",
+      "board": "Brett",
+      "favorite": "Vorlieben",
+      "extra": "Zusatz",
+      "hidden": "Geheim"
+    },
+    "list": {
+      "stamps-1": {
+        "name": "Erster Einbruch",
+        "desc": "1 Feld schaffen"
+      },
+      "stamps-5": {
+        "name": "Erfahrener Decker",
+        "desc": "5 Felder schaffen"
+      },
+      "stamps-25": {
+        "name": "Veteran",
+        "desc": "25 Felder schaffen"
+      },
+      "stamps-50": {
+        "name": "Halbe Karte",
+        "desc": "50 Felder schaffen"
+      },
+      "stamps-84": {
+        "name": "Alles geknackt",
+        "desc": "Alle 84 Felder schaffen"
+      },
+      "perfects-1": {
+        "name": "Perfekter Hack",
+        "desc": "Eine perfekte Partie"
+      },
+      "perfects-10": {
+        "name": "Perfekter Hacker",
+        "desc": "Zehn perfekte Partien"
+      },
+      "perfects-30": {
+        "name": "Makellos",
+        "desc": "Dreißig perfekte Partien"
+      },
+      "plays-1": {
+        "name": "Erster Login",
+        "desc": "Erste Partie eintragen"
+      },
+      "plays-25": {
+        "name": "Stammgast",
+        "desc": "25 Partien eintragen"
+      },
+      "plays-100": {
+        "name": "Hundert Partien",
+        "desc": "100 Partien eintragen"
+      },
+      "streak-3": {
+        "name": "Im Lauf",
+        "desc": "Drei Siege in Folge"
+      },
+      "streak-5": {
+        "name": "Siegesserie",
+        "desc": "Fünf Siege in Folge"
+      },
+      "streak-10": {
+        "name": "Ungeschlagen",
+        "desc": "Zehn Siege in Folge"
+      },
+      "dex-boss": {
+        "name": "Boss-Register",
+        "desc": "Alle sieben SMCs mindestens einmal besiegen"
+      },
+      "dex-gold": {
+        "name": "Gold-Register",
+        "desc": "Mit allen zwölf Gold-Karten gewinnen"
+      },
+      "dex-decker": {
+        "name": "Volle Crew",
+        "desc": "Alle zehn Decker einsetzen"
+      },
+      "crew-balance": {
+        "name": "Ausgewogene Crew",
+        "desc": "Mit jedem Decker drei Partien"
+      },
+      "board-row": {
+        "name": "Ganze Reihe",
+        "desc": "Alle zwölf Golds gegen einen SMC"
+      },
+      "board-col": {
+        "name": "Dietrich",
+        "desc": "Alle sieben SMCs mit einer Gold-Karte"
+      },
+      "main-decker-10": {
+        "name": "Stammagent",
+        "desc": "Zehn Einsätze mit einem Decker"
+      },
+      "main-decker-30": {
+        "name": "Persona",
+        "desc": "Dreißig Einsätze mit einem Decker"
+      },
+      "main-decker-60": {
+        "name": "Alter Ego",
+        "desc": "Sechzig Einsätze mit einem Decker"
+      },
+      "nemesis-10": {
+        "name": "Erzfeind",
+        "desc": "Einem SMC zehnmal begegnen"
+      },
+      "nemesis-25": {
+        "name": "Besessenheit",
+        "desc": "Einem SMC 25-mal begegnen"
+      },
+      "nemesis-50": {
+        "name": "Lebenslange Fehde",
+        "desc": "Einem SMC 50-mal begegnen"
+      },
+      "one-cell-15": {
+        "name": "Ein Brunnen",
+        "desc": "Ein Feld fünfzehnmal angehen"
+      },
+      "extra-10": {
+        "name": "Kombi-Jäger",
+        "desc": "Zehn Zusatz-Kombinationen schaffen"
+      },
+      "extra-50": {
+        "name": "Kombi-Sammler",
+        "desc": "Fünfzig Zusatz-Kombinationen schaffen"
+      },
+      "extra-200": {
+        "name": "Kombi-Meister",
+        "desc": "200 Zusatz-Kombinationen schaffen"
+      },
+      "comeback": {
+        "name": "Wider Erwarten",
+        "desc": "Alle Zwischenziele verlieren und das letzte Gold holen"
+      },
+      "lucky-3": {
+        "name": "Reines Glück",
+        "desc": "Dieses Comeback dreimal schaffen"
+      },
+      "first-perfect": {
+        "name": "Anfängerglück",
+        "desc": "Die allererste Partie ist perfekt"
+      },
+      "flawless-3": {
+        "name": "Ohne Kratzer",
+        "desc": "Drei perfekte Partien in Folge"
+      },
+      "sentinel-perfect": {
+        "name": "Makelloser Sentinel",
+        "desc": "Sentinel perfekt besiegen"
+      },
+      "solo-perfect": {
+        "name": "Einsamer Hacker",
+        "desc": "Eine perfekte Solo-Partie"
+      },
+      "full-crew": {
+        "name": "Volle Besetzung",
+        "desc": "Mit vier Deckern gewinnen"
+      },
+      "overload": {
+        "name": "Übertaktet",
+        "desc": "Einen aufgerüsteten SMC besiegen"
+      },
+      "suicide-mission": {
+        "name": "Himmelfahrtskommando",
+        "desc": "Solo gegen den schwersten SMC auf Stufe 2"
+      },
+      "ghost-seen": {
+        "name": "Geistersichtung",
+        "desc": "Eine Partie mit Mother's-Ghost-Karte gewinnen"
+      },
+      "rollercoaster": {
+        "name": "Achterbahn",
+        "desc": "Ziele wechseln sich zwischen Erfolg und Fehlschlag ab"
+      },
+      "one-road": {
+        "name": "Ein Gleis",
+        "desc": "Fünfmal in Folge dasselbe letzte Gold"
+      },
+      "by-the-book": {
+        "name": "Nach Vorschrift",
+        "desc": "Sentinel beim ersten Versuch besiegen"
+      },
+      "one-shot": {
+        "name": "Ein Schuss",
+        "desc": "Zwanzig Felder jeweils im ersten Anlauf"
+      },
+      "persistence": {
+        "name": "Beharrlichkeit",
+        "desc": "Ein Feld nach drei Niederlagen schaffen"
+      },
+      "breakthrough": {
+        "name": "Durchbruch",
+        "desc": "Ein Feld nach fünf Niederlagen schaffen"
+      },
+      "the-wall": {
+        "name": "Die Wand",
+        "desc": "Fünf Niederlagen am selben Feld"
+      },
+      "nemesis-card": {
+        "name": "Angstgegner",
+        "desc": "Fünfmal an derselben Missionskarte scheitern"
+      },
+      "unbeaten-boss": {
+        "name": "Unantastbar",
+        "desc": "Fünf Niederlagen in Folge gegen einen SMC"
+      },
+      "diagonal": {
+        "name": "Treppe",
+        "desc": "Die Diagonale aus sieben Feldern schaffen"
+      },
+      "block": {
+        "name": "Block",
+        "desc": "Vier benachbarte Felder im Quadrat schaffen"
+      },
+      "corners": {
+        "name": "Vier Ecken",
+        "desc": "Alle vier Ecken des Bretts schaffen"
+      },
+      "first-loss": {
+        "name": "Fehlstart",
+        "desc": "Die allererste Partie geht verloren"
+      },
+      "tutorial-fail": {
+        "name": "Tutorial nicht bestanden",
+        "desc": "Gegen Alpha-Moby verlieren"
+      },
+      "whale-phobia": {
+        "name": "Walphobie",
+        "desc": "Dreimal gegen Alpha-Moby verlieren"
+      },
+      "mother-scold": {
+        "name": "Hausarrest",
+        "desc": "Gegen Mother verlieren"
+      },
+      "beaten-by-all": {
+        "name": "Gleichbehandlung",
+        "desc": "Gegen alle sieben SMCs verlieren"
+      },
+      "total-failure": {
+        "name": "Perfekt daneben",
+        "desc": "In einer Partie jedes Ziel verfehlen"
+      },
+      "zero-percent": {
+        "name": "Noch nicht dein Jahr",
+        "desc": "Die ersten zehn Partien verlieren"
+      },
+      "hubris": {
+        "name": "Übermut",
+        "desc": "Direkt nach einer perfekten Partie verlieren"
+      },
+      "greed": {
+        "name": "Gier",
+        "desc": "Die erste Partie auf Stufe 2 geht verloren"
+      },
+      "unlucky-13": {
+        "name": "Unglückszahl",
+        "desc": "Die dreizehnte Partie geht verloren"
+      },
+      "err-404": {
+        "name": "404: Ziel nicht gefunden",
+        "desc": "Das Ziel 404 Not Found verfehlen"
+      },
+      "access-denied": {
+        "name": "Zugriff verweigert",
+        "desc": "Das Ziel Access Denied verfehlen"
+      },
+      "wrong-keycode": {
+        "name": "Falscher Code",
+        "desc": "Das Ziel Keycode verfehlen"
+      },
+      "glass-heart": {
+        "name": "Glaskinn",
+        "desc": "Das Ziel Shattered Glass verfehlen"
+      },
+      "misdirected": {
+        "name": "Voll reingefallen",
+        "desc": "Das Ziel Misdirection verfehlen"
+      },
+      "garbage-fail": {
+        "name": "Nicht mal den Müll",
+        "desc": "Das Ziel Garbage Detail verfehlen"
+      },
+      "double-switch": {
+        "name": "Doppelter Wechsel",
+        "desc": "Zwei Partien in Folge mit Double Switch"
+      },
+      "fireworks": {
+        "name": "Neujahrsfeuerwerk",
+        "desc": "Fireworks am 1. Januar schaffen"
+      },
+      "full-course": {
+        "name": "Menü komplett",
+        "desc": "An einem Tag alle sieben SMCs"
+      },
+      "safe-zone": {
+        "name": "Komfortzone",
+        "desc": "Zwanzig Partien in Folge gegen Alpha-Moby"
+      },
+      "ordeal": {
+        "name": "Tortur",
+        "desc": "Zehn Partien in Folge auf höchster Stufe"
+      },
+      "perfect-partner": {
+        "name": "Partner in Crime",
+        "desc": "Fünf perfekte Partien mit einem Decker"
+      },
+      "double-life": {
+        "name": "Doppelleben",
+        "desc": "Beide Seiten eines Decker-Profils spielen"
+      },
+      "revolving-door": {
+        "name": "Drehtür",
+        "desc": "An einem Tag acht Decker einsetzen"
+      },
+      "loner": {
+        "name": "Lieber allein",
+        "desc": "Zwanzig Solo-Partien in Folge"
+      },
+      "whimsical": {
+        "name": "Nie dasselbe",
+        "desc": "Zehn Partien, zehn Aufstellungen"
+      },
+      "same-player-30": {
+        "name": "Ewiger Partner",
+        "desc": "Dreißig Partien mit demselben Spielernamen"
+      },
+      "one-man-four": {
+        "name": "Ein-Mann-Band",
+        "desc": "Alle vier Spielernamen identisch"
+      },
+      "method-acting": {
+        "name": "Method Acting",
+        "desc": "Den Decker-Namen als Spielernamen eintragen"
+      },
+      "anonymous": {
+        "name": "Anonym",
+        "desc": "Ohne einen einzigen Spielernamen gewinnen"
+      },
+      "night-owl": {
+        "name": "Decker um drei",
+        "desc": "Eine Partie zwischen 0 und 5 Uhr"
+      },
+      "clock-444": {
+        "name": "4:44 Uhr",
+        "desc": "Eine Partie genau um 4:44"
+      },
+      "cinderella": {
+        "name": "Aschenputtel",
+        "desc": "Eine Partie genau um Mitternacht"
+      },
+      "all-nighter": {
+        "name": "Durchgemacht",
+        "desc": "Um 23 Uhr eintragen, dann nach Mitternacht"
+      },
+      "time-traveler": {
+        "name": "Zeitreisender",
+        "desc": "Zwei Partien in weniger als einer Minute"
+      },
+      "marathon": {
+        "name": "Marathon",
+        "desc": "Drei Partien an einem Tag"
+      },
+      "seven-a-day": {
+        "name": "Schon gegessen?",
+        "desc": "Sieben Partien an einem Tag"
+      },
+      "on-fire": {
+        "name": "In Form",
+        "desc": "Fünf Partien an einem Tag, alle gewonnen"
+      },
+      "christmas": {
+        "name": "Weihnachtseinbruch",
+        "desc": "Eine Partie am 25. Dezember"
+      },
+      "new-year": {
+        "name": "Neujahrshack",
+        "desc": "Eine Partie am 1. Januar"
+      },
+      "year-end": {
+        "name": "Letzter Hack des Jahres",
+        "desc": "Nach 23 Uhr am 31. Dezember"
+      },
+      "leap-day": {
+        "name": "Alle vier Jahre",
+        "desc": "Eine Partie am 29. Februar"
+      },
+      "friday-13": {
+        "name": "Freitag, der 13.",
+        "desc": "An diesem Tag verlieren"
+      },
+      "days-3": {
+        "name": "Drei Tage am Stück",
+        "desc": "An drei Tagen in Folge eintragen"
+      },
+      "days-7": {
+        "name": "Volle Anwesenheit",
+        "desc": "An sieben Tagen in Folge eintragen"
+      },
+      "one-year": {
+        "name": "Ein Jahr später",
+        "desc": "Genau 365 Tage nach der ersten Partie spielen"
+      },
+      "return-90": {
+        "name": "Wieder verbunden",
+        "desc": "Nach neunzig Tagen Pause zurückkehren"
+      },
+      "anniversary": {
+        "name": "Lange dabei",
+        "desc": "Über ein Jahr zwischen erster und letzter Partie"
+      },
+      "chronicler": {
+        "name": "Chronist",
+        "desc": "Zu zwanzig Partien Notizen schreiben"
+      },
+      "silent-decker": {
+        "name": "Stiller Decker",
+        "desc": "Fünfzig Partien ohne eine Notiz"
+      },
+      "diligent": {
+        "name": "Fleißig",
+        "desc": "Zehn Partien in Folge mit Notiz"
+      },
+      "diary": {
+        "name": "Liebes Tagebuch",
+        "desc": "Eine Notiz mit über 300 Zeichen"
+      },
+      "speechless": {
+        "name": "Sprachlos",
+        "desc": "Eine Notiz mit genau einem Zeichen"
+      },
+      "copypaste": {
+        "name": "Copy-Paste",
+        "desc": "Zweimal in Folge dieselbe Notiz"
+      },
+      "lol-only": {
+        "name": "Nur Gelächter",
+        "desc": "Eine Notiz, die nur aus Lachen besteht"
+      },
+      "run-42": {
+        "name": "Leben, Universum und der ganze Rest",
+        "desc": "Die zweiundvierzigste Partie"
+      },
+      "run-84": {
+        "name": "Vierundachtzig",
+        "desc": "Die 84. Partie, eine pro Feld"
+      },
+      "run-100": {
+        "name": "Hundertste Partie",
+        "desc": "Die hundertste Partie"
+      },
+      "balance": {
+        "name": "Perfekt ausbalanciert",
+        "desc": "Siege und Niederlagen exakt gleich, nach zwanzig Partien"
+      },
+      "undo-5": {
+        "name": "Nie passiert",
+        "desc": "Fünf Einträge löschen"
+      }
+    }
   },
   "report": {
     "title": "Fehler melden",
